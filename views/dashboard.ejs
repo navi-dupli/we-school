@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> Panel de Control | We-learning</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+         <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ionicons.min.css">
+        <link rel="stylesheet" href="css/morris/morris.css" />
+        <link rel="stylesheet" href="css/jvectormap/jquery-jvectormap-1.2.2.css">
+        <link rel="stylesheet" href="css/fullcalendar/fullcalendar.css">
+        <link rel="stylesheet" href="css/daterangepicker/daterangepicker-bs3.css" />
+        <link rel="stylesheet" href="css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+        <link rel="stylesheet" href="css/AdminLTE_fig.css">
+  
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+   </head>
+    <body class="skin-blue">
+        <!-- header logo: style can be found in header.less -->
+        <header class="header">
+            <a href="/" class="logo">
+                <!-- Add the class icon to your logo image or logo icon to add the margining -->
+               <img src="img/v-learning100.png"  alt="We-Learning" />
+
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>Google user: <%= user.google.name %><i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header bg-light-blue">
+                                    <img src="<%= user.google.photo %>" class="img-circle" alt="User Image" />
+                                    <p>
+                                        Google user: <%= user.google.name %>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                   <div class="pull-left">
+                                        <a href="/profile" class="btn btn-default btn-flat">Perfil</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <a href="/profile">
+                                <img src="<%= user.google.photo %>" class="img-circle" alt="User Image" />
+                            </a>
+                        </div>
+                        <div class="pull-left info">
+                            <p>Hola, <%= user.google.name %></p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+                    <!-- /.search form -->
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li class="active">
+                            <a href="#">
+                                <i class="fa fa-dashboard"  ></i> <span >Panel de Control</span>
+                            </a>
+                        </li>
+                         {% if request.user.is_superuser %}
+                        <li class="treeview">
+                            <a >
+                                <i class="ion ion-person-add"></i> <span>Registro</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="registro/usuarios"><i class="fa fa-angle-double-right"></i> Usuario</a></li>
+                                <li><a href="registro/cursos"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="matriculas">
+                                <i class="ion ion-bag"></i><span>Matriculas</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="matriculas/formEstudiante"><i class="fa fa-angle-double-right"></i> Crear Estudiante</a></li>
+                                <li><a href="matriculas"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
+                            </ul>
+                        </li>
+                        {%endif%}
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="ion  ion-compose"></i>
+                                <span>Pensum</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                 {% if request.user.is_superuser %}
+                                <li><a href="pensum/materias"><i class="fa fa-angle-double-right"></i>Materia</a></li>{%endif%}
+                                <li><a href="pensum/logro"><i class="fa fa-angle-double-right"></i> Logro</a></li>
+                                <li><a href="pensum/actividad"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="ion  ion-stats-bars"></i> <span>Control</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="control/selCurFal"><i class="fa fa-angle-double-right"></i> Asistencia</a></li>
+                                <li><a href="control/selCurObs"><i class="fa fa-angle-double-right"></i> Observador</a></li>
+                           
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="ion ion-briefcase"></i> <span>Recursos</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="herramienta/"><i class="fa fa-angle-double-right"></i> Herramienta</a></li>
+                                <li><a href="Api"><i class="fa fa-angle-double-right"></i> API</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="ion ion-pie-graph"></i> <span>Reportes</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="reportes/"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+           <!--                      <li><a href="usoPlataforma"><i class="fa fa-angle-double-right"></i> Uso de plataforma</a></li>-->
+                            </ul>
+                        </li>
+                         {% if request.user.is_superuser %}
+                        <li  class="treeview">
+                            <a href="#">
+                                <i class="ion  ion-gear-b"></i> <span>Configuración</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="configuracion"><i class="fa fa-angle-double-right"></i> Identidad institucional</a></li>
+                                <li><a href="configuracion"><i class="fa fa-angle-double-right"></i> Errores</a></li>
+                                <li><a href="configuracion"><i class="fa fa-angle-double-right"></i> Configuración</a></li>
+
+                            </ul>
+                        </li>
+                        {%endif%}
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>  
+                        <small>Panel de control</small>
+                    </h1>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                   
+                    <div class="row">
+                         {% if request.user.is_superuser %}
+                        <div class="col-lg-3 col-xs-7">
+                            <!-- small box -->
+                             <div class="small-box bg-yellow">
+                                <div class="inner">
+                                    <h3>
+                                        {{registro}}
+                                    </h3>
+                                    <p>
+                                        Registro 
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="registro/" class="small-box-footer">
+                                   Mas info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                            
+                        </div><!-- ./col -->
+                        <div class="col-lg-3 col-xs-7">
+                            <!-- small box -->
+                            <div class="small-box bg-green">
+                                <div class="inner">
+                                    <h3>
+                                        {{est}}<sup style="font-size: 20px"></sup>
+                                    </h3>
+                                    <p>
+                                        Matriculas
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag "></i>
+                                </div>
+                                <a href="matriculas/" class="small-box-footer">
+                                    Mas info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+
+                        </div><!-- ./col -->
+                        {%endif%}
+                        <div class="col-lg-3 col-xs-7">
+                            <!-- small box -->
+                           <div class="small-box bg-red">
+                                <div class="inner">
+                                   
+                                    <h3>
+                                        {{mat}} 
+
+                                    </h3>
+                                    <p>
+                                        Pensum
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion  ion-compose"></i>
+                                </div>
+                                <a href="pensum/" class="small-box-footer">
+                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div><!-- ./col -->
+                         <div class="col-lg-3 col-xs-7">
+                            <!-- small box -->
+                           <div class="small-box bg-purple">
+                                <div class="inner">
+                                    <h3>
+                                        {{crtl}}
+                                    </h3>
+                                    <p>
+                                        Control
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion  ion-stats-bars"></i>
+                                </div>
+                                <a href="control/" class="small-box-footer">
+                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div><!-- ./col -->
+                </section><!-- /.content -->
+                 <section class="content">
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-7">
+                            <!-- small box -->
+                             <div class="small-box bg-aqua">
+                                <div class="inner">
+                                    <h3>
+                                        1
+                                    </h3>
+                                    <p>
+                                        Recursos
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-briefcase"></i>
+                                </div>
+                                <a href="recursos/" class="small-box-footer">
+                                   Mas info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                            
+                        </div><!-- ./col -->
+                        <div class="col-lg-3 col-xs-7">
+                            <!-- small box -->
+                            <div class="small-box bg-maroon">
+                                <div class="inner">
+                                    <h3>
+                                        {{noto}}<sup style="font-size: 20px"></sup>
+                                    </h3>
+                                    <p>
+                                       Reportes
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph "></i>
+                                </div>
+                                <a href="reportes/" class="small-box-footer">
+                                    Mas info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div><!-- ./col -->
+                         {% if request.user.is_superuser %}
+                        <div class="col-lg-3 col-xs-7">
+                            <!-- small box -->
+                           <div class="small-box bg-orange">
+                                <div class="inner">
+                                    <h3>
+                                        150
+                                    </h3>
+                                    <p>
+                                        Configuración
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion  ion-gear-b"></i>
+                                </div>
+                                <a href="configuracion" class="small-box-footer">
+                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div><!-- ./col -->
+                        {%endif%}
+                       
+                </section><!-- /.content -->     
+        </div><!-- ./wrapper -->
+        
+        <!-- add new calendar event modal -->
+
+
+        <!-- jQuery 2.0.2 -->
+
+
+        <script src="js/jquery.min.js"></script>
+        <!-- jQuery UI 1.10.3 -->
+        <script src="js/jquery-ui-1.10.3.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Morris.js charts -->
+       
+        <script src="js/plugins/morris/morris.min.js"></script>
+        <!-- Sparkline -->
+        <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+        <!-- jvectormap -->
+                <script src="js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+
+                <script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+        <!-- fullCalendar -->
+                <script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+        <!-- jQuery Knob Chart -->
+                <script src="js/plugins/jqueryKnob/jquery.knob.js"></script>
+        <!-- daterangepicker -->
+                <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+                <script src="js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <!-- iCheck -->
+                <script src="js/plugins/iCheck/icheck.min.js"></script>
+        <!-- AdminLTE App -->
+                <script src="js/AdminLTE/app.js"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+               <script src="js/AdminLTE/dashboard.js"></script>
+        <!-- AdminLTE for demo purposes -->
+                <script src="js/AdminLTE/demo.js"></script>
+
+
+    </body>
+</html>
