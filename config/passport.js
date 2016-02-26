@@ -68,6 +68,7 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('loginMessage', 'Contraseña incorrecta')); // create the loginMessage and save it to session as flashdata
 
             // all is well, return successful user
+            console.log('Rol: ' + req.user.role); // dancard
             return done(null, user);
         });
 
@@ -83,6 +84,7 @@ module.exports = function(passport) {
         // by default, local strategy uses username and password, we will override with email
         usernameField : 'email',
         passwordField : 'password',
+        roleField : 'role', //dancard
         passReqToCallback : true // allows us to pass back the entire request to the callback
     }, 
     function(req, email, password, done) {
@@ -110,6 +112,7 @@ module.exports = function(passport) {
                 // set the user's local credentials
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
+                newUser.local.role    = role; //dancard
 
                 // save the user
                 newUser.save(function(err) {

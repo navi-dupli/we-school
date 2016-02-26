@@ -6,10 +6,10 @@ $(document).ready(function(){
 		$(".add-object").hide(100);
 	   	$.ajax({ 
 	   		type: 'GET', 
-	   		url: 'json/Carros.json', 
+	   		url: 'json/cursos.json', 
 	   		dataType: 'json',
 	   		success: function (data) {
-	   				 var array =data[1].marca;
+	   				 var array =data[1].cursos;
 	   				 
 	   			for (var i = 0; i < array.length; i++) {
 	   					$("#career-list").append("<option value="+ array[i] +">" + array[i] + "</option>");
@@ -30,6 +30,40 @@ $(document).ready(function(){
 	   				 var array =data[1].estilo;
 	   			for (var i = 0; i < array.length; i++) {
 	   					$("#style-car").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   				};	
+
+	   			 
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+":P");
+	   		}
+	   	});
+	   	$.ajax({ 
+	   		type: 'GET', 
+	   		url: 'json/dia.json', 
+	   		dataType: 'json',
+	   		success: function (data) {
+	   				 var array =data[1].dia;
+	   			for (var i = 0; i < array.length; i++) {
+	   					$("#diaCurso").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   				};	
+
+	   			 
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+":P");
+	   		}
+	   	});
+	   	$.ajax({ 
+	   		type: 'GET', 
+	   		url: 'json/mes.json', 
+	   		dataType: 'json',
+	   		success: function (data) {
+	   				 var array =data[1].mes;
+	   			for (var i = 0; i < array.length; i++) {
+	   					$("#mesCurso").append("<option value="+ array[i] +">" + array[i] + "</option>");
 	   				};	
 
 	   			 
