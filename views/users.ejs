@@ -59,14 +59,13 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
-              <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="<%= user.google.photo %>" class="user-image" alt="User Image">
                   <span class="hidden-xs"><%= user.local.name %></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <!-- User image -->
+                  
                   <li class="user-header">
                     <img src="<%= user.google.photo %>" class="img-circle" alt="User Image">
                     <p><%= user.local.name %></p>
@@ -243,18 +242,18 @@
                   <% if (objectUser) { %>
                   <% objectUser.forEach(function(objUsr) { %>
                   <tr class="<%= objUsr._id %>" style="text-align:center;">
-                    <td><%= objUsr.email %> </td>
-                    <td><%= objUsr.password %></td>
-                    <td><%= objUsr.role %></td>
-                    <td><%= objUsr.name %></td>
+                    <td><%= objUsr.local.email %> </td>
+                    <td><%= objUsr.local.password %></td>
+                    <td><%= objUsr.local.role %></td>
+                    <td><%= objUsr.local.name %></td>
                     <td><favorite-star active class="star"></favorite-star></td>
                     <td>
-                      <button id="<%= objUsr._id %>" class="btnCarRemove btn btn-primary btn-block ">Eliminar <i class="fa fa-trash"></i></button>
+                      <button id="<%= objUsr._id %>" class="delete-user btn btn-primary btn-block ">Eliminar <i class="fa fa-trash"></i></button>
                       <input type="hidden" value="<%= objUsr._id %>">
                     </td>
                   </tr>
                   <% }); %>
-                  <%} else {%>
+                  <% } else { %>
                   <td colspan="" rowspan="" headers="">Para crear un usuario, dé click en el boton <span class="fa fa-plus-circle"></span></td>
                   <% } %>
                 </tbody>
@@ -262,7 +261,7 @@
             </div><!-- /.table-responsive -->
 
 
-            <form class="card form-user" enctype="multipart/form-data"  action="users" method="POST" >
+            <form class="card form-user" enctype="multipart/form-data" action="createUser" method="POST" >
               <div id="section-1" class="card col-md-12" style="display: none;" >
                 <div>
                   <label for=""><h2>Ingrese el nuevo usuario</h2></label>
@@ -287,7 +286,7 @@
 
                   <div class="form-group" id="role">
                     <label for="bio">Rol:</label><br>
-                    <select class="form-control" type="brand" id="roles_list"></select>
+                    <select class="form-control" type="brand" id="roles_list" name="role"></select>
                   </div>
 
                   <!--<div>

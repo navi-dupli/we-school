@@ -23,22 +23,42 @@ module.exports = function(app, passport) {
 
 
   //Para subir una solo imagen usar upload.single
-  app.post("/form", /*upload.array('photos',3),*/ function(req,res){
+  app.post("/createUser", upload.array('photos',3), function(req,res){
       
     var datetime = new Date();
-    console.log("date: "+datetime);
+    var email = req.body.email;                
     var users = new objectUser();
+    objectUser.findOne({ 'local.email' :  email }, function(err, user) {
+            // if there are any errors, return the error
+            if (err)
+                return done(err);
 
-    users.local.email    = req.body.email;
-    users.local.password = req.body.password;
-    users.local.role     = req.body.role;
-    users.local.name     = req.body.name;
-    users.save();
+            // check to see if theres already a user with that email
+            if (user) {
+                return res.end("ya existe");
+            } else {
 
-    console.log("email: "+req.body.email);
-    console.log("password: "+req.body.password);
-    console.log("role: "+req.body.role);
-    console.log("name: "+req.body.name);
+              users.local.email    = req.body.email;
+              users.local.password = users.generateHash(req.body.password); //Encrypt password
+              users.local.role     = req.body.role;
+              users.local.name     = req.body.name;
+
+              //Save user
+              users.save(function(err) {
+                if(err) {
+                  console.dir(err);
+                  res.end("{success: false}");
+                } else {
+                  console.log('user: ' + users.local.email + " saved.");
+                  res.redirect('/dashboard');
+                }
+              });
+
+            }
+    });
+
+
+  
 
     /*var objects_id = objects._id;
     var user_id = req.body._id;
@@ -62,39 +82,26 @@ module.exports = function(app, passport) {
 
     }*/
 
-    res.redirect('/dashboard');
+    //res.end('sucess');
 
   });
 
 
-  app.get('/destroy/:id', function(req, res) {
+  app.get('/destroyUser/:id', function(req, res) {
     var id = req.param("id");
-    var path = './public/fotos/'+req.user._id+'/'+id+'/';
-
-
-
-    fs.rmrf(path, function(err,status){
-      if (err) {
-      };
-    });
-
-
-    users.remove({
-        _id: id
+    
+    objectUser.remove({
+        _id: id 
     }, function(err){
         if (err) {
             res.end('error');
+            console.dir(err);
         }
         else {
             res.end('success');
         }
     });
-  app.post('/subir', upload.single('file'), function (req, res, next) {
-          /**
-            images
-          **/
-          res.send({message:'Archivo guardado', file:req.file});
-  });
+
 
 });
 

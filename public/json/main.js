@@ -125,7 +125,7 @@ $(document).ready(function(){
 		);
         /*});
     },*/
-/*	    	$("#btnCarRemove").click(function(){
+   	$("#btnCarRemove").click(function(){
     		var dataId = this.id;
     		var clase = "."+dataId;
     			$.ajax({
@@ -150,7 +150,7 @@ $(document).ready(function(){
 
 		    		}
 		});
-	});*/
+	});
 /*	$("#btnEditar").click(function(){
     var dataId = this.id;
 	var clase = "."+dataId;

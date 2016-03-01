@@ -60,40 +60,33 @@ $(document).ready(function(){
 
 	$('.delete-user').click(function(){
     var dataId = this.id;
+
 	var clase = "."+dataId;
 		$.ajax({
     		type    : 'get',
-    		url     : '/destroy/' + dataId,
+    		url     : '/destroyUser/' + dataId,
     		success : function(response) {
 		    	if ( response === 'error' ) {
 	           		alert('crap!');
 	       		} else if (response === 'success' ) {
+
 	          		demo.initChartist();
-	          		 $(clase).remove();    	
-		        	$.notify({
+	          		 $(clase).remove(); 
+	          		 alert("remove");  	
+		        /**	$.notify({
 		            	icon: 'pe-7s-gift',
 		            	message: "<b>Objeto Eliminado</b>"
 		            	
 		            },{
 		                type: 'info',
 		                timer: 4000
-		            })
-	          		 ;
+		            })*/
+	          		 
 	          	}
 
     		}
 		});
-	});
-
-
-	$(".123").click(function(){
-		alert();
-	});
-		
-	
-		
-
-	
+	});	
 });
 var countries = [
    { value: 'Verde', data: 'VE' },
@@ -111,13 +104,4 @@ var countries = [
    { value: 'Plata', data: 'Pl' },
 ];
 
-$('#color-front').autocomplete({
-    lookup: countries,
-    onSelect: function (suggestion) {
-    }
-});
-$('#color-back').autocomplete({
-    lookup: countries,
-    onSelect: function (suggestion) {
-    }
-});
+
