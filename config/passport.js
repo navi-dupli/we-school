@@ -68,7 +68,6 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('loginMessage', 'Contraseña incorrecta')); // create the loginMessage and save it to session as flashdata
 
             // all is well, return successful user
-            console.log('Rol: ' + req.user.role); // dancard
             return done(null, user);
         });
 
@@ -107,7 +106,8 @@ module.exports = function(passport) {
                 // set the user's local credentials
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
-                newUser.local.rol = req.body.role;
+                newUser.local.role = req.body.role;
+                newUser.local.name = req.body.name;
                 // save the user
                 newUser.save(function(err) {
                     if (err)

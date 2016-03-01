@@ -1,5 +1,6 @@
 // app/models/user.js
 // load the things we need
+var mongoosePaginate=require('mongoose-paginate');
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
@@ -9,7 +10,8 @@ var userSchema = mongoose.Schema({
     local            : {
         email        : String,
         password     : String,
-        role         : String   //dancard
+        role         : String,
+        name         : String
     },
     facebook         : {
         id           : String,
@@ -46,3 +48,6 @@ userSchema.methods.validPassword = function(password) {
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);
+
+//===============================================
+userSchema.plugin(mongoosePaginate);

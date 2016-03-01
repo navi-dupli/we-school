@@ -56,18 +56,23 @@
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              
+
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="<%= user.google.photo %>" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Google user: <%= user.google.name %></span>
+                  <i class="fa fa-user"></i>
+                  <span class="hidden-xs"><%= user.local.name %></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="<%= user.google.photo %>" class="img-circle" alt="User Image">
-                    <p>Google user: <%= user.google.name %></p>
+                    <% if (typeof user.local.photo === "undefined") { %>
+                    <img src="/img/avatar.png" class="img-circle" alt="User Image">
+                    <% } else { %>
+                    <img src="<%= user.local.photo %>" class="img-circle" alt="User Image">
+                    <% } %>
+                    <p><%= user.local.name %></p>
+                    <p>Rol: <%= user.local.role %></p>
                   </li>
 
                   <!-- Menu Footer-->
@@ -92,16 +97,21 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="<%= user.google.photo %>" class="img-circle" alt="User Image">
+              <% if (typeof user.local.photo === "undefined") { %>
+              <img src="/img/avatar.png" class="img-circle" alt="User Image">
+              <% } else { %>
+              <img src="<%= user.local.photo %>" class="img-circle" alt="User Image">
+              <% } %>
             </div>
             <div class="pull-left info">
-              <p>Hola, Google user: <%= user.google.name %></p>
+              <p>Hola, <%= user.local.name %></p>
+              <p><%= user.local.role %></p>
             </div>
           </div>
-          
+
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            
+
             <li class="header">MENÚ PRINCIPAL</li>
 
             <!--Panel de Control-->
@@ -111,14 +121,14 @@
               </a>
             </li>
 
-            {% if request.user.is_superuser %}
+            <% if (user.local.role === "Administrador") { %>
             <!--Registro-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-person-add"></i> <span>Registro</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-person-add"></i> <span>Registro</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
+                <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
                 <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
               </ul>
             </li>
@@ -126,24 +136,24 @@
             <!--Matriculas-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-bag"></i> <span>Matriculas</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Crear Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
-            {%endif%}
+            <% } %>
 
             <!--Pensum-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-compose"></i> <span>Pensum</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-compose"></i> <span>Pensum</span>
               </a>
               <ul class="treeview-menu">
-                {% if request.user.is_superuser %}
+                <% if (user.local.role === "Administrador") { %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Materia</a></li>
-                {% if request.user.is_superuser %}
+                <% } %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
               </ul>
@@ -152,7 +162,7 @@
             <!--Control-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-stats-bars"></i><span>Control</span><i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-stats-bars"></i><span>Control</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Asistencia</a></li>
@@ -163,24 +173,24 @@
             <!--Reportes-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-pie-graph"></i><span>Reportes</span><i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
 
-            {% if request.user.is_superuser %}
+            <% if (user.local.role === "Administrador") { %>
             <!--Configuración-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-gear-b"></i><span>Configuración</span><i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-gear-b"></i><span>Configuración</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Identidad Institucional</a></li>
               </ul>
             </li>
-            {%endif%}
+            <% } %>
 
           </ul>
         </section>
@@ -200,8 +210,8 @@
         <section class="content">
           <!-- Small boxes (Stat box) -->
           <div class="row">
-            
-            {% if request.user.is_superuser %}
+
+            <% if (user.local.role === "Administrador") { %>
             <div class="col-lg-3 col-xs-6">
               <!-- small box Registro -->
               <div class="small-box bg-yellow">
@@ -212,7 +222,7 @@
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
 
@@ -226,10 +236,10 @@
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
-            {%endif%}
+            <% } %>
 
             <div class="col-lg-3 col-xs-6">
               <!-- small box Pensum -->
@@ -241,7 +251,7 @@
                 <div class="icon">
                   <i class="ion ion-compose"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/objects" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
 
@@ -255,7 +265,7 @@
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
 
@@ -269,31 +279,31 @@
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
 
-            {% if request.user.is_superuser %}
+            <% if (user.local.role === "Administrador") { %>
             <div class="col-lg-3 col-xs-6">
               <!-- small box Configuración -->
               <div class="small-box bg-orange">
                 <div class="inner">
                   <h3>Configuración</h3>
-                  <p>Institución</p>
+                  <p>Ajustes</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-gear-b"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
-            {%endif%}
+            <% } %>
 
           </div><!-- /.row -->
-          
+
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-      
+
 
       <!-- COPYRIGHT -->
       <footer class="main-footer">

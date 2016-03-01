@@ -191,11 +191,13 @@
               <!-- Profile Image -->
               <div class="box box-primary">
                 <div class="box-body box-profile">
-                  <img class="profile-user-img img-responsive img-circle" src="<%= user.google.photo %>" alt="Imagen de perfil">
-                  <h3 class="profile-username text-center">Google user: <%= user.google.name %></h3>
-                  <p class="text-muted text-center">Rol: </p>
-
-                  <a href="#" class="btn btn-primary btn-block"><b>(Alguna acción)</b></a>
+                  <% if (typeof user.local.photo === "undefined") { %>
+                  <img class="profile-user-img img-responsive img-circle" src="/img/avatar.png" alt="Imagen de perfil">
+                  <% } else { %>
+                  <img class="profile-user-img img-responsive img-circle" src="<%= user.local.photo %>" alt="Imagen de perfil">
+                  <% } %>
+                  <h3 class="profile-username text-center"><%= user.local.name %></h3>
+                  <p class="text-muted text-center"><strong>Rol:</strong> <%= user.local.role %></p>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
@@ -215,13 +217,7 @@
                   <p class="text-muted"><%= user.local.email %></p>
 
                   <strong><i class="fa fa-pencil margin-r-5"></i> Cursos a los que pertenece</strong>
-                  <p>
-                    <span class="label label-danger">UI Design</span>
-                    <span class="label label-success">Coding</span>
-                    <span class="label label-info">Javascript</span>
-                    <span class="label label-warning">PHP</span>
-                    <span class="label label-primary">Node.js</span>
-                  </p>
+                  
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->

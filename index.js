@@ -6,7 +6,7 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy; //no se está usando
 var flash = require('connect-flash');
 var app = express();
 var logger = require('express-logger');
@@ -62,6 +62,7 @@ app.use(flash());
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/rtObject/routes.js')(app, passport);
+require('./app/routesUser.js')(app, passport);
 require('./app/front/routes.js')(app, passport);
 
 //run aplication

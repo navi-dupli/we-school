@@ -1,106 +1,108 @@
 $(document).ready(function(){
+
 	$("#add-car").click(function(){
-		$(".table-car").hide(100);
-		$(".form-car").show(100);
+		alert("");
+		$("#table-car").hide(100);
 		$("#section-1").show(100);
+		$("#form-car2").hide(300);
 		$(".add-object").hide(100);
-	   	$.ajax({ 
-	   		type: 'GET', 
-	   		url: 'json/cursos.json', 
+	   	$.ajax({
+	   		type: 'GET',
+	   		url: 'json/cursos.json',
 	   		dataType: 'json',
 	   		success: function (data) {
 	   				 var array =data[1].cursos;
-	   				 
+
 	   			for (var i = 0; i < array.length; i++) {
 	   					$("#career-list").append("<option value="+ array[i] +">" + array[i] + "</option>");
-	   				};	
+	   				};
 
-	   			 
+
 	   		},
 	   		error:function(msg) {
 	   			// body...
 	   			console.log(msg+":P");
 	   		}
 	   	});
-	   	$.ajax({ 
-	   		type: 'GET', 
-	   		url: 'json/estilo.json', 
+	   	$.ajax({
+	   		type: 'GET',
+	   		url: 'json/estilo.json',
 	   		dataType: 'json',
 	   		success: function (data) {
 	   				 var array =data[1].estilo;
 	   			for (var i = 0; i < array.length; i++) {
 	   					$("#style-car").append("<option value="+ array[i] +">" + array[i] + "</option>");
-	   				};	
+	   				};
 
-	   			 
+
 	   		},
 	   		error:function(msg) {
 	   			// body...
 	   			console.log(msg+":P");
 	   		}
 	   	});
-	   	$.ajax({ 
-	   		type: 'GET', 
-	   		url: 'json/dia.json', 
+	   	$.ajax({
+	   		type: 'GET',
+	   		url: 'json/dia.json',
 	   		dataType: 'json',
 	   		success: function (data) {
 	   				 var array =data[1].dia;
 	   			for (var i = 0; i < array.length; i++) {
 	   					$("#diaCurso").append("<option value="+ array[i] +">" + array[i] + "</option>");
-	   				};	
+	   				};
 
-	   			 
+
 	   		},
 	   		error:function(msg) {
 	   			// body...
 	   			console.log(msg+":P");
 	   		}
 	   	});
-	   	$.ajax({ 
-	   		type: 'GET', 
-	   		url: 'json/mes.json', 
+	   	$.ajax({
+	   		type: 'GET',
+	   		url: 'json/mes.json',
 	   		dataType: 'json',
 	   		success: function (data) {
 	   				 var array =data[1].mes;
 	   			for (var i = 0; i < array.length; i++) {
 	   					$("#mesCurso").append("<option value="+ array[i] +">" + array[i] + "</option>");
-	   				};	
+	   				};
 
-	   			 
+
 	   		},
 	   		error:function(msg) {
 	   			// body...
 	   			console.log(msg+":P");
 	   		}
 	   	});
-	   	$.ajax({ 
-	   		type: 'GET', 
-	   		url: 'json/ano.json', 
+	   	$.ajax({
+	   		type: 'GET',
+	   		url: 'json/ano.json',
 	   		dataType: 'json',
 	   		success: function (data) {
 	   				 var array =data[1].ano;
 	   			for (var i = 0; i < array.length; i++) {
-	   					$("#ano-car").append("<option value="+ array[i] +">" + array[i] + "</option>");
-	   				};	
+	   					$("#anoCurso").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   				};
 
-	   			 
+
 	   		},
 	   		error:function(msg) {
 	   			// body...
 	   			console.log(msg+":P");
 	   		}
 	   	});
-	   	$.ajax({ 
-	   		type: 'GET', 
-	   		url: 'json/Puertas.json', 
+	   	$.ajax({
+	   		type: 'GET',
+	   		url: 'json/Puertas.json',
 	   		dataType: 'json',
 	   		success: function (data) {
 	   				 var array =data[1].puertas;
 	   			for (var i = 0; i < array.length; i++) {
 	   					$("#door-car").append("<option value="+ array[i]+">" + array[i] + "</option>");
-	   				};	
+	   				};
 
-	   			 
+
 	   		},
 	   		error:function(msg) {
 	   			// body...
@@ -108,45 +110,66 @@ $(document).ready(function(){
 	   		}
 	   	});
 	});
-	$("#form-date").click(function(){
-			demo.initChartist();
-        	
-        	$.notify({
-            	icon: 'pe-7s-gift',
-            	message: "<b>Ahora suba las fotos</b>"
-            	
-            },{
-                type: 'info',
-                timer: 4000
-            });
-            $.notify({
-            	icon: 'pe-7s-gift',
-            	message: "<b>Recuerde que son necesarias para la publicación del auto</b>"
-            	
-            },{
-                type: 'danger',
-                timer: 4000
-            });
-		$("#form-car").show(100);
+
+
+	$(".form-date").click(function(){
+
 		$("#form-car2").show(100);
 		$("#section-1").hide(100);
+		$("#table-car").hide(100);
 	});
-	$('.btnCarRemove').click(function(){
+/*       $("input:seleccionar:checked").each(
+			 for (var i = Things.length - 1; i >= 0; i--) {
+			 	remove(Things[i]);
+			*/ }
+		);
+        /*});
+    },*/
+/*	    	$("#btnCarRemove").click(function(){
+    		var dataId = this.id;
+    		var clase = "."+dataId;
+    			$.ajax({
+    				type    : 'get',
+		    		url     : '/destroy/' + dataId,
+		    		success : function(response) {
+				    	if ( response === 'error' ) {
+			           		alert('crap!');
+			       		} else if (response === 'success' ) {
+			          		demo.initChartist();
+			          		 $(clase).remove();
+				        	$.notify({
+				            	icon: 'pe-7s-gift',
+				            	message: "<b>Objeto Eliminado</b>"
+
+				            },{
+				                type: 'info',
+				                timer: 4000
+				            })
+			          		 ;
+			          	}
+
+		    		}
+		});
+	});*/
+/*	$("#btnEditar").click(function(){
     var dataId = this.id;
 	var clase = "."+dataId;
 		$.ajax({
     		type    : 'get',
-    		url     : '/destroy/' + dataId,
+    		url     : '/edit/' + dataId,
     		success : function(response) {
 		    	if ( response === 'error' ) {
 	           		alert('crap!');
 	       		} else if (response === 'success' ) {
 	          		demo.initChartist();
-	          		 $(clase).remove();    	
+	          		 $(clase).edit();
 		        	$.notify({
 		            	icon: 'pe-7s-gift',
-		            	message: "<b>Objeto Eliminado</b>"
-		            	
+		            	message: ("<b>Curso a editar</b>"+dataId);
+		            	$("#form-car2").show(100);
+						$("#section-1").hide(100);
+
+
 		            },{
 		                type: 'info',
 		                timer: 4000
@@ -156,16 +179,8 @@ $(document).ready(function(){
 
     		}
 		});
-	});
-	$(".123").click(function(){
-		alert();
-	});
-		
-	
-		
+	});*/
 
-	
-});
 var countries = [
    { value: 'Verde', data: 'VE' },
    { value: 'Rojo', data: 'RO' },
@@ -187,8 +202,37 @@ $('#color-front').autocomplete({
     onSelect: function (suggestion) {
     }
 });
+
 $('#color-back').autocomplete({
     lookup: countries,
     onSelect: function (suggestion) {
     }
 });
+
+/*function remove(id) {
+	// body...
+	var dataId = id;
+    		var clase = "."+dataId;
+    			$.ajax({
+    				type    : 'get',
+		    		url     : '/destroy/' + dataId,
+		    		success : function(response) {
+				    	if ( response === 'error' ) {
+			           		alert('crap!');
+			       		} else if (response === 'success' ) {
+			          		demo.initChartist();
+			          		 $(clase).remove();
+				        	$.notify({
+				            	icon: 'pe-7s-gift',
+				            	message: "<b>Objeto Eliminado</b>"
+
+				            },{
+				                type: 'info',
+				                timer: 4000
+				            })
+			          		 ;
+			          	}
+
+		    		}
+		});
+}*/

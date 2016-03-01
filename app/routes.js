@@ -168,7 +168,8 @@ module.exports = function(app, passport) {
         var user            = req.user;
         user.local.email    = undefined;
         user.local.password = undefined;
-        user.local.role 	= undefined; //dancard
+        user.local.role 	= undefined;
+        user.local.name 	= undefined;
         user.save(function(err) {
             res.redirect('/profile');
         });

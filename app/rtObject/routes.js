@@ -1,7 +1,7 @@
 var object = require('../models/objects');
 var console = require('console-prefix');
 var fs = require('fs.extra');
-var multer  = require('multer') 
+var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
 module.exports = function(app, passport) {
@@ -9,32 +9,36 @@ module.exports = function(app, passport) {
     // OBJECTS ROUTES ======================
     // =====================================
   app.get('/objects',function(req, res) {
-    
-    object.find({"idUser" : req.user._id},function(err, object) {
+
+    object.find({},function(err, object) {
       if (err) {
         return res.send(err);
       }
-      
-    
+
+
     res.render('objects.ejs',{ object:object,user : req.user})
     });
     });
   //cantidad de imagenes upload.single
-  app.post("/objects",isLoggedIn, upload.single("file")), function(req,res){
+  app.post("/form", upload.array('photos',3), function(req,res){
       var datetime = new Date();
       var objects = new object();
-    
+      var dC = req.body.diaCurso;
+      var mC = req.body.mesCurso;
+      var aC = req.body.anoCurso;
+      var fechaInicio =dC+'-'+mC+'-'+aC;
+      console.log(fechaInicio+'err')
           objects.idCurso = req.body.idCurso
-          objects.idUser = req.user._id
+          objects.idUser = req.body.idDocente
           objects.nombreMateria = req.body.nombreMateria
-          objects.fechaInicio = req.body.fechaInicio
+          objects.fechaInicio = fechaInicio
           objects.estado = req.body.estado
           objects.descripcion = req.body.descripcion
           objects.save();
 
           var objects_id = objects._id;
-          var user_id = req.user._id;
-          var main_dir='./public/fotos/';
+          var user_id = req.body._id;
+ /**         var main_dir='./public/fotos/';
           var name = ["Maretia.jpg"];
           var final_path = main_dir+user_id+'/'+objects_id+'/';
 
@@ -47,32 +51,32 @@ module.exports = function(app, passport) {
           }
 
           for(var x=0;x<req.files.length;x++) {
-            fs.createReadStream('./uploads/'+req.files[x].filename).pipe(fs.createWriteStream(final_path+req.files[x].originalname)); 
+            fs.createReadStream('./uploads/'+req.files[x].filename).pipe(fs.createWriteStream(final_path+req.files[x].originalname));
             fs.renameSync(final_path+req.files[x].originalname,final_path+name[x]);
             //borramos el archivo temporal creado
-            fs.unlink('./uploads/'+req.files[x].filename); 
+            fs.unlink('./uploads/'+req.files[x].filename);
 
-          }
-          
-          res.redirect('/objects');
+          }**/
 
-   };
+          res.redirect('/dashboard');
+
+   });
 
 
   app.get('/destroy/:id', function(req, res) {
     var id = req.param("id");
     var path = './public/fotos/'+req.user._id+'/'+id+'/';
-    
-    
+
+
 
     fs.rmrf(path, function(err,status){
       if (err) {
       };
     });
-   
+
 
     object.remove({
-        _id: id 
+        _id: id
     }, function(err){
         if (err) {
             res.end('error');
@@ -86,8 +90,8 @@ module.exports = function(app, passport) {
             images
           **/
           res.send({message:'Archivo guardado', file:req.file});
-  });  
- 
+  });
+
 });
 
 // route middleware to make sure
