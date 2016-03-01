@@ -227,125 +227,118 @@
               </div><!-- /.info-box -->
             </div>
           </div><!-- /.row -->
+
           <div class="box-body">
-                  <div class="table-users table-responsive">
-                    <table class="table no-margin">
-                      <thead>
-                        <tr>
-                          <th class="text-align">Email</th>
-                          <th class="text-align">Contraseña</th>
-                          <th class="text-align">Rol</th>
-                          <th class="text-align">Nombre</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% if (objectUser) { %>
-                        <% objectUser.forEach(function(objUsr) { %>
-                        <tr class="<%= objUsr._id %>" style="text-align:center;">
-                          <td><%= objUsr.email %> </td>
-                          <td><%= objUsr.password %></td>
-                          <td><%= objUsr.role %></td>
-                          <td><%= objUsr.name %></td>
-                          <td><favorite-star active class="star"></favorite-star></td>
-                          <td>
-                            <button id="<%= objUsr._id %>" class="btnCarRemove btn btn-primary btn-block ">Eliminar <i class="fa fa-trash"></i></button>
-                            <input type="hidden" value="<%= objUsr._id %>">
-                          </td>
-                        </tr>
-                        <% }); %>
-                        <%} else {%>
-                        <td colspan="" rowspan="" headers="">Para crear un usuario, dé click en el boton <span class="fa fa-plus-circle"></span></td>
-                        <% } %>
-                      </tbody>
-                    </table>
-                  </div><!-- /.table-responsive -->
+            <div class="table-users table-responsive">
+              <table class="table no-margin">
+                <thead>
+                  <tr>
+                    <th class="text-align">Email</th>
+                    <th class="text-align">Contraseña</th>
+                    <th class="text-align">Rol</th>
+                    <th class="text-align">Nombre</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (objectUser) { %>
+                  <% objectUser.forEach(function(objUsr) { %>
+                  <tr class="<%= objUsr._id %>" style="text-align:center;">
+                    <td><%= objUsr.email %> </td>
+                    <td><%= objUsr.password %></td>
+                    <td><%= objUsr.role %></td>
+                    <td><%= objUsr.name %></td>
+                    <td><favorite-star active class="star"></favorite-star></td>
+                    <td>
+                      <button id="<%= objUsr._id %>" class="btnCarRemove btn btn-primary btn-block ">Eliminar <i class="fa fa-trash"></i></button>
+                      <input type="hidden" value="<%= objUsr._id %>">
+                    </td>
+                  </tr>
+                  <% }); %>
+                  <%} else {%>
+                  <td colspan="" rowspan="" headers="">Para crear un usuario, dé click en el boton <span class="fa fa-plus-circle"></span></td>
+                  <% } %>
+                </tbody>
+              </table>
+            </div><!-- /.table-responsive -->
 
 
-                  <form class="card form-user" enctype="multipart/form-data"  action="users" method="POST" >
-                   <div id="section-1" class="card col-md-12" style="display: none;" >
-                      <div>
-                        <label for=""><h2>Ingrese el nuevo usuario</h2></label>
-                      </div>
-                      <section class="col-md-6 ">
-                        <div class="form-group" id="email">
-                          <label for="bio">Email:</label><br>
-                          <input class="form-control" type="email" name="email" placeholder="usuario@ejemplo.com">
-                        </div>
-
-                        <div class="form-group" id="password">
-                          <label for="bio">Contraseña:</label><br>
-                          <input class="form-control" type="password" name="password" value="">
-                        </div> 
-                      </section>
-
-                      <section class="col-md-6">
-                        <div class="form-group" id="name">
-                          <label for="bio">Nombre:</label><br>
-                          <input class="form-control" type="text" name="name" value="">
-                        </div>
-
-                        <div class="form-group" id="role">
-                          <label for="bio">Rol:</label><br>
-                          <select class="form-control" type="brand" id="roles_list"></select>
-                        </div>
-
-                        <!--<div>
-                          <label for="bio">Descripcion del curso:</label><br>
-                          <input class="form-date btn btn-success btn-block"  value="cargar archivo"></input>
-                        </div>-->
-                      </section>
-
-                      <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
-                    </div>
-
-                    <div id="form-car2" style="display:none;" >
-                     <div  class="col-md-12 card"  >
-                          <div class="form-group">
-                             <label for="Descripcion del curso">Cargar Archivo (.pdf)</label><br>
-                              <input type="file" name="photos">
-                              <p class="help-block">Curso.pdf</p>
-                          </div>
-                          <INPUT class="form-date btn btn-success btn-block" type="submit" value="guardar">
-                          <INPUT class="form-date btn btn-primary btn-block" type="submit" value="Atras">
-                      </div>
-                            </form>
-                        </div>
-                    </div>
+            <form class="card form-user" enctype="multipart/form-data"  action="users" method="POST" >
+              <div id="section-1" class="card col-md-12" style="display: none;" >
+                <div>
+                  <label for=""><h2>Ingrese el nuevo usuario</h2></label>
                 </div>
-            </div>
-        </div>
+                <section class="col-md-6 ">
+                  <div class="form-group" id="email">
+                    <label for="bio">Email:</label><br>
+                    <input class="form-control" type="email" name="email" placeholder="usuario@ejemplo.com">
+                  </div>
+
+                  <div class="form-group" id="password">
+                    <label for="bio">Contraseña:</label><br>
+                    <input class="form-control" type="password" name="password" value="">
+                  </div> 
+                </section>
+
+                <section class="col-md-6">
+                  <div class="form-group" id="name">
+                    <label for="bio">Nombre:</label><br>
+                    <input class="form-control" type="text" name="name" value="">
+                  </div>
+
+                  <div class="form-group" id="role">
+                    <label for="bio">Rol:</label><br>
+                    <select class="form-control" type="brand" id="roles_list"></select>
+                  </div>
+
+                  <!--<div>
+                    <label for="bio">Descripcion del curso:</label><br>
+                    <input class="form-date btn btn-success btn-block"  value="cargar archivo"></input>
+                  </div>-->
+                </section>
+
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
+              </div>
+
+              <div id="form-car2" style="display:none;" >
+                <div  class="col-md-12 card">
+                  <div class="form-group">
+                    <label for="Descripcion del curso">Cargar Archivo (.pdf)</label><br>
+                    <input type="file" name="photos">
+                    <p class="help-block">Curso.pdf</p>
+                  </div>
+                  <INPUT class="form-date btn btn-success btn-block" type="submit" value="guardar">
+                  <INPUT class="form-date btn btn-primary btn-block" type="submit" value="Atras">
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
 
 
-        <!-- COPYRIGHT -->
-        <footer class="main-footer">
-          <strong>Copyright &copy; 2016 <a href="#">We-nnova</a>.</strong> Todos los derechos reservados.
-          <div class="pull-right hidden-xs"><b>Versión</b> 1.0</div>
-        </footer>
+    <!-- COPYRIGHT -->
+    <footer class="main-footer">
+      <strong>Copyright &copy; 2016 <a href="#">We-nnova</a>.</strong> Todos los derechos reservados.
+      <div class="pull-right hidden-xs"><b>Versión</b> 1.0</div>
+    </footer>
 
     </div><!-- ./wrapper -->
 
     <!--   Core JS Files   -->
     <script src="assets/dashboard/js/jquery-1.10.2.js" type="text/javascript"></script>
     <script src="assets/dashboard/js/bootstrap.min.js" type="text/javascript"></script>
-
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="assets/dashboard/js/bootstrap-checkbox-radio-switch.js"></script>
-
     <!--  Charts Plugin -->
     <script src="assets/dashboard/js/chartist.min.js"></script>
-
     <!--  Notifications Plugin    -->
     <script src="assets/dashboard/js/bootstrap-notify.js"></script>
-
     <!--  Google Maps Plugin    -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="assets/dashboard/js/light-bootstrap-dashboard.js"></script>
-
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="assets/dashboard/js/demo.js"></script>
-
     <!-- Script main-->
     <script src="json/main2.js" type="text/javascript" charset="utf-8" ></script>
     <script type="text/javascript" src="json/jquery.autocomplete.js"></script>
