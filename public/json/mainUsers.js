@@ -58,17 +58,40 @@ $(document).ready(function(){
 	});
 
 
+	// Al dar click en el boton Modificar...
+	$('.modify-user').click(function(){
+    var dataId = this.id;
+
+	var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
+		$.ajax({
+    		type    : 'get',
+    		url     : '/modifyUser/' + dataId, //Funcion de borrado
+    		success : function(response) {
+		    	if ( response === 'error') {
+	           		alert('Error al modificar usuario');
+	       		} else if (response === 'success') {
+
+	          		demo.initChartist();
+	          		 $(clase).remove(); 
+	          		 alert("Usuario modificado exitosamente");		 
+	          	}
+    		}
+		});
+	});
+
+
+	// Al dar click en el boton Eliminar...
 	$('.delete-user').click(function(){
     var dataId = this.id;
 
-	var clase = "."+dataId;
+	var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
 		$.ajax({
     		type    : 'get',
-    		url     : '/destroyUser/' + dataId,
+    		url     : '/destroyUser/' + dataId, //Funcion de borrado
     		success : function(response) {
-		    	if ( response === 'error' ) {
-	           		alert('crap!');
-	       		} else if (response === 'success' ) {
+		    	if ( response === 'error') {
+	           		alert('Error al eliminar usuario');
+	       		} else if (response === 'success') {
 
 	          		demo.initChartist();
 	          		 $(clase).remove(); 
@@ -86,9 +109,14 @@ $(document).ready(function(){
 
     		}
 		});
-	});	
+	});
+
+
+	
 });
-var countries = [
+
+
+/*var countries = [
    { value: 'Verde', data: 'VE' },
    { value: 'Rojo', data: 'RO' },
    { value: 'Violeta', data: 'VI' },
@@ -102,6 +130,4 @@ var countries = [
    { value: 'Cafe', data: 'CA' },
    { value: 'Rosado', data: 'RO' },
    { value: 'Plata', data: 'Pl' },
-];
-
-
+];*/

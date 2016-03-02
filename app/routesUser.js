@@ -1,4 +1,4 @@
-var objectUser = require('./models/user');
+var objectUser = require('./models/user'); //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -16,7 +16,10 @@ module.exports = function(app, passport) {
         return res.send(err);
       }
 
-      res.render('users.ejs',{ objectUser:objectUser,user : req.user})
+      //objectUser:objectUser exports model user to the template
+      //user:req.user exports logged user info to the template
+      //message:req.flash shows personalized alerts
+      res.render('users.ejs',{ objectUser:objectUser, user:req.user, message:req.flash('signupMessage')})
 
     });
   });
@@ -28,36 +31,78 @@ module.exports = function(app, passport) {
     var datetime = new Date();
     var email = req.body.email;                
     var users = new objectUser();
+
     objectUser.findOne({ 'local.email' :  email }, function(err, user) {
+        // if there are any errors, return the error
+        if (err)
+          return done(err);
+
+        // check to see if theres already a user with that email
+        if (user) {
+          //alert("El email ingresado ya se encuentra registrado");
+          //console.dir("El email ingresado ya se encuentra registrado");
+          return res.end("El email ingresado ya se encuentra registrado");
+          //res.redirect('/users');
+          //return req.flash('signupMessage', 'El email ingresado ya se encuentra registrado')
+        } else {
+
+          users.local.email    = req.body.email;
+          users.local.password = users.generateHash(req.body.password); //Encrypt password
+          users.local.role     = req.body.role;
+          users.local.name     = req.body.name;
+
+          //Save user
+          users.save(function(err) {
+            if(err) {
+              console.dir(err);
+              alert("Error creando usuario");
+              res.redirect('/users');
+            } else {
+              console.log('user: ' + users.local.email + " saved.");
+              res.redirect('/users');
+            }
+          });
+
+        }
+    });
+
+    
+    /*function(req, email, password, done) {
+
+        // find a user whose email is the same as the forms email
+        // we are checking to see if the user trying to login already exists
+        users.findOne({ 'local.email' :  email }, function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
 
             // check to see if theres already a user with that email
             if (user) {
-                return res.end("ya existe");
+                return done(null, false, req.flash('signupMessage', 'El email ingresado ya se encuentra registrado'));
             } else {
 
-              users.local.email    = req.body.email;
-              users.local.password = users.generateHash(req.body.password); //Encrypt password
-              users.local.role     = req.body.role;
-              users.local.name     = req.body.name;
+                // set the user's local credentials
+                users.local.email    = req.body.email;
+                users.local.password = users.generateHash(req.body.password); //Encrypt password
+                users.local.role     = req.body.role;
+                users.local.name     = req.body.name;
 
-              //Save user
-              users.save(function(err) {
-                if(err) {
-                  console.dir(err);
-                  res.end("{success: false}");
-                } else {
-                  console.log('user: ' + users.local.email + " saved.");
-                  res.redirect('/dashboard');
-                }
-              });
-
+                //Save user
+                users.save(function(err) {
+                  if(err) {
+                    console.dir(err);
+                    alert("Error creando usuario")
+                    res.redirect('/users');
+                  } else {
+                    console.log('Usuario: ' + users.local.email + " creado");
+                    res.redirect('/users');
+                  }
+                });
             }
-    });
 
+        });
 
+    }*/
   
 
     /*var objects_id = objects._id;
@@ -86,13 +131,43 @@ module.exports = function(app, passport) {
 
   });
 
+  
+  app.get('/modifyUser/:id', function(req, res) {
+    var id = req.param("id");
+    var users = new objectUser();
+    
+    // get a user with ID class
+    objectUser.findById(id, function(err, user) {
+      if (err) throw err;
+
+      // change the users information
+      user.local.email = 'modificado@modificado.com';
+      user.local.password = users.generateHash('modificado'); //Encrypt password
+      user.local.role     = 'modificado';
+      user.local.name     = 'modificado';
+
+      // save the user
+      user.save(function(err) {
+        if (err) {
+            res.end('error');
+            console.dir(err);
+        }
+        else {
+            res.end('success');
+            console.log('Datos de usuario modificados');
+        }
+      });
+
+    });
+  });
+
 
   app.get('/destroyUser/:id', function(req, res) {
     var id = req.param("id");
     
     objectUser.remove({
         _id: id 
-    }, function(err){
+    },function(err){
         if (err) {
             res.end('error');
             console.dir(err);
@@ -101,9 +176,7 @@ module.exports = function(app, passport) {
             res.end('success');
         }
     });
-
-
-});
+  });
 
 // route middleware to make sure
 function isLoggedIn(req, res, next) {
