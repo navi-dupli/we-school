@@ -140,6 +140,8 @@ module.exports = function(app, passport) {
     objectUser.findById(id, function(err, user) {
       if (err) throw err;
 
+      console.log("Id es: "+id);
+
       // change the users information
       user.local.email = 'modificado@modificado.com';
       user.local.password = users.generateHash('modificado'); //Encrypt password
@@ -153,7 +155,7 @@ module.exports = function(app, passport) {
             console.dir(err);
         }
         else {
-            res.end('success');
+            res.redirect('/');
             console.log('Datos de usuario modificados');
         }
       });

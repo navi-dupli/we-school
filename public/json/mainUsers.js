@@ -1,9 +1,15 @@
 $(document).ready(function(){
+
+	//Variable que captura el id del usuario de manera global
+	var IdUsuarioGlobal;
+
 	// Al dar click en el boton Agregar Usuario...
 	$("#add-user").click(function(){
+		
 		$(".table-users").hide(100);
-		$(".form-car").show(100);
-		$("#section-1").show(100);
+		$(".form-user").show(100);
+		$("#form-add-user").show(100);
+	   	
 	   	$.ajax({ 
 	   		type: 'GET', 
 	   		url: 'json/roles.json', 
@@ -26,14 +32,17 @@ $(document).ready(function(){
 
 
 	// Al dar click en el boton Listar Usuarios...
-	$("#list-users").click(function(){
-		$(".form-car").hide(100);
-		$("#section-1").hide(100);
-		$(".table-users").show(100);	   	
+	$(".list-users").click(function(){
+		
+		$(".form-user").hide(100);
+		$("#form-add-user").hide(100);
+		$("#form-modify-user").hide(100);
+		$(".table-users").show(100);
+
 	});
 
 
-	$("#form-date").click(function(){
+	/*$("#form-date").click(function(){
 		demo.initChartist();
 
     	$.notify({
@@ -55,17 +64,30 @@ $(document).ready(function(){
 		$("#form-car").show(100);
 		$("#form-car2").show(100);
 		$("#section-1").hide(100);
+	});*/
+
+
+	// Al dar click en el boton Editar...
+	$('.show-modify-form').click(function(){
+
+		$(".form-user").show(100);
+		$("#form-add-user").hide(100);
+		$("#form-modify-user").show(100);
+
+		IdUsuarioGlobal = this.id;
+
 	});
 
 
-	// Al dar click en el boton Modificar...
+	// Al dar click en el boton Actualizar usuario...
 	$('.modify-user').click(function(){
-    var dataId = this.id;
+		alert()
+	    var dataId = IdUsuarioGlobal;
 
-	var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
+		var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
 		$.ajax({
     		type    : 'get',
-    		url     : '/modifyUser/' + dataId, //Funcion de borrado
+    		url     : '/modifyUser/' + dataId, //Funcion de modificado
     		success : function(response) {
 		    	if ( response === 'error') {
 	           		alert('Error al modificar usuario');
@@ -77,6 +99,17 @@ $(document).ready(function(){
 	          	}
     		}
 		});
+	});
+
+
+	// Al dar click en el boton Cancelar...
+	$("#cancel-modify").click(function(){
+		
+		$(".form-user").hide(100);
+		$("#form-add-user").hide(100);
+		$("#form-modify-user").hide(100);
+		$(".table-users").show(100);
+
 	});
 
 

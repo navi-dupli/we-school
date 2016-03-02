@@ -223,27 +223,19 @@
             </div>
             <div class="col-md-3 col-sm-4 col-xs-5">
               <div class="contains">
-                <span class="btn btn-primary" id="list-users"><i class="fa fa-reorder fa-5x pull-left"></i> Listar usuarios </span>
+                <span class="list-users btn btn-primary"><i class="fa fa-reorder fa-5x pull-left"></i> Listar usuarios </span>
               </div><!-- /.info-box -->
             </div><!-- /.col -->
-            <!--<div class="col-md-3 col-sm-4 col-xs-5">
-              <div class="contains">
-                <span class="btn btn-danger"><i class="fa fa-times-circle fa-5x pull-left"></i> Eliminar </span>
-              </div>
-            </div>-->
-            <!--<div class="col-md-3 col-sm-4 col-xs-5">
-              <div class="contains">
-                <span class="btn bg-yellow"><i class="fa fa-pencil-square fa-5x pull-left"></i> Editar </span>
-              </div>
-            </div>-->
           </div><!-- /.row -->
 
+          <!-- Mensaje de error -->
           <% if (message.length > 0) { %>
               <div class="alert alert-danger" style="margin-top: 10px;"><%= message %></div>
             <% } %>
 
           <div class="box-body">
 
+            <!-- Tabla de usuarios -->
             <div class="table-users table-responsive">
               <table class="table no-margin">
                 <thead>
@@ -266,7 +258,7 @@
                         <button id="<%= objUsr._id %>" class="disabled btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
                         <input type="hidden" value="<%= objUsr._id %>">
                       <% } else { %>
-                        <button id="<%= objUsr._id %>" class="modify-user btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
+                        <button id="<%= objUsr._id %>" class="show-modify-form btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
                         <input type="hidden" value="<%= objUsr._id %>">
                       <% } %>
                     </td>
@@ -286,11 +278,12 @@
                   <% } %>
                 </tbody>
               </table>
-            </div><!-- /.table-responsive -->
+            </div>
 
 
+            <!-- Formulario agregar usuario -->
             <form class="card form-user" enctype="multipart/form-data" action="createUser" method="POST" >
-              <div id="section-1" class="card col-md-12" style="display: none;" >
+              <div id="form-add-user" class="card col-md-12" style="display: none;" >
                 <div>
                   <label for=""><h2>Ingrese el nuevo usuario</h2></label>
                 </div>
@@ -326,17 +319,43 @@
 
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
               </div>
+            </form>
 
-              <div id="form-car2" style="display:none;" >
-                <div  class="col-md-12 card">
-                  <div class="form-group">
-                    <label for="Descripcion del curso">Cargar Archivo (.pdf)</label><br>
-                    <input type="file" name="photos">
-                    <p class="help-block">Curso.pdf</p>
-                  </div>
-                  <INPUT class="form-date btn btn-success btn-block" type="submit" value="guardar">
-                  <INPUT class="form-date btn btn-primary btn-block" type="submit" value="Atras">
+
+            <!-- Formulario modificar usuario -->
+            <form class="card form-user" enctype="multipart/form-data" action="modifyUser" method="POST" >
+              <div id="form-modify-user" class="card col-md-12" style="display: none;" >
+                <div>
+                  <label for=""><h2>Modificar usuario</h2></label>
                 </div>
+
+                <section class="col-md-6 ">
+                  <div class="form-group" id="email">
+                    <label for="bio">Email:</label><br>
+                    <input class="form-control" type="email" name="email" placeholder="usuario@ejemplo.com">
+                  </div>
+
+                  <div class="form-group" id="password">
+                    <label for="bio">Contraseña:</label><br>
+                    <input class="form-control" type="password" name="password" value="">
+                  </div> 
+                </section>
+
+                <section class="col-md-6">
+                  <div class="form-group" id="name">
+                    <label for="bio">Nombre:</label><br>
+                    <input class="form-control" type="text" name="name" value="">
+                  </div>
+
+                  <div class="form-group" id="role">
+                    <label for="bio">Rol:</label><br>
+                    <select class="form-control" type="brand" id="roles_list" name="role"></select>
+                  </div>
+                </section>
+
+                <button type="submit" class="modify-user btn btn-primary btn-block btn-flat">Actualizar usuario</button>
+                <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
+                <input type="button" class="list-users btn btn-primary btn-block btn-flat" value="Cancelar"></input>  
               </div>
             </form>
           </div>
