@@ -322,8 +322,8 @@
 
 
             <!-- Formulario modificar usuario -->
-            <form class="card form-user" enctype="multipart/form-data" action="modifyUser" method="POST" >
-              <div id="form-modify-user" class="card col-md-12" style="display: none;" >
+            <form id="frm-modify-user" class="card form-user" method="POST">
+              <div id="form-modify-user" class="form-user-information card col-md-12" style="display: none;" >
                 <div>
                   <label for=""><h2>Modificar usuario</h2></label>
                 </div>
@@ -331,19 +331,19 @@
                 <section class="col-md-6 ">
                   <div class="form-group" id="email">
                     <label for="bio">Email:</label><br>
-                    <input class="form-control" type="email" name="email" value="modificado2@modificado.com">
+                    <input class="form-control" type="email" name="email" id="mod_email">
                   </div>
 
                   <div class="form-group" id="password">
                     <label for="bio">Contraseña:</label><br>
-                    <input class="form-control" type="password" name="password" value="modificado2">
+                    <input class="form-control" type="password" name="password">
                   </div> 
                 </section>
 
                 <section class="col-md-6">
                   <div class="form-group" id="name">
                     <label for="bio">Nombre:</label><br>
-                    <input class="form-control" type="text" name="name" value="modificado2">
+                    <input class="form-control" type="text" name="name" id="mod_name">
                   </div>
 
                   <div class="form-group" id="role">
@@ -353,7 +353,7 @@
                 </section>
 
                 <!--<button type="submit" class="modify-user btn btn-primary btn-block btn-flat">Actualizar usuario </button>-->
-                <input type="button" class="modify-user btn btn-primary btn-block btn-flat" value="Actualizar usuario"></input>
+                <input id="button_update" type="submit" class="modify-user btn btn-primary btn-block btn-flat" value="Actualizar usuario"></input>
                 <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
                 <input type="button" class="list-users btn btn-primary btn-block btn-flat" value="Cancelar"></input>  
               </div>

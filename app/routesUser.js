@@ -62,17 +62,33 @@ module.exports = function(app, passport) {
               res.redirect('/users');
             }
           });
-
         }
     });
+  });
 
-    
-    
+  
+  app.get('/get-user/:id', function(req, res) {
+
+    var id = req.param("id");
+
+    objectUser.findById(id, function(err, user) {
+      if (err) throw err;
+
+      console.log("Id es: "+id);
+      user.save(function(err) {
+        if (err) {
+            res.send('error');
+        }
+        else {
+            res.send(user);
+        }
+      });
+    });
 
   });
 
   
-  app.get('/modifyUser/:id', function(req, res) {
+  app.post('/modifyUser/:id', function(req, res) {
 
     var id = req.param("id");
     var users = new objectUser();
@@ -80,6 +96,8 @@ module.exports = function(app, passport) {
     // get a user with ID class
     objectUser.findById(id, function(err, user) {
       if (err) throw err;
+
+      console.dir(req.body);
 
       console.log("Id es: "+id);
       console.log("email es: "+req.body.email);
@@ -96,12 +114,11 @@ module.exports = function(app, passport) {
       // save the user
       user.save(function(err) {
         if (err) {
-            res.end('error');
-            res.redirect('/users');
+          res.end('error');
+          res.redirect('/users');
         }
         else {
-            res.end('success');
-            res.redirect('/users');
+          res.redirect('/users');
         }
       });
 

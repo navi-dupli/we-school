@@ -1,8 +1,5 @@
 $(document).ready(function(){
 
-	//Variable que captura el id del usuario de manera global
-	var IdUsuarioGlobal;
-
 	// Al dar click en el boton Agregar Usuario...
 	$("#add-user").click(function(){
 		
@@ -42,31 +39,6 @@ $(document).ready(function(){
 	});
 
 
-	/*$("#form-date").click(function(){
-		demo.initChartist();
-
-    	$.notify({
-        	icon: 'pe-7s-gift',
-        	message: "<b>Ahora suba las fotos</b>"
-        },{
-            type: 'info',
-            timer: 4000
-        });
-
-        $.notify({
-        	icon: 'pe-7s-gift',
-        	message: "<b>Recuerde que son necesarias para la publicación del auto</b>"
-        },{
-            type: 'danger',
-            timer: 4000
-        });
-
-		$("#form-car").show(100);
-		$("#form-car2").show(100);
-		$("#section-1").hide(100);
-	});*/
-
-
 	// Al dar click en el boton Editar...
 	$('.show-modify-form').click(function(){
 
@@ -74,12 +46,12 @@ $(document).ready(function(){
 		$("#form-add-user").hide(100);
 		$("#form-modify-user").show(100);
 
-		IdUsuarioGlobal = this.id;
+		var dataId = this.id;
 
 		//Lista los roles existentes en el formulario
 		$.ajax({ 
 	   		type: 'GET', 
-	   		url: 'json/roles.json', 
+	   		url: 'json/roles.json',
 	   		dataType: 'json',
 	   		success: function (data) {
 	   			var array =data[1].rol;
@@ -91,6 +63,31 @@ $(document).ready(function(){
 	   			// body...
 	   			console.log(msg+"Listado de roles fallido");
 	   		}
+	   	
+	   	});
+
+	   	$.ajax({ 
+	   		type: 'GET', 
+	   		url: '/get-user/'+$(this).attr("id"),
+	   		dataType: 'json',
+	   		success: function (data) {
+	   			user = data.local;
+
+	   			console.log(user.email);
+	   			console.log(user.name);
+	   			console.log(user.role);
+	   			
+	   			$("#button_update").attr("id", dataId);
+
+	   			$("#mod_email").val(user.email);
+	   			$("#mod_name").val(user.name);
+	   			$("#roles_list2 option[value='"+user.role+"']").attr("selected","selected");
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+"Peticion de datos fallida");
+	   		}
+	   	
 	   	});
 
 	});
@@ -99,24 +96,10 @@ $(document).ready(function(){
 	// Al dar click en el boton Actualizar usuario...
 	$('.modify-user').click(function(){
 
-	    var dataId = IdUsuarioGlobal;
+		var dataId = this.id;
+		$('#frm-modify-user').attr("action", "modifyUser/"+dataId);		
 
-		var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
-
-		$.ajax({
-    		type    : 'GET',
-    		url     : '/modifyUser/' + dataId, //Funcion de modificado
-    		success : function(response) {
-		    	if ( response === 'error') {
-	           		alert('Error al modificar usuario');
-	       		} else if (response === 'success') {
-
-	          		//demo.initChartist();
-	          		 //$(clase).remove(); 
-	          		 alert("Usuario modificado exitosamente");		 
-	          	}
-    		}
-		});
+		$('#frm-modify-user').submit();
 	});
 
 
