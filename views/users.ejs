@@ -228,7 +228,7 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
-          <!-- Mensaje de error -->
+          <!-- Alertas -->
           <% if (message.length > 0) { %>
               <div class="alert alert-danger" style="margin-top: 10px;"><%= message %></div>
             <% } %>
@@ -240,19 +240,18 @@
               <table class="table no-margin">
                 <thead>
                   <tr>
+                    <th class="text-align">Nombre</th>
                     <th class="text-align">Email</th>
                     <th class="text-align">Rol</th>
-                    <th class="text-align">Nombre</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% if (objectUser) { %>
                   <% objectUser.forEach(function(objUsr) { %>
                   <tr class="<%= objUsr._id %>" style="text-align:center;">
+                    <td><%= objUsr.local.name %></td>
                     <td><%= objUsr.local.email %> </td>
                     <td><%= objUsr.local.role %></td>
-                    <td><%= objUsr.local.name %></td>
-                    <td><favorite-star active class="star"></favorite-star></td>
                     <td>
                       <% if (objUsr.local.role === "Administrador") { %>
                         <button id="<%= objUsr._id %>" class="disabled btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
@@ -332,28 +331,29 @@
                 <section class="col-md-6 ">
                   <div class="form-group" id="email">
                     <label for="bio">Email:</label><br>
-                    <input class="form-control" type="email" name="email" placeholder="usuario@ejemplo.com">
+                    <input class="form-control" type="email" name="email" value="modificado2@modificado.com">
                   </div>
 
                   <div class="form-group" id="password">
                     <label for="bio">Contraseña:</label><br>
-                    <input class="form-control" type="password" name="password" value="">
+                    <input class="form-control" type="password" name="password" value="modificado2">
                   </div> 
                 </section>
 
                 <section class="col-md-6">
                   <div class="form-group" id="name">
                     <label for="bio">Nombre:</label><br>
-                    <input class="form-control" type="text" name="name" value="">
+                    <input class="form-control" type="text" name="name" value="modificado2">
                   </div>
 
                   <div class="form-group" id="role">
                     <label for="bio">Rol:</label><br>
-                    <select class="form-control" type="brand" id="roles_list" name="role"></select>
+                    <select id="roles_list2" class="form-control" type="brand" name="role"></select>
                   </div>
                 </section>
 
-                <button type="submit" class="modify-user btn btn-primary btn-block btn-flat">Actualizar usuario</button>
+                <!--<button type="submit" class="modify-user btn btn-primary btn-block btn-flat">Actualizar usuario </button>-->
+                <input type="button" class="modify-user btn btn-primary btn-block btn-flat" value="Actualizar usuario"></input>
                 <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
                 <input type="button" class="list-users btn btn-primary btn-block btn-flat" value="Cancelar"></input>  
               </div>

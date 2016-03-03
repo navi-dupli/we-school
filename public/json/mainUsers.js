@@ -76,25 +76,43 @@ $(document).ready(function(){
 
 		IdUsuarioGlobal = this.id;
 
+		//Lista los roles existentes en el formulario
+		$.ajax({ 
+	   		type: 'GET', 
+	   		url: 'json/roles.json', 
+	   		dataType: 'json',
+	   		success: function (data) {
+	   			var array =data[1].rol;
+	   			for (var i = 0; i < array.length; i++) {
+	   					$("#roles_list2").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   				};
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+"Listado de roles fallido");
+	   		}
+	   	});
+
 	});
 
 
 	// Al dar click en el boton Actualizar usuario...
 	$('.modify-user').click(function(){
-		alert()
+
 	    var dataId = IdUsuarioGlobal;
 
 		var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
+
 		$.ajax({
-    		type    : 'get',
+    		type    : 'GET',
     		url     : '/modifyUser/' + dataId, //Funcion de modificado
     		success : function(response) {
 		    	if ( response === 'error') {
 	           		alert('Error al modificar usuario');
 	       		} else if (response === 'success') {
 
-	          		demo.initChartist();
-	          		 $(clase).remove(); 
+	          		//demo.initChartist();
+	          		 //$(clase).remove(); 
 	          		 alert("Usuario modificado exitosamente");		 
 	          	}
     		}

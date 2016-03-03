@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
 // USERS ROUTES ======================
 // =====================================
 
-  app.get('/users',function(req, res) {
+  app.get('/users', isLoggedIn, function(req, res) {
 
     objectUser.find({},function(err, objectUser) {
       if (err) {
@@ -67,72 +67,13 @@ module.exports = function(app, passport) {
     });
 
     
-    /*function(req, email, password, done) {
-
-        // find a user whose email is the same as the forms email
-        // we are checking to see if the user trying to login already exists
-        users.findOne({ 'local.email' :  email }, function(err, user) {
-            // if there are any errors, return the error
-            if (err)
-                return done(err);
-
-            // check to see if theres already a user with that email
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'El email ingresado ya se encuentra registrado'));
-            } else {
-
-                // set the user's local credentials
-                users.local.email    = req.body.email;
-                users.local.password = users.generateHash(req.body.password); //Encrypt password
-                users.local.role     = req.body.role;
-                users.local.name     = req.body.name;
-
-                //Save user
-                users.save(function(err) {
-                  if(err) {
-                    console.dir(err);
-                    alert("Error creando usuario")
-                    res.redirect('/users');
-                  } else {
-                    console.log('Usuario: ' + users.local.email + " creado");
-                    res.redirect('/users');
-                  }
-                });
-            }
-
-        });
-
-    }*/
-  
-
-    /*var objects_id = objects._id;
-    var user_id = req.body._id;
-    var main_dir='./public/fotos/';
-    var name = ["Maretia.jpg"];
-    var final_path = main_dir+user_id+'/'+objects_id+'/';
-
-    if (!fs.exists(main_dir+user_id)) {
-      fs.mkdir(main_dir+user_id);
-    }
-
-    if(!fs.exists(final_path)){
-      fs.mkdir(final_path);
-    }
-
-    for(var x=0;x<req.files.length;x++) {
-      fs.createReadStream('./uploads/'+req.files[x].filename).pipe(fs.createWriteStream(final_path+req.files[x].originalname));
-      fs.renameSync(final_path+req.files[x].originalname,final_path+name[x]);
-      //borramos el archivo temporal creado
-      fs.unlink('./uploads/'+req.files[x].filename);
-
-    }*/
-
-    //res.end('sucess');
+    
 
   });
 
   
   app.get('/modifyUser/:id', function(req, res) {
+
     var id = req.param("id");
     var users = new objectUser();
     
@@ -141,22 +82,26 @@ module.exports = function(app, passport) {
       if (err) throw err;
 
       console.log("Id es: "+id);
+      console.log("email es: "+req.body.email);
+      console.log("password es: "+req.body.password);
+      console.log("role es: "+req.body.role);
+      console.log("name es: "+req.body.name);
 
       // change the users information
-      user.local.email = 'modificado@modificado.com';
-      user.local.password = users.generateHash('modificado'); //Encrypt password
-      user.local.role     = 'modificado';
-      user.local.name     = 'modificado';
+      user.local.email    = req.body.email;
+      user.local.password = users.generateHash(req.body.password); //Encrypt password
+      user.local.role     = req.body.role;
+      user.local.name     = req.body.name;
 
       // save the user
       user.save(function(err) {
         if (err) {
             res.end('error');
-            console.dir(err);
+            res.redirect('/users');
         }
         else {
-            res.redirect('/');
-            console.log('Datos de usuario modificados');
+            res.end('success');
+            res.redirect('/users');
         }
       });
 
