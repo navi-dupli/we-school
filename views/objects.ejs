@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Cursos | We-Learning</title>
+    <title>Materias | We-Learning</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -29,7 +29,6 @@
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-
       <header class="main-header">
         <!-- Logo -->
         <a href="/" class="logo">
@@ -50,14 +49,19 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="<%= user.google.photo %>" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Google user: <%= user.google.name %></span>
+                  <i class="fa fa-user"></i>
+                  <span class="hidden-xs"><%= user.local.name %></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="<%= user.google.photo %>" class="img-circle" alt="User Image">
-                    <p>Google user: <%= user.google.name %></p>
+                    <% if (typeof user.local.photo === "undefined") { %>
+                    <img src="/img/avatar.png" class="img-circle" alt="User Image">
+                    <% } else { %>
+                    <img src="<%= user.local.photo %>" class="img-circle" alt="User Image">
+                    <% } %>
+                    <p><%= user.local.name %></p>
+                    <p>Rol: <%= user.local.role %></p>
                   </li>
 
                   <!-- Menu Footer-->
@@ -82,58 +86,59 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="<%= user.google.photo %>" class="img-circle" alt="User Image">
+              <% if (typeof user.local.photo === "undefined") { %>
+              <img src="/img/avatar.png" class="img-circle" alt="User Image">
+              <% } else { %>
+              <img src="<%= user.local.photo %>" class="img-circle" alt="User Image">
+              <% } %>
             </div>
             <div class="pull-left info">
-              <p>Hola, Google user: <%= user.google.name %></p>
+              <p>Hola, <%= user.local.name %></p>
+              <p><%= user.local.role %></p>
             </div>
           </div>
 
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-
             <li class="header">MENÚ PRINCIPAL</li>
-
             <!--Panel de Control-->
             <li class="treeview">
               <a href="/dashboard">
                 <i class="fa fa-dashboard"></i> <span>Panel de Control</span>
               </a>
             </li>
-
-            {% if request.user.is_superuser %}
+            <% if (user.local.role === "Administrador") { %>
             <!--Registro-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-person-add"></i> <span>Registro</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-person-add"></i> <span>Registro</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
+                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
               </ul>
             </li>
 
             <!--Matriculas-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-bag"></i> <span>Matriculas</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Crear Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
-            {%endif%}
-
+            <% } %>
             <!--Pensum-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-compose"></i> <span>Pensum</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-compose"></i> <span>Pensum</span>
               </a>
               <ul class="treeview-menu">
-                {% if request.user.is_superuser %}
+                <% if (user.local.role === "Administrador") { %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Materia</a></li>
-                {% if request.user.is_superuser %}
+                <% } %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
               </ul>
@@ -142,7 +147,7 @@
             <!--Control-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-stats-bars"></i><span>Control</span><i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-stats-bars"></i><span>Control</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Asistencia</a></li>
@@ -153,30 +158,27 @@
             <!--Reportes-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-pie-graph"></i><span>Reportes</span><i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
-
-            {% if request.user.is_superuser %}
+            <% if (user.local.role === "Administrador") { %>
             <!--Configuración-->
             <li class="treeview">
               <a href="#">
-                <i class="ion ion-gear-b"></i><span>Configuración</span><i class="fa fa-angle-left pull-right"></i>
+                <i class="ion ion-gear-b"></i><span>Configuración</span>
               </a>
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Identidad Institucional</a></li>
               </ul>
             </li>
-            {%endif%}
-
+            <% } %>
           </ul>
         </section>
         <!-- /.sidebar -->
       </aside>
-
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -189,26 +191,25 @@
         <section class="content">
           <!-- Info boxes -->
           <div class="row">
-            <div class="col-md-3 col-sm-4 col-xs-5">
+            <div class="col-md-6 col-sm-4 col-xs-5">
               <div class="contains">
-                <span class="btn bg-green" id="add-car"> <i class="fa fa-plus-circle fa-5x pull-left" ></i> Agregar </span>
+                <span class="btn bg-green fa fa-plus-circle fa-2x pull-left btn-lg btn-block" id="add-car"> Agregar </span>
               </div><!-- /.info-box -->
             </div>
-            <div class="col-md-3 col-sm-4 col-xs-5">
+         <!--  <div class="col-md-3 col-sm-4 col-xs-5">
               <div class="contains">
                 <span class="btn btn-danger" id="btnCarRemove"><i class="fa fa-times-circle fa-5x pull-left"></i> Eliminar </span>
-              </div><!-- /.info-box -->
-            </div><!-- /.col -->
-                        <!-- fix for small devices only -->
+              </div>
+            </div>
             <div class="clearfix visible-sm-block"></div>
             <div class="col-md-3 col-sm-4 col-xs-5">
               <div class="contains">
                 <span class="btn bg-yellow" id="btnEditar"><i class="fa fa-pencil-square fa-5x pull-left"></i> Editar </span>
-              </div><!-- /.info-box -->
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-5">
+              </div>
+            </div> -->
+            <div class="col-md-6 col-sm-4 col-xs-5">
               <div class="contains">
-                <span class="btn btn-primary"><i class="fa fa-cog fa-5x pull-left"></i> Ajustes </span>
+                <span class="btn btn-primary fa fa-cog fa-2x pull-left btn-lg btn-block"> Ajustes </span>
               </div><!-- /.info-box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -217,13 +218,14 @@
                     <table class="table no-margin" id="table-car">
                       <thead>
                         <tr>
-                          <th class="text-align">ID Curso</th>
+                          <th class="text-align">ID Materia</th>
                           <th class="text-align">ID Docente</th>
                           <th class="text-align">Nombre Materia</th>
                           <th class="text-align">Fecha de Inicio</th>
                           <th class="text-align">Estado</th>
                           <th class="text-align">Descripción</th>
-                          <th class="text-align">Seleccionar</th>
+                          <th class="text-align">Editar</th>
+                          <th class="text-align">Eliminar</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -238,8 +240,24 @@
                           <td><%= obj.descripcion %></td>
                           <td><favorite-star active class="star"></favorite-star></td>
                           <td>
-                            <button id="<%= obj._id %>" class="btnCarRemove btn btn-primary btn-block ">Eliminar <i class="fa fa-trash"></i></button>
-                            <input type="hidden" value="<%= obj._id %>">
+                            <% if (user.local.role === "Administrador") { %>
+                            <td>
+                                  <button id="<%= obj._id %>" class="btnEditar btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
+                                  <input type="hidden" value="<%= obj._id %>">
+                            <% } else { %>
+                                  <button id="<%= obj._id %>" class="disable btnEditar btn btn-warning btn-block">Editar <i class="fa fa-pencil"></i></button>
+                                  <input type="hidden" value="<%= obj._id %>">
+                            <% } %>
+                            </td>
+                            <td>
+                            <% if (user.local.role === "Administrador") { %>
+                                  <button id="<%= obj._id  %>" class="btnCarRemove btn btn-danger btn-block">Eliminar <i class="fa fa-trash"></i></button>
+                                  <input type="hidden" value="<%= obj._id  %>">
+                            <% } else { %>
+                                  <button id="<%= obj._id  %>" class="disabled btnCarRemove btn btn-danger btn-block">Eliminar <i class="fa fa-trash"></i></button>
+                                  <input type="hidden" value="<%= obj._id  %>">
+                            <% } %>
+                            </td>
                           </td>
                         </tr>
                         <% }); %>
@@ -249,23 +267,23 @@
                       </tbody>
                     </table>
                   </div><!-- /.table-responsive -->
-                   <form class=" card form-car " enctype="multipart/form-data"  action="form" method="POST" >
-                   <div id="section-1" class="card col-md-12" style="display: none;" >
+                  <form class=" card form-car " enctype="multipart/form-data"  action="form" method="POST" >
+                    <div id="section-1" class="card col-md-12" style="display: none;" >
                       <div>
-                        <label for=""><h2>Ingrese el nuevo curso</h2></label>
+                        <label for=""><h2>Ingrese la nueva materia</h2></label>
                       </div>
                       <section class="col-md-6 ">
                         <div class="form-group" id="idCurso">
-                          <label for="bio">ID Curso:</label><br>
-                          <input class="form-control" type="text" name="idCurso" value="" placeholder="000000">
+                          <label for="bio">ID Materia:</label><br>
+                          <input class="form-control" type="text" name="idCurso" value="" placeholder="0000" pattern="[0-9]{4}" required="required" >
                         </div>
                         <div class="form-group" id="idDocente">
                           <label for="bio">ID Docente:</label><br>
-                          <input class="form-control" type="text" name="idDocente" value="" placeholder="000000">
+                          <input class="form-control" type="text" name="idDocente" value="" placeholder="0000" pattern="[0-9]{4}"required="required">
                         </div>
                         <div class="form-group" id="cursoList">
-                          <label for="bio">Nombre curso:</label><br>
-                          <select class="form-control" type="brand" name="nombreMateria" id="career-list"></select>
+                          <label for="bio">Nombre Materia:</label><br>
+                          <select class="form-control" type="brand" name="nombreMateria" id="career-list" required="required"></select>
                         </div>
                       </section>
                       <section class="col-md-6">
@@ -278,8 +296,7 @@
                             <select class="form-control" type="brand" name="mesCurso" id="mesCurso"></select>
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-5">
-                            <select class="form-control" type="brand" name="anoCurso" id="anoCurso">
-                            </select>
+                            <select class="form-control" type="brand" name="anoCurso" id="anoCurso"></select>
                           </div>
                         </div>
                         <div class="form-group" id="Estado">
@@ -290,41 +307,36 @@
                           </select>
                         </div>
                         <div>
-                          <label for="bio">Descripcion del curso:</label><br>
-                          <input class="form-date btn btn-success btn-block" name="descripcion"  value="cargar archivo"></input>
+                          <label for="bio">Descripcion del asignatura:</label><br>
+                          <input class="form-date btn btn-success btn-block" name="descripcion"  value="cargar archivo">
                         </div>
                       </section>
-                      <button id="volver" class="form-control btn btn-info" value="ir a inicio">Ir a inicio</button>
+                      <a class="form-control btn btn-info" href="/dashboard">Ir a inicio</a>
                     </div>
                     <div id="form-car2" style="display:none;" >
-                     <div  class="col-md-12 card"  >
-                 <!--         <div class="form-group">
-                             <label for="Descripcion del curso">Cargar Archivo (.pdf)</label><br>
-                              <input type="file" name="photos">
-                              <p class="help-block">Curso.pdf</p>
-                          </div>-->
-                          <INPUT id="guardar"class="form-date btn btn-success btn-block" type="submit" value="guardar">
-                          <INPUT class="form-date btn btn-primary btn-block" type="submit" value="Atras">
-                      </div>
-                            </form>
+                      <div  class="col-md-12 card"  >
+                        <div class="form-group">
+                          <label for="Descripcion de la materia">Cargar Archivo (.pdf)</label><br>
+                          <input type="file" name="photos" required="required">
+                          <p class="help-block">Materia.pdf</p>
                         </div>
+                        <INPUT id="guardar"class="form-date btn btn-success btn-block" type="submit" value="guardar"></INPUT>
+                        <INPUT class="Atras form-date btn btn-primary btn-block" type="submit" value="Atras"></INPUT>
+                      </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-
+                  </form>
+          </div>
+        </section>
         <!-- COPYRIGHT -->
         <footer class="main-footer">
           <strong>Copyright &copy; 2016 <a href="#">We-nnova</a>.</strong> Todos los derechos reservados.
           <div class="pull-right hidden-xs"><b>Versión</b> 1.0</div>
         </footer>
-
-    </div><!-- ./wrapper -->
+      </div><!-- ./wrapper -->
 
     <!--   Core JS Files   -->
     <script src="assets/dashboard/js/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="assets/dashboard/js/bootstrap.min.js" type="text/javascript"></script>
+    <!--<script src="assets/dashboard/js/bootstrap.min.js" type="text/javascript"></script>-->
 
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="assets/dashboard/js/bootstrap-checkbox-radio-switch.js"></script>
@@ -382,7 +394,7 @@
     <script src="plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- AdminLTE dashboard demo -->
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>

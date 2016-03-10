@@ -18,18 +18,21 @@ module.exports = function(app, passport) {
 
       //objectUser:objectUser exports model user to the template
       //user:req.user exports logged user info to the template
-      //message:req.flash shows personalized alerts
-      res.render('users.ejs',{ objectUser:objectUser, user:req.user, message:req.flash('signupMessage')})
-
+      //message:req.flash exports personalized alerts
+      res.render('users.ejs',{ 
+        objectUser:objectUser,
+        user:req.user,
+        message:req.flash('signupMessage')
+      });
     });
   });
 
 
-  //Para subir una solo imagen usar upload.single
+  //Para subir una sola imagen se puede usar upload.single
   app.post("/createUser", upload.array('photos',3), function(req,res){
-      
+
     var datetime = new Date();
-    var email = req.body.email;                
+    var email = req.body.email;
     var users = new objectUser();
 
     objectUser.findOne({ 'local.email' :  email }, function(err, user) {
@@ -46,10 +49,12 @@ module.exports = function(app, passport) {
           //return req.flash('signupMessage', 'El email ingresado ya se encuentra registrado')
         } else {
 
+          users.local.code     = req.body.code;
           users.local.email    = req.body.email;
           users.local.password = users.generateHash(req.body.password); //Encrypt password
           users.local.role     = req.body.role;
           users.local.name     = req.body.name;
+          users.local.status   = req.body.status;
 
           //Save user
           users.save(function(err) {
@@ -66,52 +71,50 @@ module.exports = function(app, passport) {
     });
   });
 
-  
+
+  //Recibe como parametro un Id y devuelve un objeto User
   app.get('/get-user/:id', function(req, res) {
 
     var id = req.param("id");
 
+    //Busca en la BD un usuario con el Id ingresado como parametro
     objectUser.findById(id, function(err, user) {
       if (err) throw err;
 
-      console.log("Id es: "+id);
       user.save(function(err) {
         if (err) {
             res.send('error');
         }
         else {
-            res.send(user);
+            res.send(user); //Retorna el objeto User
         }
       });
     });
 
   });
 
-  
+
+  //Recibe como parametro un Id y modifica el objeto User relacionado
   app.post('/modifyUser/:id', function(req, res) {
 
     var id = req.param("id");
     var users = new objectUser();
-    
-    // get a user with ID class
+
+    //Busca en la BD un usuario con el Id ingresado como parametro
     objectUser.findById(id, function(err, user) {
       if (err) throw err;
 
-      console.dir(req.body);
+      //console.dir(req.body);
 
-      console.log("Id es: "+id);
-      console.log("email es: "+req.body.email);
-      console.log("password es: "+req.body.password);
-      console.log("role es: "+req.body.role);
-      console.log("name es: "+req.body.name);
-
-      // change the users information
+      //Reemplaza la información del usuario
+      user.local.code     = req.body.code;
       user.local.email    = req.body.email;
       user.local.password = users.generateHash(req.body.password); //Encrypt password
       user.local.role     = req.body.role;
       user.local.name     = req.body.name;
+      user.local.status   = req.body.status;
 
-      // save the user
+      //Guarda las modificaciones y redirige a la vista /users
       user.save(function(err) {
         if (err) {
           res.end('error');
@@ -126,11 +129,12 @@ module.exports = function(app, passport) {
   });
 
 
+  //Recibe como parametro un Id y elimina el objeto User relacionado
   app.get('/destroyUser/:id', function(req, res) {
     var id = req.param("id");
-    
+
     objectUser.remove({
-        _id: id 
+        _id: id
     },function(err){
         if (err) {
             res.end('error');
@@ -142,15 +146,15 @@ module.exports = function(app, passport) {
     });
   });
 
-// route middleware to make sure
-function isLoggedIn(req, res, next) {
+  // route middleware to make sure
+  function isLoggedIn(req, res, next) {
 
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated())
-    return next();
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+      return next();
 
-  // if they aren't redirect them to the home page
-  res.redirect('/');
-}
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+  }
 
 };

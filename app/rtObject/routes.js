@@ -62,18 +62,62 @@ module.exports = function(app, passport) {
 
    });
 
+  //Recibe como parametro un Id y devuelve un objeto User
+  app.get('/get-user2/:id', function(req, res) {
+
+    var id = req.param("id");
+
+    //Busca en la BD un usuario con el Id ingresado como parametro
+    objectUser.findById(id, function(err, user) {
+      if (err) throw err;
+
+      user.save(function(err) {
+        if (err) {
+            res.send('error');
+        }
+        else {
+            res.send(user); //Retorna el objeto User
+        }
+      });
+    });
+
+  });
+
+
+  //Recibe como parametro un Id y modifica el objeto User relacionado
+  app.post('/modifyUser2/:id', function(req, res) {
+
+    var id = req.param("id");
+    var users = new objectUser();
+
+    //Busca en la BD un usuario con el Id ingresado como parametro
+    objectUser.findById(id, function(err, user) {
+      if (err) throw err;
+
+      //console.dir(req.body);
+
+      //Reemplaza la información del usuario
+      user.local.email    = req.body.email;
+      user.local.password = users.generateHash(req.body.password); //Encrypt password
+      user.local.role     = req.body.role;
+      user.local.name     = req.body.name;
+
+      //Guarda las modificaciones y redirige a la vista /users
+      user.save(function(err) {
+        if (err) {
+          res.end('error');
+          res.redirect('/users');
+        }
+        else {
+          res.redirect('/users');
+        }
+      });
+
+    });
+  });
 
   app.get('/destroy/:id', function(req, res) {
     var id = req.param("id");
-    var path = './public/fotos/'+req.user._id+'/'+id+'/';
-
-
-
-    fs.rmrf(path, function(err,status){
-      if (err) {
-      };
-    });
-
 
     object.remove({
         _id: id
@@ -85,16 +129,8 @@ module.exports = function(app, passport) {
             res.end('success');
         }
     });
-  app.post('/subir', upload.single('file'), function (req, res, next) {
-          /**
-            images
-          **/
-          res.send({message:'Archivo guardado', file:req.file});
-  });
-
 });
 
-// route middleware to make sure
 function isLoggedIn(req, res, next) {
 
   // if user is authenticated in the session, carry on

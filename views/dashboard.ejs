@@ -42,11 +42,11 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="/" class="logo">
+        <a href="/dashboard" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">W-L</span>
+          <span class="logo-mini"><img src="img/v-learning-no-letter.png" alt="We-Learning" /></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><img src="img/v-learning100.png"  alt="We-Learning" /></span>
+          <span class="logo-lg"><img src="img/v-learning100.png" alt="We-Learning" /></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -216,13 +216,17 @@
               <!-- small box Registro -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>{{count registro}}</h3>
-                  <p>Registro</p>
+                  <% var countUsers = 0; 
+                   if (objectUser) { 
+                     objectUser.forEach(function(objUsr) { countUsers++; }); 
+                   } %>
+                  <h3><%= countUsers %></h3>
+                  <p>Registro Usuarios</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/users" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
 
@@ -230,7 +234,7 @@
               <!-- small box Matriculas -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>{{count estudiantes}}</h3>
+                  <h3>0</h3>
                   <p>Matriculas</p>
                 </div>
                 <div class="icon">
@@ -259,7 +263,7 @@
               <!-- small box Control -->
               <div class="small-box bg-purple">
                 <div class="inner">
-                  <h3>{{count Control}}</h3>
+                  <h3>0</h3>
                   <p>Control</p>
                 </div>
                 <div class="icon">
@@ -273,7 +277,7 @@
               <!-- small box Reportes -->
               <div class="small-box bg-maroon">
                 <div class="inner">
-                  <h3>{{count notas}}</h3>
+                  <h3>0</h3>
                   <p>Reportes</p>
                 </div>
                 <div class="icon">
@@ -288,8 +292,8 @@
               <!-- small box Configuración -->
               <div class="small-box bg-orange">
                 <div class="inner">
-                  <h3>Configuración</h3>
-                  <p>Ajustes</p>
+                  <h3>Ajustes</h3>
+                  <p>Configuración</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-gear-b"></i>
@@ -346,9 +350,11 @@
     <script src="plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- AdminLTE dashboard demo -->
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
+
+    <script src="json/mainUsers.js" type="text/javascript" charset="utf-8" ></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-// app/routes.js
+var objectUser = require('./models/user'); //Import database model to count users in dashboard
 
 var console = require('console-prefix')
 module.exports = function(app, passport) {
@@ -14,9 +14,20 @@ module.exports = function(app, passport) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/dashboard', isLoggedIn, function(req, res) {
-		res.render('dashboard.ejs', {
-			user : req.user // get the user out of session and pass to template
-		});
+
+		objectUser.find({},function(err, objectUser) {
+			if (err) {
+				return res.send(err);
+      		}
+
+      	//objectUser:objectUser exports model user to the template
+      	//user:req.user exports logged user info to the template
+      	//message:req.flash exports personalized alerts
+      	res.render('dashboard.ejs',{
+      		objectUser:objectUser,
+      		user:req.user, // get the user out of session and pass to template
+      		message:req.flash('signupMessage')});
+	    });
 	});
 
 	// PROFILE SECTION =========================
@@ -166,10 +177,12 @@ module.exports = function(app, passport) {
     // local -----------------------------------
     app.get('/unlink/local', function(req, res) {
         var user            = req.user;
+        user.local.code	    = undefined;
         user.local.email    = undefined;
         user.local.password = undefined;
         user.local.role 	= undefined;
         user.local.name 	= undefined;
+        user.local.status   = undefined;
         user.save(function(err) {
             res.redirect('/profile');
         });
