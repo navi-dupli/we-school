@@ -129,7 +129,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
               </ul>
             </li>
 
@@ -139,7 +139,7 @@
                 <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Crear Estudiante</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
@@ -152,7 +152,7 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Materia</a></li>
+                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Materia</a></li>
                 <% } %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
@@ -249,7 +249,11 @@
               <!-- small box Pensum -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>{{count materias}}</h3>
+                <% var countSubjects = 0;
+                   if (objectSubject) {
+                     objectSubject.forEach(function(objSubj) { countSubjects++; }); 
+                   } %>
+                  <h3><%= countSubjects %></h3>
                   <p>Pensum</p>
                 </div>
                 <div class="icon">

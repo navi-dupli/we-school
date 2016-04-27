@@ -1,4 +1,5 @@
 var objectUser = require('./models/user'); //Import database model to count users in dashboard
+var objectSubject = require('./models/objects');
 
 var console = require('console-prefix')
 module.exports = function(app, passport) {
@@ -20,14 +21,23 @@ module.exports = function(app, passport) {
 				return res.send(err);
       		}
 
-      	//objectUser:objectUser exports model user to the template
-      	//user:req.user exports logged user info to the template
-      	//message:req.flash exports personalized alerts
-      	res.render('dashboard.ejs',{
-      		objectUser:objectUser,
-      		user:req.user, // get the user out of session and pass to template
-      		message:req.flash('signupMessage')});
+      		objectSubject.find({},function(err, objectSubject) {
+				if (err) {
+					return res.send(err);
+	      		}
+
+		      	//objectUser:objectUser exports model user to the template
+		      	//objectSubject:objectSubject exports model objects to the template
+		      	//user:req.user exports logged user info to the template
+		      	//message:req.flash exports personalized alerts
+		      	res.render('dashboard.ejs',{
+		      		objectSubject:objectSubject,
+		      		objectUser:objectUser,
+		      		user:req.user, // get the user out of session and pass to template
+		      		message:req.flash('signupMessage')});
+				});
 	    });
+
 	});
 
 	// PROFILE SECTION =========================

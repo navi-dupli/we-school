@@ -31,9 +31,9 @@
     <div class="wrapper">
       <header class="main-header">
         <!-- Logo -->
-        <a href="/" class="logo">
+        <a href="/dashboard" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">W-L</span>
+          <span class="logo-mini"><img src="img/v-learning-no-letter.png" alt="We-Learning" /></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><img src="img/v-learning100.png"  alt="We-Learning" /></span>
         </a>
@@ -115,7 +115,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Materias</a></li>
               </ul>
             </li>
 
@@ -125,7 +125,7 @@
                 <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Crear Estudiante</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
@@ -137,7 +137,7 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Materia</a></li>
+                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Materia</a></li>
                 <% } %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
@@ -193,7 +193,7 @@
           <div class="row">
             <div class="col-md-6 col-sm-4 col-xs-5">
               <div class="contains">
-                <span class="btn bg-green fa fa-plus-circle fa-2x pull-left btn-lg btn-block" id="add-car"> Agregar </span>
+                <span id="add-car" class="btn bg-green fa fa-plus-circle fa-2x pull-left btn-lg btn-block"> Agregar </span>
               </div><!-- /.info-box -->
             </div>
          <!--  <div class="col-md-3 col-sm-4 col-xs-5">
@@ -212,6 +212,7 @@
                 <span class="btn btn-primary fa fa-cog fa-2x pull-left btn-lg btn-block"> Ajustes </span>
               </div><!-- /.info-box -->
             </div><!-- /.col -->
+
           </div><!-- /.row -->
           <div class="box-body">
                   <div class="table-responsive" >
@@ -224,8 +225,6 @@
                           <th class="text-align">Fecha de Inicio</th>
                           <th class="text-align">Estado</th>
                           <th class="text-align">Descripción</th>
-                          <th class="text-align">Editar</th>
-                          <th class="text-align">Eliminar</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -233,16 +232,15 @@
                         <% object.forEach(function(obj) { %>
                         <tr class="<%= obj._id %>" style="text-align:center;">
                           <td><%= obj.idCurso %> </td>
-                          <td><%= obj.idDocente %></td>
+                          <td><%= obj.idUser %></td>
                           <td><%= obj.nombreMateria %></td>
                           <td><%= obj.fechaInicio %></td>
                           <td><%= obj.estado %></td>
                           <td><%= obj.descripcion %></td>
-                          <td><favorite-star active class="star"></favorite-star></td>
                           <td>
                             <% if (user.local.role === "Administrador") { %>
                             <td>
-                                  <button id="<%= obj._id %>" class="btnEditar btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
+                                  <button id="<%= obj._id %>" class="show-modify-subject btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
                                   <input type="hidden" value="<%= obj._id %>">
                             <% } else { %>
                                   <button id="<%= obj._id %>" class="disable btnEditar btn btn-warning btn-block">Editar <i class="fa fa-pencil"></i></button>
@@ -267,23 +265,25 @@
                       </tbody>
                     </table>
                   </div><!-- /.table-responsive -->
-                  <form class=" card form-car " enctype="multipart/form-data"  action="form" method="POST" >
-                    <div id="section-1" class="card col-md-12" style="display: none;" >
+
+
+                  <form class="form-car" method="POST" >
+                    <div id="section-1" class=" col-md-12" style="display: none;" >
                       <div>
                         <label for=""><h2>Ingrese la nueva materia</h2></label>
                       </div>
                       <section class="col-md-6 ">
                         <div class="form-group" id="idCurso">
                           <label for="bio">ID Materia:</label><br>
-                          <input class="form-control" type="text" name="idCurso" value="" placeholder="0000" pattern="[0-9]{4}" required="required" >
+                          <input class="form-control" type="text" name="idCurso" value="" placeholder="0000" pattern="[0-9]{4}" required>
                         </div>
-                        <div class="form-group" id="idDocente">
+                        <div class="form-group" id="idUser">
                           <label for="bio">ID Docente:</label><br>
-                          <input class="form-control" type="text" name="idDocente" value="" placeholder="0000" pattern="[0-9]{4}"required="required">
+                          <input class="form-control" type="text" name="idUser" value="" placeholder="0000" pattern="[0-9]{4}" required>
                         </div>
-                        <div class="form-group" id="cursoList">
+                        <div class="form-group" id="materiaList">
                           <label for="bio">Nombre Materia:</label><br>
-                          <select class="form-control" type="brand" name="nombreMateria" id="career-list" required="required"></select>
+                          <select class="form-control" type="brand" name="nombreMateria" id="career-list" required></select>
                         </div>
                       </section>
                       <section class="col-md-6">
@@ -302,12 +302,12 @@
                         <div class="form-group" id="Estado">
                           <label for="bio">Estado:</label><br>
                           <select class="form-control" name="estado" id="estadoCurso">
-                            <option value="Si">Activo</option>
-                            <option value="No">Inactivo</option>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
                           </select>
                         </div>
                         <div>
-                          <label for="bio">Descripcion del asignatura:</label><br>
+                          <label for="bio">Descripcion de la asignatura:</label><br>
                           <input class="form-date btn btn-success btn-block" name="descripcion"  value="cargar archivo">
                         </div>
                       </section>
@@ -317,16 +317,78 @@
                       <div  class="col-md-12 card"  >
                         <div class="form-group">
                           <label for="Descripcion de la materia">Cargar Archivo (.pdf)</label><br>
-                          <input type="file" name="photos" required="required">
+                          <input type="file" name="photos" required>
                           <p class="help-block">Materia.pdf</p>
                         </div>
-                        <INPUT id="guardar"class="form-date btn btn-success btn-block" type="submit" value="guardar"></INPUT>
-                        <INPUT class="Atras form-date btn btn-primary btn-block" type="submit" value="Atras"></INPUT>
+                        <INPUT id="guardar"class="btn btn-success btn-block" type="submit" value="guardar"></INPUT>
+                        <INPUT class="Atras btn btn-primary btn-block" value="Atras"></INPUT>
+                      </div>
+                    </div>
+                  </form>
+
+
+                  <!-- formulario de edicion -->
+                  <form id="frm-modify-subject" class="form-car" method="POST" >
+                    <div id="form-modify-subject" class="col-md-12" style="display: none;" >
+                      <div>
+                        <label for=""><h2>Modificar Materia</h2></label>
+                      </div>
+                      <section class="col-md-6 ">
+                        <div class="form-group" id="idCurso">
+                          <label for="bio">ID Materia:</label><br>
+                          <input class="form-control" type="text" name="idCurso" value="" placeholder="0000" pattern="[0-9]{4}" required id="mod_idCurso">
+                        </div>
+                        <div class="form-group" id="idUser">
+                          <label for="bio">ID Docente:</label><br>
+                          <input class="form-control" type="text" name="idUser" value="" placeholder="0000" pattern="[0-9]{4}"required id="mod_idUser">
+                        </div>
+                        <div class="form-group" id="materiaList">
+                          <label for="bio">Nombre Materia:</label><br>
+                          <select class="form-control" id="mod_materiaList"type="brand" name="nombreMateria"  required></select>
+                        </div>
+                      </section>
+                      <section class="col-md-6">
+                        <div class="form-group" id="mod_fechaInicio">
+                          <label for="bio">Fecha de Inicio:</label><br>
+                          <div class="col-md-4 col-sm-4 col-xs-5">
+                            <select class="form-control" type="brand" name="diaCurso"  id="mod_diaCurso"></select>
+                          </div>
+                          <div class="col-md-4 col-sm-4 col-xs-5">
+                            <select class="form-control" type="brand" name="mesCurso" id="mod_mesCurso"></select>
+                          </div>
+                          <div class="col-md-4 col-sm-4 col-xs-5">
+                            <select class="form-control" type="brand" name="anoCurso" id="mod_anoCurso"></select>
+                          </div>
+                        </div>
+                        <div class="form-group" id="Estado">
+                          <label for="bio">Estado:</label><br>
+                          <select class="form-control" name="estado" id="mod_Estado">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label for="bio">Descripcion del asignatura:</label><br>
+                          <input class="form-date2 btn btn-success btn-block" name="descripcion"  value="cargar archivo" id="mod_descripcion">
+                        </div>
+                      </section>
+                      <a class="form-control btn btn-info" href="/dashboard">Ir a inicio</a>
+                    </div>
+                    <div id="form-car3" style="display:none;" >
+                      <div  class="col-md-12 card"  >
+                        <div class="form-group">
+                          <label for="Descripcion de la materia">Cargar Archivo (.pdf)</label><br>
+                          <input type="file" name="photos" required>
+                          <p class="help-block">Materia.pdf</p>
+                        </div>
+                        <INPUT id="Actualizar"class="modify-subject btn btn-success btn-block" type="submit" value="Actualizar"></INPUT>
+                        <INPUT class="AtrasEditar btn btn-primary btn-block" value="Atras"></INPUT>
                       </div>
                     </div>
                   </form>
           </div>
         </section>
+      </div>
         <!-- COPYRIGHT -->
         <footer class="main-footer">
           <strong>Copyright &copy; 2016 <a href="#">We-nnova</a>.</strong> Todos los derechos reservados.

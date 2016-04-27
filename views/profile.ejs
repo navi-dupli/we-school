@@ -29,9 +29,9 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="/" class="logo">
+        <a href="/dashboard" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">W-L</span>
+          <span class="logo-mini"><img src="img/v-learning-no-letter.png" alt="We-Learning" /></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><img src="img/v-learning100.png"  alt="We-Learning" /></span>
         </a>
@@ -116,7 +116,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
               </ul>
             </li>
 
@@ -126,7 +126,7 @@
                 <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Crear Estudiante</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
@@ -139,7 +139,7 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Materia</a></li>
+                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Materia</a></li>
                 <% } %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>

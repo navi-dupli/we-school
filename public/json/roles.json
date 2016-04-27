@@ -1,8 +1,6 @@
 {
   "1": {
     "rol": [
-      "SuperAdmin",
-      "Administrador",
       "Profesor",
       "Estudiante",
       "Acudiente"

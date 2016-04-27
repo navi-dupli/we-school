@@ -6,6 +6,7 @@ $(document).ready(function(){
 		$(".table-users").hide(100);
 		$(".form-user").show(100);
 		$("#form-add-user").show(100);
+		$("#form-modify-user").hide(100);
 	   	
 	   	$.ajax({ 
 	   		type: 'GET', 
@@ -79,17 +80,17 @@ $(document).ready(function(){
 	   			
 	   			$("#button_update").attr("id", dataId);
 
+	   			$("#mod_code").val(user.code);
 	   			$("#mod_email").val(user.email);
 	   			$("#mod_name").val(user.name);
 	   			$("#roles_list2 option[value='"+user.role+"']").attr("selected","selected");
+	   			$("#status_list option[value='"+user.status+"']").attr("selected","selected");
 	   		},
 	   		error:function(msg) {
 	   			// body...
 	   			console.log(msg+"Peticion de datos fallida");
 	   		}
-	   	
 	   	});
-
 	});
 
 

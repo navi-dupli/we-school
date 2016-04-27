@@ -48,9 +48,9 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="/" class="logo">
+        <a href="/dashboard" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">W-L</span>
+          <span class="logo-mini"><img src="img/v-learning-no-letter.png" alt="We-Learning" /></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><img src="img/v-learning100.png"  alt="We-Learning" /></span>
         </a>
@@ -135,7 +135,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href=""><i class="fa fa-angle-double-right"></i> Cursos</a></li>
               </ul>
             </li>
 
@@ -145,7 +145,7 @@
                 <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Crear Estudiante</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
@@ -158,7 +158,7 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Materia</a></li>
+                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Materia</a></li>
                 <% } %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
@@ -262,7 +262,7 @@
                     <% } %>
                     <td>
                       <% if (objUsr.local.role === "Administrador") { %>
-                        <button id="<%= objUsr._id %>" class="disabled btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
+                        <button class="disabled btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
                         <input type="hidden" value="<%= objUsr._id %>">
                       <% } else { %>
                         <button id="<%= objUsr._id %>" class="show-modify-form btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
@@ -271,7 +271,7 @@
                     </td>
                     <td>
                       <% if (objUsr.local.role === "Administrador") { %>
-                        <button id="<%= objUsr._id %>" class="btn btn-danger btn-block disabled">Eliminar <i class="fa fa-trash"></i></button>
+                        <button class="disabled btn btn-danger btn-block">Eliminar <i class="fa fa-trash"></i></button>
                         <input type="hidden" value="<%= objUsr._id %>">
                       <% } else { %>
                         <button id="<%= objUsr._id %>" class="delete-user btn btn-danger btn-block ">Eliminar <i class="fa fa-trash"></i></button>
@@ -289,8 +289,8 @@
 
 
             <!-- Formulario agregar usuario -->
-            <form class="card form-user" enctype="multipart/form-data" action="createUser" method="POST" >
-              <div id="form-add-user" class="card col-md-12" style="display: none;" >
+            <form class="form-user" enctype="multipart/form-data" action="createUser" method="POST" >
+              <div id="form-add-user" class="col-md-12" style="display: none;" >
                 <div>
                   <label for=""><h2>Ingrese el nuevo usuario</h2></label>
                 </div>
@@ -345,8 +345,8 @@
 
 
             <!-- Formulario modificar usuario -->
-            <form id="frm-modify-user" class="card form-user" method="POST">
-              <div id="form-modify-user" class="card col-md-12" style="display: none;" >
+            <form id="frm-modify-user" class="form-user" method="POST">
+              <div id="form-modify-user" class="col-md-12" style="display: none;" >
                 <div>
                   <label for=""><h2>Modificar usuario</h2></label>
                 </div>
