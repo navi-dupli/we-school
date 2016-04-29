@@ -6,7 +6,6 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy; //no se está usando
 var flash = require('connect-flash');
 var app = express();
 var logger = require('express-logger');
@@ -43,9 +42,10 @@ app.use(cookieParser('secret')); // read cookies (needed for auth)
 
 // required for passport
 app.use(session({
+	cookie: { maxAge: 60000 },
     secret: "ilovescotchscotchyscotchscotch", // session secret
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -56,7 +56,12 @@ app.use(busboy());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(cookieParser('secretString'));
-app.use(session({cookie: { maxAge: 60000 }}));
+/*app.use(session({
+	cookie: { maxAge: 60000 },
+	secret: "ilovescotchscotchyscotchscotch", // session secret
+    resave: false,
+    saveUninitialized: false
+}));*/
 app.use(flash());
 
 // routes ======================================================================

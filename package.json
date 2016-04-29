@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
+  "name": "We-Learning",
   "version": "0.1.5",
-  "description": "Plataforma Educativa We-nnova",
+  "description": "Plataforma Educativa desarrollada por We-nnova",
   "main": "index.js",
   "scripts": {
     "start": "nodejs index.js"
