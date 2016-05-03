@@ -78,19 +78,18 @@ module.exports = function(app, passport) {
     var id = req.param("id");
 
     //Busca en la BD un usuario con el Id ingresado como parametro
-    objectUser.findById(id, function(err, user) {
+    objectUser.findById(id, function(err, objUser) {
       if (err) throw err;
 
-      user.save(function(err) {
+      objUser.save(function(err) {
         if (err) {
             res.send('error');
         }
         else {
-            res.send(user); //Retorna el objeto User
+            res.send(objUser); //Retorna el objeto User
         }
       });
     });
-
   });
 
 
@@ -101,21 +100,21 @@ module.exports = function(app, passport) {
     var users = new objectUser();
 
     //Busca en la BD un usuario con el Id ingresado como parametro
-    objectUser.findById(id, function(err, user) {
+    objectUser.findById(id, function(err, objUser) {
       if (err) throw err;
 
       //console.dir(req.body);
 
       //Reemplaza la información del usuario
-      user.local.code     = req.body.code;
-      user.local.email    = req.body.email;
-      user.local.password = users.generateHash(req.body.password); //Encrypt password
-      user.local.role     = req.body.role;
-      user.local.name     = req.body.name;
-      user.local.status   = req.body.status;
+      objUser.local.code     = req.body.code;
+      objUser.local.email    = req.body.email;
+      objUser.local.password = users.generateHash(req.body.password); //Encrypt password
+      objUser.local.role     = req.body.role;
+      objUser.local.name     = req.body.name;
+      objUser.local.status   = req.body.status;
 
       //Guarda las modificaciones y redirige a la vista /users
-      user.save(function(err) {
+      objUser.save(function(err) {
         if (err) {
           res.end('error');
           res.redirect('/users');
@@ -124,24 +123,21 @@ module.exports = function(app, passport) {
           res.redirect('/users');
         }
       });
-
     });
   });
 
 
   //Recibe como parametro un Id y elimina el objeto User relacionado
   app.get('/destroyUser/:id', function(req, res) {
+    
     var id = req.param("id");
 
-    objectUser.remove({
-        _id: id
-    },function(err){
+    objectUser.remove({ _id: id },function(err){
         if (err) {
             res.end('error');
-            console.dir(err);
         }
         else {
-            res.end('success');
+            res.end('Usuario Eliminado');
         }
     });
   });

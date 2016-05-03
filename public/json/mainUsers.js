@@ -3,39 +3,39 @@ $(document).ready(function(){
 	// Al dar click en el boton Agregar Usuario...
 	$("#add-user").click(function(){
 		
-		$(".table-users").hide(100);
-		$(".form-user").show(100);
-		$("#form-add-user").show(100);
-		$("#form-modify-user").hide(100);
+		$(".table-courses").hide(100);
+		$(".form-course").show(100);
+		$("#form-add-course").show(100);
+		$("#form-modify-course").hide(100);
 	   	
 	   	$.ajax({ 
 	   		type: 'GET', 
-	   		url: 'json/roles.json', 
+	   		url: 'json/estados.json', 
 	   		dataType: 'json',
 	   		success: function (data) {
-	   				 var array =data[1].rol;
+	   				 var array =data[1].estado;
 	   			for (var i = 0; i < array.length; i++) {
-	   					$("#roles_list").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   					$("#status_list").append("<option value="+ array[i] +">" + array[i] + "</option>");
 	   				};	
 
 	   			 
 	   		},
 	   		error:function(msg) {
 	   			// body...
-	   			console.log(msg+"Listado de roles fallido");
+	   			console.log(msg+" Listado de estados fallido");
 	   		}
 	   	});
 	   	
 	});
 
 
-	// Al dar click en el boton Listar Usuarios...
-	$(".list-users").click(function(){
+	// Al dar click en el boton Listar Cursos...
+	$(".list-courses").click(function(){
 		
-		$(".form-user").hide(100);
-		$("#form-add-user").hide(100);
-		$("#form-modify-user").hide(100);
-		$(".table-users").show(100);
+		$(".form-course").hide(100);
+		$("#form-add-course").hide(100);
+		$("#form-modify-course").hide(100);
+		$(".table-courses").show(100);
 
 	});
 
@@ -43,9 +43,9 @@ $(document).ready(function(){
 	// Al dar click en el boton Editar...
 	$('.show-modify-form').click(function(){
 
-		$(".form-user").show(100);
-		$("#form-add-user").hide(100);
-		$("#form-modify-user").show(100);
+		$(".form-course").show(100);
+		$("#form-add-course").hide(100);
+		$("#form-modify-course").show(100);
 
 		var dataId = this.id;
 
@@ -107,10 +107,10 @@ $(document).ready(function(){
 	// Al dar click en el boton Cancelar...
 	$("#cancel-modify").click(function(){
 		
-		$(".form-user").hide(100);
-		$("#form-add-user").hide(100);
-		$("#form-modify-user").hide(100);
-		$(".table-users").show(100);
+		$(".form-course").hide(100);
+		$("#form-add-course").hide(100);
+		$("#form-modify-course").hide(100);
+		$(".table-courses").show(100);
 
 	});
 
