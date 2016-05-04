@@ -8,6 +8,7 @@ module.exports = function(app, passport) {
       // =====================================
     // OBJECTS ROUTES ======================
     // =====================================
+    
   app.get('/objects',upload.array('photos',3),isLoggedIn,function(req, res) {
 
     object.find({},function(err, object) {
@@ -152,7 +153,7 @@ module.exports = function(app, passport) {
     }
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
   }
 
 };

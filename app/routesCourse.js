@@ -1,4 +1,4 @@
-var objectCourse = require('../models/courses');  //Import database model
+var objectCourse = require('./models/courses');  //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -9,23 +9,24 @@ module.exports = function(app, passport) {
 // COURSES ROUTES ======================
 // =====================================
 
-  app.get('/courses',function(req, res) {
+  app.get('/courses', isLoggedIn, function(req, res) {
     
     //ojo, solo va a mostrar los cursos del usuario logueado
-    objectCourse.find({"idUser" : req.user._id}, isLoggedIn, function(err, objectCourse) {
+    objectCourse.find({}, function(err, objectCourse) {
       if (err) {
         return res.send(err);
       }
       
     
-      res.render('pages/courses.ejs',{
+      res.render('courses.ejs',{
         objectCourse  : objectCourse,
-        user          : req.user
+        user          : req.user,
+        message       : req.flash('signupMessage')
       });
     });
   });
 
-  app.post("/courses", isLoggedIn, upload.array('uploadContent',3), function(req,res){
+  app.post("/courses", upload.array('uploadContent',3), function(req,res){
     var datetime = new Date();
     var courses = new objectCourse();
 
@@ -160,9 +161,8 @@ module.exports = function(app, passport) {
   function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
-    if (req.isAuthenticated()){
+    if (req.isAuthenticated())
       return next();
-    }
 
     // if they aren't redirect them to the home page
     res.redirect('/login');

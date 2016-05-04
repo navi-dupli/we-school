@@ -3,39 +3,39 @@ $(document).ready(function(){
 	// Al dar click en el boton Agregar Usuario...
 	$("#add-user").click(function(){
 		
-		$(".table-courses").hide(100);
-		$(".form-course").show(100);
-		$("#form-add-course").show(100);
-		$("#form-modify-course").hide(100);
+		$(".table-users").hide(100);
+		$(".form-user").show(100);
+		$("#form-add-user").show(100);
+		$("#form-modify-user").hide(100);
 	   	
 	   	$.ajax({ 
 	   		type: 'GET', 
-	   		url: 'json/estados.json', 
+	   		url: 'json/roles.json', 
 	   		dataType: 'json',
 	   		success: function (data) {
-	   				 var array =data[1].estado;
+	   				 var array =data[1].rol;
 	   			for (var i = 0; i < array.length; i++) {
-	   					$("#status_list").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   					$("#roles_list").append("<option value="+ array[i] +">" + array[i] + "</option>");
 	   				};	
 
 	   			 
 	   		},
 	   		error:function(msg) {
 	   			// body...
-	   			console.log(msg+" Listado de estados fallido");
+	   			console.log(msg+" Listado de roles fallido");
 	   		}
 	   	});
 	   	
 	});
 
 
-	// Al dar click en el boton Listar Cursos...
-	$(".list-courses").click(function(){
+	// Al dar click en el boton Listar Usuarios...
+	$(".list-users").click(function(){
 		
-		$(".form-course").hide(100);
-		$("#form-add-course").hide(100);
-		$("#form-modify-course").hide(100);
-		$(".table-courses").show(100);
+		$(".form-user").hide(100);
+		$("#form-add-user").hide(100);
+		$("#form-modify-user").hide(100);
+		$(".table-users").show(100);
 
 	});
 
@@ -43,9 +43,9 @@ $(document).ready(function(){
 	// Al dar click en el boton Editar...
 	$('.show-modify-form').click(function(){
 
-		$(".form-course").show(100);
-		$("#form-add-course").hide(100);
-		$("#form-modify-course").show(100);
+		$(".form-user").show(100);
+		$("#form-add-user").hide(100);
+		$("#form-modify-user").show(100);
 
 		var dataId = this.id;
 
@@ -107,19 +107,19 @@ $(document).ready(function(){
 	// Al dar click en el boton Cancelar...
 	$("#cancel-modify").click(function(){
 		
-		$(".form-course").hide(100);
-		$("#form-add-course").hide(100);
-		$("#form-modify-course").hide(100);
-		$(".table-courses").show(100);
+		$(".form-user").hide(100);
+		$("#form-add-user").hide(100);
+		$("#form-modify-user").hide(100);
+		$(".table-users").show(100);
 
 	});
 
 
 	// Al dar click en el boton Eliminar...
 	$('.delete-user').click(function(){
-    var dataId = this.id;
 
-	var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
+		var dataId = this.id;
+		var clase = "."+dataId; //Cada fila de la tabla posee una clase propia
 		$.ajax({
     		type    : 'get',
     		url     : '/destroyUser/' + dataId, //Funcion de borrado
@@ -127,42 +127,18 @@ $(document).ready(function(){
 		    	if ( response === 'error') {
 	           		alert('Error al eliminar usuario');
 	       		} else if (response === 'success') {
-
 	          		demo.initChartist();
 	          		 $(clase).remove(); 
 	          		 alert("remove");  	
 		        /**	$.notify({
 		            	icon: 'pe-7s-gift',
 		            	message: "<b>Objeto Eliminado</b>"
-		            	
 		            },{
 		                type: 'info',
 		                timer: 4000
-		            })*/
-	          		 
+		            })*/	 
 	          	}
-
     		}
 		});
 	});
-
-
-	
 });
-
-
-/*var countries = [
-   { value: 'Verde', data: 'VE' },
-   { value: 'Rojo', data: 'RO' },
-   { value: 'Violeta', data: 'VI' },
-   { value: 'Amarillo', data: 'AM' },
-   { value: 'Azul', data: 'AZ' },
-   { value: 'Negro', data: 'NE' },
-   { value: 'Blanco', data: 'BL' },
-   { value: 'Naranja', data: 'NA' },
-   { value: 'Beige', data: 'BE' },
-   { value: 'Gris', data: 'GR' },
-   { value: 'Cafe', data: 'CA' },
-   { value: 'Rosado', data: 'RO' },
-   { value: 'Plata', data: 'Pl' },
-];*/
