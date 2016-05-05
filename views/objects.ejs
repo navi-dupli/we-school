@@ -100,13 +100,16 @@
 
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
+
             <li class="header">MENÚ PRINCIPAL</li>
+
             <!--Panel de Control-->
             <li class="treeview">
               <a href="/dashboard">
                 <i class="fa fa-dashboard"></i> <span>Panel de Control</span>
               </a>
             </li>
+
             <% if (user.local.role === "Administrador") { %>
             <!--Registro-->
             <li class="treeview">
@@ -115,7 +118,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Materias</a></li>
+                <li><a href="/courses"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
               </ul>
             </li>
 
@@ -130,6 +133,7 @@
               </ul>
             </li>
             <% } %>
+
             <!--Pensum-->
             <li class="treeview">
               <a href="#">
@@ -164,6 +168,7 @@
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
+
             <% if (user.local.role === "Administrador") { %>
             <!--Configuración-->
             <li class="treeview">
@@ -175,6 +180,7 @@
               </ul>
             </li>
             <% } %>
+
           </ul>
         </section>
         <!-- /.sidebar -->

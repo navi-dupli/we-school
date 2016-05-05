@@ -137,7 +137,7 @@ module.exports = function(app, passport) {
             res.end('error');
         }
         else {
-            res.end('Usuario Eliminado');
+            res.end('success');
         }
     });
   });

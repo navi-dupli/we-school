@@ -26,11 +26,11 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.post("/courses", upload.array('uploadContent',3), function(req,res){
-    var datetime = new Date();
+  app.post("/createCourse", upload.array('uploadContent',3), function(req,res){
+    var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var courses = new objectCourse();
 
-    courses.idCourse = req.body.idCourse
+    courses.code = req.body.code
     courses.name = req.body.name
     courses.creationDate = datetime
     courses.status = req.body.status
@@ -98,7 +98,7 @@ module.exports = function(app, passport) {
       //console.dir(req.body);
 
       //Reemplaza la información del curso
-      objCourse.idCourse      = req.body.idCourse;
+      objCourse.code          = req.body.code;
       objCourse.name          = req.body.name;
       //objCourse.creationDate = req.body.creationDate;
       objCourse.status        = req.body.status;
@@ -128,7 +128,7 @@ module.exports = function(app, passport) {
             res.end('error');
         }
         else {
-            res.end('Curso Eliminado');
+            res.end('success');
         }
     });
   });

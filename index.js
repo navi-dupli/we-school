@@ -42,8 +42,7 @@ app.use(cookieParser('secret')); // read cookies (needed for auth)
 
 // required for passport
 app.use(session({
-	cookie: { maxAge: 60000 },
-    secret: "ilovescotchscotchyscotchscotch", // session secret
+	secret: "ilovescotchscotchyscotchscotch", // session secret
     resave: false,
     saveUninitialized: false
 }));
@@ -56,12 +55,12 @@ app.use(busboy());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(cookieParser('secretString'));
-/*app.use(session({
+app.use(session({
 	cookie: { maxAge: 60000 },
 	secret: "ilovescotchscotchyscotchscotch", // session secret
     resave: false,
     saveUninitialized: false
-}));*/
+}));
 app.use(flash());
 
 // routes ======================================================================

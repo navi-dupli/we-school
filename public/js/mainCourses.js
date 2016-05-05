@@ -112,11 +112,11 @@ $(document).ready(function(){
 	// Al dar click en el boton Eliminar...
 	$('.delete-course').click(function(){
 
-    var dataId = this.id;
-	var clase = "."+dataId; //Cada fila de la tabla posee una clase propia que cotiene el Id de cada objeto de la lista
+		var dataId = this.id;
+		var clase = "."+dataId; //Cada fila de la tabla posee una clase propia que cotiene el Id de cada objeto de la lista
 		$.ajax({
     		type    : 'get',
-    		url     : '/destroycourse/' + dataId, //Funcion de borrado
+    		url     : '/destroyCourse/' + dataId, //Funcion de borrado
     		success : function(response) {
 		    	if (response === 'error') {
 	           		alert('Error al eliminar curso');

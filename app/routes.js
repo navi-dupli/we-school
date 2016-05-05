@@ -1,5 +1,6 @@
-var objectUser = require('./models/user'); //Import database model to count users in dashboard
 var objectSubject = require('./models/objects');
+var objectUser = require('./models/user'); //Import database model to count users in dashboard
+var objectCourse = require('./models/courses'); //Import database model to count courses in dashboard
 
 var console = require('console-prefix')
 module.exports = function(app, passport) {
@@ -26,16 +27,24 @@ module.exports = function(app, passport) {
 					return res.send(err);
 	      		}
 
-		      	//objectUser:objectUser exports model user to the template
-		      	//objectSubject:objectSubject exports model objects to the template
-		      	//user:req.user exports logged user info to the template
-		      	//message:req.flash exports personalized alerts
-		      	res.render('dashboard.ejs',{
-		      		objectSubject:objectSubject,
-		      		objectUser:objectUser,
-		      		user:req.user, // get the user out of session and pass to template
-		      		message:req.flash('signupMessage')});
+	      		objectCourse.find({},function(err, objectCourse) {
+	      			if (err) {
+	      				return res.send(err);
+	      			}
+
+			      	//objectUser:objectUser exports model user to the template
+			      	//objectSubject:objectSubject exports model objects to the template
+			      	//objectCourse:objectCourse exports model objects to the template
+			      	//user:req.user exports logged user info to the template
+			      	//message:req.flash exports personalized alerts
+			      	res.render('dashboard.ejs',{
+			      		objectSubject:objectSubject,
+			      		objectUser:objectUser,
+			      		objectCourse:objectCourse,
+			      		user:req.user, // get the user out of session and pass to template
+			      		message:req.flash('signupMessage')});
 				});
+			});
 	    });
 
 	});

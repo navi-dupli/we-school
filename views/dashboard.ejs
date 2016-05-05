@@ -129,7 +129,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href="/courses"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
               </ul>
             </li>
 
@@ -260,6 +260,24 @@
                   <i class="ion ion-compose"></i>
                 </div>
                 <a href="/objects" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box Cursos -->
+              <div class="small-box bg-maroon">
+                <div class="inner">
+                <% var countCourses = 0;
+                   if (objectCourse) {
+                     objectCourse.forEach(function(objCour) { countCourses++; }); 
+                   } %>
+                  <h3><%= countCourses %></h3>
+                  <p>Cursos</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-stalker"></i>
+                </div>
+                <a href="/courses" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
 
