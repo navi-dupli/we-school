@@ -7,7 +7,7 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // load up the user model
-var User            = require('../app/models/user');
+var User = require('../app/models/user');
 
 // load the auth variables
 var configAuth = require('./auth');
@@ -158,7 +158,7 @@ module.exports = function(passport) {
                         if (!user.facebook.token) {
                             user.facebook.token = token;
                             user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                            user.facebook.email = profile.emails[0].value;
+                            user.facebook.photo = profile.photos[0].value;
 
                             user.save(function(err) {
                                 if (err)
@@ -176,7 +176,7 @@ module.exports = function(passport) {
                         newUser.facebook.id    = profile.id; // set the users facebook id
                         newUser.facebook.token = token; // we will save the token that facebook provides to the user
                         newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
-                        newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+                        newUser.facebook.photo = profile.photos[0].value; // facebook can return multiple emails so we'll take the first
 
                         // save our user to the database
                         newUser.save(function(err) {
@@ -197,7 +197,7 @@ module.exports = function(passport) {
                 user.facebook.id    = profile.id;
                 user.facebook.token = token;
                 user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                user.facebook.email = profile.emails[0].value;
+                user.facebook.photo = profile.photos[0].value;
 
                 // save the user
                 user.save(function(err) {
