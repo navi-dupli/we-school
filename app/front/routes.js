@@ -1,4 +1,4 @@
-var object = require('../models/objects');
+var object = require('../models/subjects');
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer');//carga de archivos

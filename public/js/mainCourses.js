@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	// Al dar click en el boton Agregar Curso...
+	// Al dar click en el boton Agregar...
 	$("#add-course").click(function(){
 		
 		$(".table-courses").hide(100);
@@ -25,7 +25,7 @@ $(document).ready(function(){
 	   	});
 	});
 
-	// Al dar click en el boton Listar Cursos...
+	// Al dar click en el boton Listar...
 	$(".list-courses").click(function(){
 		
 		$(".form-course").hide(100);
@@ -88,7 +88,7 @@ $(document).ready(function(){
 	   	});
 	});
 
-	// Al dar click en el boton Actualizar curso...
+	// Al dar click en el boton Actualizar...
 	$('.modify-course').click(function(){
 
 		var dataId = this.id;

@@ -1,4 +1,4 @@
-var objectSubject = require('./models/objects');
+var objectSubject = require('./models/subjects');
 var objectUser = require('./models/user'); //Import database model to count users in dashboard
 var objectCourse = require('./models/courses'); //Import database model to count courses in dashboard
 

@@ -158,7 +158,7 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
-                <li><a href="/objects"><i class="fa fa-angle-double-right"></i> Materia</a></li>
+                <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materia</a></li>
                 <% } %>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
@@ -230,8 +230,8 @@
 
           <!-- Alertas -->
           <% if (message.length > 0) { %>
-              <div class="alert alert-danger" style="margin-top: 10px;"><%= message %></div>
-            <% } %>
+            <div class="alert alert-danger" style="margin-top: 10px;"><%= message %></div>
+          <% } %>
 
           <div class="box-body">
 
@@ -422,7 +422,7 @@
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="assets/dashboard/js/demo.js"></script>
     <!-- Script main-->
-    <script src="json/mainUsers.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="js/mainUsers.js" type="text/javascript" charset="utf-8" ></script>
     <script type="text/javascript" src="json/jquery.autocomplete.js"></script>
 
 

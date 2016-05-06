@@ -65,7 +65,7 @@ app.use(flash());
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-require('./app/rtObject/routes.js')(app, passport);
+require('./app/routesSubject.js')(app, passport);
 require('./app/routesUser.js')(app, passport);
 require('./app/routesCourse.js')(app, passport);
 require('./app/front/routes.js')(app, passport);

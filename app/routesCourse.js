@@ -1,4 +1,4 @@
-var objectCourse = require('./models/courses');  //Import database model
+var objectCourse = require('./models/courses'); //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -11,13 +11,14 @@ module.exports = function(app, passport) {
 
   app.get('/courses', isLoggedIn, function(req, res) {
     
-    //ojo, solo va a mostrar los cursos del usuario logueado
     objectCourse.find({}, function(err, objectCourse) {
       if (err) {
         return res.send(err);
       }
-      
-    
+
+      //objectCourse:objectCourse exports model Course to the template
+      //user:req.user exports logged user info to the template
+      //message:req.flash exports personalized alerts
       res.render('courses.ejs',{
         objectCourse  : objectCourse,
         user          : req.user,
@@ -30,11 +31,11 @@ module.exports = function(app, passport) {
     var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var courses = new objectCourse();
 
-    courses.code = req.body.code
-    courses.name = req.body.name
-    courses.creationDate = datetime
-    courses.status = req.body.status
-    courses.description = req.body.description
+    courses.code          = req.body.code
+    courses.name          = req.body.name
+    courses.creationDate  = datetime
+    courses.status        = req.body.status
+    courses.description   = req.body.description
     courses.save();
 
     /*
@@ -89,8 +90,7 @@ module.exports = function(app, passport) {
   app.post('/modifyCourse/:id', function(req, res) {
 
     var id = req.param("id");
-    //var objCourse = new object();
-
+    
     //Busca en la BD un curso con el Id ingresado como parametro
     objectCourse.findById(id, function(err, objCourse) {
       if (err) throw err;
@@ -100,7 +100,6 @@ module.exports = function(app, passport) {
       //Reemplaza la información del curso
       objCourse.code          = req.body.code;
       objCourse.name          = req.body.name;
-      //objCourse.creationDate = req.body.creationDate;
       objCourse.status        = req.body.status;
       objCourse.description   = req.body.description;
       
@@ -114,7 +113,6 @@ module.exports = function(app, passport) {
           res.redirect('/courses');
         }
       });
-
     });
   });
 
