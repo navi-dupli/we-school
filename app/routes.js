@@ -211,6 +211,7 @@ module.exports = function(app, passport) {
     app.get('/unlink/facebook', function(req, res) {
         var user            = req.user;
         user.facebook.token = undefined;
+        user.facebook.id 	= undefined;
         user.facebook.name 	= undefined;
         user.facebook.photo = undefined;
         user.save(function(err) {
@@ -222,6 +223,7 @@ module.exports = function(app, passport) {
     app.get('/unlink/twitter', function(req, res) {
         var user           			= req.user;
         user.twitter.token 			= undefined;
+        user.twitter.id 			= undefined;
         user.twitter.username 		= undefined;
         user.twitter.displayName 	= undefined;
         user.save(function(err) {
@@ -231,11 +233,12 @@ module.exports = function(app, passport) {
 
     // google ---------------------------------
     app.get('/unlink/google', function(req, res) {
-        var user          = req.user;
-        user.google.token = undefined;
-        user.google.name = undefined;
-        user.google.email = undefined;
-        user.google.photo = undefined;
+        var user          	= req.user;
+        user.google.token 	= undefined;
+        user.google.id 		= undefined;
+        user.google.name 	= undefined;
+        user.google.email 	= undefined;
+        user.google.photo 	= undefined;
         user.save(function(err) {
            res.redirect('/profile');
         });
