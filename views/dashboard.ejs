@@ -66,10 +66,10 @@
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <% if (typeof user.local.photo === "undefined") { %>
+                    <% if (typeof user.facebook.photo === "undefined") { %>
                     <img src="/img/avatar.png" class="img-circle" alt="User Image">
                     <% } else { %>
-                    <img src="<%= user.local.photo %>" class="img-circle" alt="User Image">
+                    <img src="<%= user.facebook.photo %>" class="img-circle" alt="User Image">
                     <% } %>
                     <p><%= user.local.name %></p>
                     <p>Rol: <%= user.local.role %></p>
@@ -97,10 +97,10 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <% if (typeof user.local.photo === "undefined") { %>
+              <% if (typeof user.facebook.photo === "undefined") { %>
               <img src="/img/avatar.png" class="img-circle" alt="User Image">
               <% } else { %>
-              <img src="<%= user.local.photo %>" class="img-circle" alt="User Image">
+              <img src="<%= user.facebook.photo %>" class="img-circle" alt="User Image">
               <% } %>
             </div>
             <div class="pull-left info">

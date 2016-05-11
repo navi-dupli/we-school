@@ -174,6 +174,9 @@ module.exports = function(passport) {
                         console.log("Esta cuenta de facebook no está registrada");
                         return done(null, false, req.flash('signupMessage', 'Esta cuenta de Facebook no está registrada'));
 
+                        // Esta parte del código está comentareada con el fin de evitar que se pueda iniciar sesión con una cuenta
+                        // de redes sociales no registrada
+
                         /*
                         // if there is no user found with that facebook id, create them
                         var newUser            = new User();
@@ -260,6 +263,9 @@ module.exports = function(passport) {
                         console.log("Esta cuenta de twitter no está registrada");
                         return done(null, false, req.flash('signupMessage', 'Esta cuenta de Twitter no está registrada'));
 
+                        // Esta parte del código está comentareada con el fin de evitar que se pueda iniciar sesión con una cuenta
+                        // de redes sociales no registrada
+
                         /*
                         // if there is no user, create them
                         var newUser                 = new User();
@@ -343,6 +349,9 @@ module.exports = function(passport) {
 
                         console.log("Esta cuenta de google no está registrada");
                         return done(null, false, req.flash('signupMessage', 'Esta cuenta de Google no está registrada'));
+
+                        // Esta parte del código está comentareada con el fin de evitar que se pueda iniciar sesión con una cuenta
+                        // de redes sociales no registrada
 
                         /*
                         var newUser          = new User();
