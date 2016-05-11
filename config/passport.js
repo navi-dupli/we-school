@@ -131,7 +131,7 @@ module.exports = function(passport) {
         clientID        : configAuth.facebookAuth.clientID,
         clientSecret    : configAuth.facebookAuth.clientSecret,
         callbackURL     : configAuth.facebookAuth.callbackURL,
-        profileFields: ['id', 'name','picture.type(large)', 'emails', 'displayName', 'about', 'gender'],
+        profileFields   : ['id', 'name', 'picture.type(large)', 'emails', 'displayName', 'about', 'gender'],
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
 
@@ -170,6 +170,10 @@ module.exports = function(passport) {
 
                         return done(null, user); // user found, return that user
                     } else {
+                        
+                        console.log("Esta cuenta de facebook no está registrada");
+
+                        /*
                         // if there is no user found with that facebook id, create them
                         var newUser            = new User();
 
@@ -187,6 +191,7 @@ module.exports = function(passport) {
                             // if successful, return the new user
                             return done(null, newUser);
                         });
+                        */
                     }
                 });
 
@@ -250,6 +255,10 @@ module.exports = function(passport) {
 
                         return done(null, user); // user found, return that user
                     } else {
+
+                        console.log("Esta cuenta de twitter no está registrada");
+
+                        /*
                         // if there is no user, create them
                         var newUser                 = new User();
 
@@ -263,6 +272,7 @@ module.exports = function(passport) {
                                 throw err;
                             return done(null, newUser);
                         });
+                        */
                     }
                 });
 
@@ -317,7 +327,7 @@ module.exports = function(passport) {
                             user.google.token = token;
                             user.google.name  = profile.displayName;
                             user.google.email = profile.emails[0].value; // pull the first email
-                            user.google.photo = profile.photos[0].value; //DanCard
+                            user.google.photo = profile.photos[0].value;
 
                             user.save(function(err) {
                                 if (err)
@@ -328,6 +338,10 @@ module.exports = function(passport) {
 
                         return done(null, user);
                     } else {
+
+                        console.log("Esta cuenta de google no está registrada");
+
+                        /*
                         var newUser          = new User();
 
                         newUser.google.id    = profile.id;
@@ -341,6 +355,7 @@ module.exports = function(passport) {
                                 throw err;
                             return done(null, newUser);
                         });
+                        */
                     }
                 });
 
@@ -352,7 +367,7 @@ module.exports = function(passport) {
                 user.google.token = token;
                 user.google.name  = profile.displayName;
                 user.google.email = profile.emails[0].value; // pull the first email
-                user.google.photo = profile.photos[0].value; //DanCard
+                user.google.photo = profile.photos[0].value;
 
                 user.save(function(err) {
                     if (err)
