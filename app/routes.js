@@ -211,6 +211,8 @@ module.exports = function(app, passport) {
     app.get('/unlink/facebook', function(req, res) {
         var user            = req.user;
         user.facebook.token = undefined;
+        user.facebook.name 	= undefined;
+        user.facebook.photo = undefined;
         user.save(function(err) {
             res.redirect('/profile');
         });
@@ -218,8 +220,10 @@ module.exports = function(app, passport) {
 
     // twitter --------------------------------
     app.get('/unlink/twitter', function(req, res) {
-        var user           = req.user;
-        user.twitter.token = undefined;
+        var user           			= req.user;
+        user.twitter.token 			= undefined;
+        user.twitter.username 		= undefined;
+        user.twitter.displayName 	= undefined;
         user.save(function(err) {
            res.redirect('/profile');
         });
@@ -229,6 +233,9 @@ module.exports = function(app, passport) {
     app.get('/unlink/google', function(req, res) {
         var user          = req.user;
         user.google.token = undefined;
+        user.google.name = undefined;
+        user.google.email = undefined;
+        user.google.photo = undefined;
         user.save(function(err) {
            res.redirect('/profile');
         });
