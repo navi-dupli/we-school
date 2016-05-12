@@ -31,15 +31,11 @@
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Ingrese sus datos para iniciar sesión</p>
-        
+
         <% if (message.length > 0) { %>
-        <div class="alert alert-danger alert-with-icon" data-notify="container">
-            <button type="button" aria-hidden="true" class="close">×</button>
-            <span data-notify="icon" class="pe-7s-bell"></span>
-            <span data-notify="message"><%= message %></span>
-        </div>
-        
+          <div class="alert alert-danger"><%= message %></div>
         <% } %>
+        
         <form action="/login" method="post">
           <div class="form-group has-feedback">
             <input type="email" class="form-control" placeholder="Email" name="email">

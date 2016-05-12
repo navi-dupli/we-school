@@ -22,7 +22,7 @@ $(document).ready(function(){
 	   			// body...
 	   			console.log(msg+" Listado de roles fallido");
 	   		}
-	   	});   	
+	   	}); 	
 	});
 
 
@@ -125,7 +125,7 @@ $(document).ready(function(){
 	       		} else if (response === 'success') {
 	          		demo.initChartist();
 	          		 $(clase).remove(); 
-	          		 alert("remove");  	
+	          		 alert("Usuario eliminado satisfactoriamente");  	
 		        /**	$.notify({
 		            	icon: 'pe-7s-gift',
 		            	message: "<b>Objeto Eliminado</b>"

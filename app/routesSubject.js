@@ -76,7 +76,7 @@ module.exports = function(app, passport) {
    });
 
   //Recibe como parametro un Id y devuelve un objeto User
-  app.get('/get-subjects/:id', function(req, res) {
+  app.get('/get-subject/:id', function(req, res) {
 
     var id = req.param("id");
 

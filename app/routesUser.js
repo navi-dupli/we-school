@@ -33,6 +33,7 @@ module.exports = function(app, passport) {
 
     var datetime = new Date();
     var email = req.body.email;
+    var code = req.body.code;
     var users = new objectUser();
 
     objectUser.findOne({ 'local.email' :  email }, function(err, user) {
@@ -42,29 +43,41 @@ module.exports = function(app, passport) {
 
         // check to see if theres already a user with that email
         if (user) {
-          //alert("El email ingresado ya se encuentra registrado");
-          //console.dir("El email ingresado ya se encuentra registrado");
-          return res.end("El email ingresado ya se encuentra registrado");
-          //res.redirect('/users');
-          //return req.flash('signupMessage', 'El email ingresado ya se encuentra registrado')
+          //return res.end("El email ingresado ya se encuentra registrado");
+          console.log("El email ingresado ya se encuentra registrado");
+          //return req.flash('signupMessage', 'El email ingresado ya se encuentra registrado');
+          res.redirect('/users');
         } else {
 
-          users.local.code     = req.body.code;
-          users.local.email    = req.body.email;
-          users.local.password = users.generateHash(req.body.password); //Encrypt password
-          users.local.role     = req.body.role;
-          users.local.name     = req.body.name;
-          users.local.status   = req.body.status;
+          // check to see if theres already a user with that code
+          objectUser.findOne({ 'local.code' :  code }, function(err, user) {
 
-          //Save user
-          users.save(function(err) {
-            if(err) {
-              console.dir(err);
-              alert("Error creando usuario");
+            if (err)
+            return done(err);
+
+            if (user) {
+              //return req.flash('signupMessage', 'El código ingresado ya se encuentra registrado');
+              console.log("El código ingresado ya se encuentra registrado");
               res.redirect('/users');
             } else {
-              console.log('user: ' + users.local.email + " saved.");
-              res.redirect('/users');
+
+              users.local.code     = req.body.code;
+              users.local.email    = req.body.email;
+              users.local.password = users.generateHash(req.body.password); //Encrypt password
+              users.local.role     = req.body.role;
+              users.local.name     = req.body.name;
+              users.local.status   = req.body.status;
+
+              //Save user
+              users.save(function(err) {
+                if(err) {
+                  console.dir(err);
+                  res.redirect('/users');
+                } else {
+                  console.log('user: ' + users.local.email + " saved.");
+                  res.redirect('/users');
+                }
+              });
             }
           });
         }
@@ -102,8 +115,6 @@ module.exports = function(app, passport) {
     //Busca en la BD un usuario con el Id ingresado como parametro
     objectUser.findById(id, function(err, objUser) {
       if (err) throw err;
-
-      //console.dir(req.body);
 
       //Reemplaza la información del usuario
       objUser.local.code     = req.body.code;
