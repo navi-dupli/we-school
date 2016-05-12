@@ -69,10 +69,6 @@ $(document).ready(function(){
 	   		dataType: 'json',
 	   		success: function (data) {
 	   			user = data.local;
-
-	   			console.log(user.email);
-	   			console.log(user.name);
-	   			console.log(user.role);
 	   			
 	   			$("#button_update").attr("id", dataId);
 

@@ -66,18 +66,10 @@ $(document).ready(function(){
 	   		dataType: 'json',
 	   		success: function (data) {
 	   			subject = data;
-
-	   			console.log(subject.code);
-	   			console.log(subject.codeTeacher);
-	   			console.log(subject.name);
-	   			console.log(subject.initDate);
-	   			console.log(subject.status);
-	   			console.log(subject.description);
 	   			
 	   			$("#button_update").attr("id", dataId);
 
 	   			$("#mod_code").val(subject.code);
-	   			$("#mod_codeTeacher option[value='"+subject.codeTeacher+"']").attr("selected","selected");
 	   			$("#mod_name").val(subject.name);
 	   			$("#mod_initDate").val(subject.initDate);
 	   			$("#status_list2 option[value='"+subject.status+"']").attr("selected","selected");

@@ -241,7 +241,6 @@
                 <thead>
                   <tr>
                     <th class="text-align">Código</th>
-                    <th class="text-align">Docente</th>
                     <th class="text-align">Nombre</th>
                     <th class="text-align">Fecha de Inicio</th>
                     <th class="text-align">Estado</th>
@@ -253,7 +252,6 @@
                   <% objectSubject.forEach(function(objSubj) { %>
                   <tr class="<%= objSubj._id %>" style="text-align:center;">
                     <td><%= objSubj.code %></td>
-                    <td><%= objSubj.codeTeacher %></td>
                     <td><%= objSubj.name %></td>
                     <td><%= objSubj.initDate %> </td>
                     <% if (objSubj.status === "Activo") { %>
@@ -293,19 +291,6 @@
                   <div class="form-group" id="code">
                     <label for="bio">Código:</label><br>
                     <input class="form-control" type="text" name="code" value="">
-                  </div>
-
-                  <div class="form-group" id="codeTeacher">
-                    <label for="bio">Código docente:</label><br>
-                    <select class="form-control" type="brand" name="codeTeacher">
-                      <% if (objectUser) { %>
-                        <% objectUser.forEach(function(objUsr) { %>
-                          <% if (objUsr.local.role === "Docente") { %>
-                            <option value="<%= objUsr.local.code %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
-                          <% } %>
-                        <% }); %>
-                      <% } %>
-                    </select>
                   </div>
 
                   <div class="form-group" id="name">
@@ -354,19 +339,6 @@
                   <div class="form-group" id="code">
                     <label for="bio">Código:</label><br>
                     <input class="form-control" type="text" name="code" id="mod_code">
-                  </div>
-
-                  <div class="form-group" id="codeTeacher">
-                    <label for="bio">Código docente:</label><br>
-                    <select id="mod_codeTeacher" class="form-control" type="brand" name="codeTeacher">
-                      <% if (objectUser) { %>
-                        <% objectUser.forEach(function(objUsr) { %>
-                          <% if (objUsr.local.role === "Docente") { %>
-                            <option value="<%= objUsr.local.code %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
-                          <% } %>
-                        <% }); %>
-                      <% } %>
-                    </select>
                   </div>
 
                   <div class="form-group" id="name">

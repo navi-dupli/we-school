@@ -5,7 +5,6 @@ var Schema=mongoose.Schema;
 var subjectSchema = new Schema({
     
     code 			: String,
-    codeTeacher		: String,
     name			: String,
     initDate		: String,
     status			: String,

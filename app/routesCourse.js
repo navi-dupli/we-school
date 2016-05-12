@@ -1,4 +1,5 @@
 var objectCourse = require('./models/courses'); //Import database model
+var objectUser = require('./models/user'); //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -16,13 +17,20 @@ module.exports = function(app, passport) {
         return res.send(err);
       }
 
-      //objectCourse:objectCourse exports model Course to the template
-      //user:req.user exports logged user info to the template
-      //message:req.flash exports personalized alerts
-      res.render('courses.ejs',{
-        objectCourse  : objectCourse,
-        user          : req.user,
-        message       : req.flash('signupMessage')
+      objectUser.find({},function(err, objectUser) { // Anidated for list objectUser
+        if (err) {
+          return res.send(err);
+        }
+          //objectCourse:objectCourse exports model Course to the template
+          //objectUser:objectUser exports model User to the template (List Teachers)
+          //user:req.user exports logged user info to the template
+          //message:req.flash exports personalized alerts
+          res.render('courses.ejs',{
+            objectCourse  : objectCourse,
+            objectUser    : objectUser,
+            user          : req.user,
+            message       : req.flash('signupMessage')
+          });
       });
     });
   });
@@ -33,6 +41,7 @@ module.exports = function(app, passport) {
 
     courses.code          = req.body.code
     courses.name          = req.body.name
+    courses.codeTeacher   = req.body.codeTeacher
     courses.creationDate  = datetime
     courses.status        = req.body.status
     courses.description   = req.body.description
@@ -100,6 +109,7 @@ module.exports = function(app, passport) {
       //Reemplaza la información del curso
       objCourse.code          = req.body.code;
       objCourse.name          = req.body.name;
+      objSubject.codeTeacher  = req.body.codeTeacher;
       objCourse.status        = req.body.status;
       objCourse.description   = req.body.description;
       

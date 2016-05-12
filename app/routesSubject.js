@@ -1,5 +1,4 @@
 var objectSubject = require('./models/subjects'); //Import database model
-var objectUser = require('./models/user'); //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -16,23 +15,14 @@ module.exports = function(app, passport) {
       if (err) {
         return res.send(err);
       }
-
-      objectUser.find({},function(err, objectUser) { // Anidated for list objectUser
-        if (err) {
-          return res.send(err);
-        }
-
         //objectSubject:objectSubject exports model subject to the template
-        //objectUser:objectUser exports model User to the template (List Teachers)
         //user:req.user exports logged user info to the template
         //message:req.flash exports personalized alerts
         res.render('subjects.ejs',{
-          objectSubject :objectSubject,
-          objectUser    :objectUser,
-          user          :req.user,
-          message       :req.flash('signupMessage')
+          objectSubject : objectSubject,
+          user          : req.user,
+          message       : req.flash('signupMessage')
         });
-      });
     });
   });
 
@@ -41,7 +31,6 @@ module.exports = function(app, passport) {
     var subjects = new objectSubject();
 
     subjects.code         = req.body.code
-    subjects.codeTeacher  = req.body.codeTeacher
     subjects.name         = req.body.name
     subjects.initDate     = req.body.initDate
     subjects.status       = req.body.status
@@ -105,11 +94,8 @@ module.exports = function(app, passport) {
     objectSubject.findById(id, function(err, objSubject) {
       if (err) throw err;
 
-      //console.dir(req.body);
-
       //Reemplaza la información de la materia
       objSubject.code         = req.body.code;
-      objSubject.codeTeacher  = req.body.codeTeacher;
       objSubject.name         = req.body.name;
       objSubject.initDate     = req.body.initDate;
       objSubject.status       = req.body.status;

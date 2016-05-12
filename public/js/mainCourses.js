@@ -66,17 +66,12 @@ $(document).ready(function(){
 	   		dataType: 'json',
 	   		success: function (data) {
 	   			course = data;
-
-	   			console.log(course.code);
-	   			console.log(course.name);
-	   			console.log(course.creationDate);
-	   			console.log(course.status);
-	   			console.log(course.description);
 	   			
 	   			$("#button_update").attr("id", dataId);
 
 	   			$("#mod_code").val(course.code);
 	   			$("#mod_name").val(course.name);
+	   			$("#mod_codeTeacher option[value='"+course.codeTeacher+"']").attr("selected","selected");
 	   			$("#status_list2 option[value='"+course.status+"']").attr("selected","selected");
 	   			$("#mod_description").val(course.description);
 	   			

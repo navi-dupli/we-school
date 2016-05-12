@@ -9,6 +9,7 @@ var courseSchema = mongoose.Schema({
 
     code            : String,
     name            : String,
+    codeTeacher		: String,
     creationDate    : String,
     status          : String,
     description     : String
