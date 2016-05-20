@@ -68,6 +68,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 require('./app/routesSubject.js')(app, passport);
 require('./app/routesUser.js')(app, passport);
 require('./app/routesCourse.js')(app, passport);
+require('./app/routesGrade.js')(app, passport);
 require('./app/front/routes.js')(app, passport);
 
 //run aplication
