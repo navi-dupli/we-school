@@ -159,10 +159,10 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
-                <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materia</a></li>
+                <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
                 <% } %>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Logro</a></li>
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividad</a></li>
+                <li><a href="/achievements"><i class="fa fa-angle-double-right"></i> Logros</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Actividades</a></li>
               </ul>
             </li>
 
@@ -243,6 +243,7 @@
                   <tr>
                     <th class="text-align">Código</th>
                     <th class="text-align">Nombre</th>
+                    <th class="text-align">Docente</th>
                     <th class="text-align">Fecha de Inicio</th>
                     <th class="text-align">Estado</th>
                     <th class="text-align">Descripción</th>
@@ -254,6 +255,7 @@
                   <tr class="<%= objSubj._id %>" style="text-align:center;">
                     <td><%= objSubj.code %></td>
                     <td><%= objSubj.name %></td>
+                    <td><%= objSubj.codeTeacher %></td>
                     <td><%= objSubj.initDate %> </td>
                     <% if (objSubj.status === "Activo") { %>
                       <td><i class="fa fa-circle text-success"></i>  <%= objSubj.status %></td>
@@ -297,6 +299,19 @@
                   <div class="form-group" id="name">
                     <label for="bio">Nombre:</label><br>
                     <input class="form-control" type="text" name="name" value="">
+                  </div>
+
+                  <div class="form-group" id="codeTeacher">
+                    <label for="bio">Docente:</label><br>
+                    <select class="form-control" type="brand" name="codeTeacher">
+                      <% if (objectUser) { %>
+                        <% objectUser.forEach(function(objUsr) { %>
+                          <% if (objUsr.local.role === "Docente") { %>
+                            <option value="<%= objUsr.local.code %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
+                          <% } %>
+                        <% }); %>
+                      <% } %>
+                    </select>
                   </div>
                 </section>
 
@@ -345,6 +360,19 @@
                   <div class="form-group" id="name">
                     <label for="bio">Nombre:</label><br>
                     <input class="form-control" type="text" name="name" id="mod_name">
+                  </div>
+
+                  <div class="form-group" id="codeTeacher">
+                    <label for="bio">Docente:</label><br>
+                    <select id="mod_codeTeacher" class="form-control" type="brand" name="codeTeacher">
+                      <% if (objectUser) { %>
+                        <% objectUser.forEach(function(objUsr) { %>
+                          <% if (objUsr.local.role === "Docente") { %>
+                            <option value="<%= objUsr.local.code %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
+                          <% } %>
+                        <% }); %>
+                      <% } %>
+                    </select>
                   </div>
                 </section>
 

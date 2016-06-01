@@ -2,7 +2,6 @@
 // load the things we need
 var mongoosePaginate=require('mongoose-paginate');
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
 
 // define the schema for our course model
 var courseSchema = mongoose.Schema({

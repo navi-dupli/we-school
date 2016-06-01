@@ -6,6 +6,7 @@ var subjectSchema = new Schema({
     
     code 			: String,
     name			: String,
+    codeTeacher		: String,
     initDate		: String,
     status			: String,
     description		: String

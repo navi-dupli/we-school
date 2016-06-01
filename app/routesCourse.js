@@ -109,7 +109,7 @@ module.exports = function(app, passport) {
       //Reemplaza la información del curso
       objCourse.code          = req.body.code;
       objCourse.name          = req.body.name;
-      objSubject.codeTeacher  = req.body.codeTeacher;
+      objCourse.codeTeacher   = req.body.codeTeacher;
       objCourse.status        = req.body.status;
       objCourse.description   = req.body.description;
       
