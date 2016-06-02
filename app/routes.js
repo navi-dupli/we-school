@@ -13,6 +13,10 @@ module.exports = function(app, passport) {
 		res.render('index.ejs'); // load the index.ejs file
 	});
 
+	app.get('/canvas', function(req, res) {
+		res.render('canvas.ejs'); // load the index.ejs file
+	});
+
 	// DASHBOARD SECTION =========================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)

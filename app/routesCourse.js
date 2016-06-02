@@ -35,7 +35,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.post("/createCourse", upload.array('uploadContent',3), function(req,res){
+  app.post("/createCourse", isLoggedIn, upload.array('uploadContent',3), function(req,res){
     var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var courses = new objectCourse();
 

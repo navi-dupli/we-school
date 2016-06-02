@@ -70,6 +70,7 @@ require('./app/routesUser.js')(app, passport);
 require('./app/routesCourse.js')(app, passport);
 require('./app/routesGrade.js')(app, passport);
 require('./app/routesAchievement.js')(app, passport);
+require('./app/routesActivity.js')(app, passport);
 require('./app/front/routes.js')(app, passport);
 
 //run aplication

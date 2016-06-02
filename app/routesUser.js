@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
 
 
   //Para subir una sola imagen se puede usar upload.single
-  app.post("/createUser", upload.array('photos',3), function(req,res){
+  app.post("/createUser", isLoggedIn, upload.array('photos',3), function(req,res){
 
     var datetime = new Date();
     var email = req.body.email;

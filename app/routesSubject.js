@@ -34,7 +34,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.post("/createSubject", upload.array('uploadContent',3), function(req,res){
+  app.post("/createSubject", isLoggedIn, upload.array('uploadContent',3), function(req,res){
     var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var subjects = new objectSubject();
 

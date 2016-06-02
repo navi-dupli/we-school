@@ -23,7 +23,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.post("/createGrade", upload.array('uploadContent',3), function(req,res){
+  app.post("/createGrade", isLoggedIn, upload.array('uploadContent',3), function(req,res){
     var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var grades = new objectGrade();
 

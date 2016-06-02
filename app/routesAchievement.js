@@ -27,7 +27,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.post("/createAchievement", upload.array('uploadContent',3), function(req,res){
+  app.post("/createAchievement", isLoggedIn, upload.array('uploadContent',3), function(req,res){
     var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var achievements = new objectAchievement();
 
