@@ -3,7 +3,7 @@ var objectAchievement = require('./models/achievements'); //Import database mode
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: './uploads/' })
 
 module.exports = function(app, passport) {
     
@@ -27,7 +27,8 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.post("/createActivity", isLoggedIn, upload.array('uploadContent',3), function(req,res){
+  // uploadContent tiene que ser igual al atributo name del formulario de subida de archivos
+  app.post("/createActivity", isLoggedIn, upload.array('uploadContent',1), function(req,res){
     var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var activities = new objectActivity();
 
@@ -39,24 +40,28 @@ module.exports = function(app, passport) {
     activities.sendStatus       = req.body.sendStatus
     activities.save();
 
-    // Subida de archivos
+    // Subida de archivos ==================================================================
     var activity_id = activities._id;
     var user_id = req.user._id;
     var main_dir = './public/attachments/';
-    var name = ["foto1.jpg","foto2.jpg","foto3.jpg"];
+    var attachmentName = ["nombre_archivo.txt"]; // Nombres que se le asignan a los archivos subidos (opcional)
     var final_path = main_dir+user_id+'/'+activity_id+'/';
 
+    // Si no existen los directorios donde se almacenarán los archivos, se crean
     if (!fs.exists(main_dir+user_id)) {
+      console.log("Esto esta fallando");
       fs.mkdir(main_dir+user_id);
     }
-
     if(!fs.exists(final_path)){
+      console.log("Esto esta fallando 2");
       fs.mkdir(final_path);
     }
 
     for(var x=0; x<req.files.length; x++) {
+      // Copia el archivo de la carpeta temporal uploads/ a la carpeta definitiva
       fs.createReadStream('./uploads/'+req.files[x].filename).pipe(fs.createWriteStream(final_path+req.files[x].originalname));
-      fs.renameSync(final_path+req.files[x].originalname,final_path+name[x]);
+      // Renombra los archivos creados
+      //fs.renameSync(final_path+req.files[x].originalname,final_path+attachmentName[x]);
       // Borra el archivo temporal creado
       fs.unlink('./uploads/'+req.files[x].filename);
     }

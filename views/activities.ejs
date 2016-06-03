@@ -334,7 +334,7 @@
                   </div>-->
                 </section>
 
-                <input type="button" id="add-attachment" class="form-control btn btn-default" value ="Añadir archivo (Opcional)">
+                <input type="button" id="add-attachment" class="form-control btn btn-info" value ="Añadir archivo (Opcional)">
 
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Agregar</button>
                 <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
@@ -343,24 +343,24 @@
 
               <!-- Añadir archivos adjuntos -->
               <div id="form-attachment" style="display:none;">
-                <section class="col-md-12 card">
+                <section class="col-md-12">
                   <div class="form-group">
-                    <label for="foto_1">Adjuntar una foto</label>
-                    <input type="file" name="photos">
+                    <label for="foto_1">Adjuntar un archivo</label>
+                    <input type="file" name="uploadContent">
                     <p class="help-block">Archivo 1</p>
                   </div>
-                  <div class="form-group">
+                  <!--<div class="form-group">
                     <label for="foto_2">Adjuntar una foto</label>
-                    <input type="file" name="photos">
+                    <input type="file" name="uploadContent">
                     <p class="help-block">Archivo 2</p>
                   </div>
                   <div class="form-group">
                     <label for="foto_3">Adjuntar una foto</label>
-                    <input type="file" name="photos">
+                    <input type="file" name="uploadContent">
                     <p class="help-block">Archivo 3</p>
-                  </div> 
+                  </div>-->
                   
-                  <INPUT class="form-control btn btn-default" type="submit" value="Guardar">
+                  <button type="submit" class="btn btn-primary btn-block btn-flat">Agregar</button>
                   <input type="button" class="list-activities btn btn-danger btn-block btn-flat" value="Cancelar"></input>
                 </section>
               </div>
@@ -414,9 +414,9 @@
                   </div>
                 </section>
 
-                <input id="button_update" type="submit" class="modify-subject btn btn-primary btn-block btn-flat" value="Actualizar"></input>
+                <input id="button_update" type="submit" class="modify-activity btn btn-primary btn-block btn-flat" value="Actualizar"></input>
                 <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
-                <input type="button" class="list-subjects btn btn-danger btn-block btn-flat" value="Cancelar"></input>
+                <input type="button" class="list-activities btn btn-danger btn-block btn-flat" value="Cancelar"></input>
               </div>
             </form>
           </div>
