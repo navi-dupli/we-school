@@ -1,22 +1,18 @@
-var objectSubject = require('./models/subjects'); //Import database model
-var objectUser = require('./models/user'); //Import database model
+var objectRecipes = require('./models/recipes'); //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
 module.exports = function(app, passport) {
-// =====================================
-// SUBJECTS ROUTES ======================
-// =====================================
-    
+
   app.get('/subjects', isLoggedIn, function(req, res) {
 
     objectSubject.find({},function(err, objectSubject) {
       if (err) {
         return res.send(err);
       }
-      objectUser.find({},function(err, objectUser) { // Anidated for list objectUser
+      objectUser.find({},function(err, objectUser) { // Anidated for list
         if (err) {
           return res.send(err);
         }
@@ -98,7 +94,7 @@ module.exports = function(app, passport) {
   app.post('/modifySubject/:id', function(req, res) {
 
     var id = req.param("id");
-    
+
     //Busca en la BD una materia con el Id ingresado como parametro
     objectSubject.findById(id, function(err, objSubject) {
       if (err) throw err;
@@ -126,7 +122,7 @@ module.exports = function(app, passport) {
 
   //Recibe como parametro un Id y elimina el objeto Subject relacionado
   app.get('/destroySubject/:id', function(req, res) {
-    
+
     var id = req.param("id");
 
     objectSubject.remove({ _id: id }, function(err){
