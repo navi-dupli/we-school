@@ -4,7 +4,7 @@ var Schema=mongoose.Schema;
 
 var activitySchema = new Schema({
     
-    codeAchievement : String,
+    codeAchievement : { type: Schema.Types.ObjectId, ref: 'Achievement' },
     name			: String,
     description		: String,
     initDate		: String,

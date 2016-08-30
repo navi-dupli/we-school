@@ -6,7 +6,7 @@ var subjectSchema = new Schema({
     
     code 			: String,
     name			: String,
-    codeTeacher		: String,
+    codeArea		: { type: Schema.Types.ObjectId, ref: 'Area' },
     initDate		: String,
     status			: String,
     description		: String

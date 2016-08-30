@@ -183,7 +183,7 @@
                 <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+                <li><a href="/report"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
 
@@ -255,7 +255,7 @@
                   <tr class="<%= objCou._id %>" style="text-align:center;">
                     <td><%= objCou.code %></td>
                     <td><%= objCou.name %></td>
-                    <td><%= objCou.codeTeacher %></td>
+                    <td><%= objCou.codeTeacher.local.name %></td>
                     <td><%= objCou.creationDate %> </td>
                     <% if (objCou.status === "Activo") { %>
                       <td><i class="fa fa-circle text-success"></i>  <%= objCou.status %></td>
@@ -307,7 +307,7 @@
                       <% if (objectUser) { %>
                         <% objectUser.forEach(function(objUsr) { %>
                           <% if (objUsr.local.role === "Docente") { %>
-                            <option value="<%= objUsr.local.code %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
+                            <option value="<%= objUsr._id %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
                           <% } %>
                         <% }); %>
                       <% } %>
@@ -316,6 +316,17 @@
                 </section>
 
                 <section class="col-md-6">
+                  <div class="form-group" id="codeGrade">
+                    <label for="bio">Grado:</label><br>
+                    <select id="mod_codeGrade" class="form-control" type="brand" name="codeGrade">
+                      <% if (objectGrade) { %>
+                        <% objectGrade.forEach(function(objGra) { %>
+                          <option value="<%= objGra._id %>"><%= objGra.name %></option>
+                        <% }); %>
+                      <% } %>
+                    </select>
+                  </div>
+
                   <div class="form-group" id="status">
                     <label for="bio">Estado:</label><br>
                     <select class="form-control" type="brand" id="status_list" name="status"></select>
@@ -363,7 +374,7 @@
                       <% if (objectUser) { %>
                         <% objectUser.forEach(function(objUsr) { %>
                           <% if (objUsr.local.role === "Docente") { %>
-                            <option value="<%= objUsr.local.code %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
+                            <option value="<%= objUsr._id %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
                           <% } %>
                         <% }); %>
                       <% } %>
@@ -372,6 +383,17 @@
                 </section>
 
                 <section class="col-md-6">
+                  <div class="form-group" id="codeGrade">
+                    <label for="bio">Grado:</label><br>
+                    <select id="mod_codeGrade" class="form-control" type="brand" name="codeGrade">
+                      <% if (objectGrade) { %>
+                        <% objectGrade.forEach(function(objGra) { %>
+                          <option value="<%= objGra._id %>"><%= objGra.name %></option>
+                        <% }); %>
+                      <% } %>
+                    </select>
+                  </div>
+
                   <div class="form-group" id="status">
                     <label for="bio">Estado:</label><br>
                     <select id="status_list2" class="form-control" type="brand" name="status"></select>

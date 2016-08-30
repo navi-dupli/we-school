@@ -9,6 +9,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var app = express();
 var logger = require('express-logger');
+var pdf = require('express-pdf');
 
 //var morgan       = require('morgan'); // Module to create logfile
 var cookieParser = require('cookie-parser');
@@ -50,6 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(busboy());
+app.use(pdf);
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -71,6 +73,9 @@ require('./app/routesCourse.js')(app, passport);
 require('./app/routesGrade.js')(app, passport);
 require('./app/routesAchievement.js')(app, passport);
 require('./app/routesActivity.js')(app, passport);
+require('./app/routesArea.js')(app, passport);
+require('./app/routesEnrollments.js')(app, passport);
+require('./app/routesReport.js')(app, passport);
 require('./app/front/routes.js')(app, passport);
 
 //run aplication

@@ -4,9 +4,11 @@ var Schema=mongoose.Schema;
 
 var achievementSchema = new Schema({
     
-    codeSubject		: String,
+    codeSubject		: { type: Schema.Types.ObjectId, ref: 'Subject'},
+    codeGrade		: { type: Schema.Types.ObjectId, ref: 'Grade' },
     name			: String,
-    description		: String
+    description		: String,
+    period			: String,
 
 });
 

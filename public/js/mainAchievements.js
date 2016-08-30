@@ -23,6 +23,21 @@ $(document).ready(function(){
 	   			console.log(msg+"Listado de estados fallido");
 	   		}
 	   	});
+	   	$.ajax({ 
+	   		type: 'GET', 
+	   		url: 'json/periodos.json', 
+	   		dataType: 'json',
+	   		success: function (data) {
+	   				 var array =data[1].periodo;
+	   			for (var i = 0; i < array.length; i++) {
+	   					$("#period_list").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   				}; 
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+" Listado de periodos fallido");
+	   		}
+	   	}); 	
 	});
 
 	// Al dar click en el boton Listar...
@@ -43,6 +58,22 @@ $(document).ready(function(){
 		$("#form-modify-achievement").show(100);
 
 		var dataId = this.id;
+
+		$.ajax({ 
+	   		type: 'GET', 
+	   		url: 'json/periodos.json', 
+	   		dataType: 'json',
+	   		success: function (data) {
+	   				 var array =data[1].periodo;
+	   			for (var i = 0; i < array.length; i++) {
+	   					$("#period_list2").append("<option value="+ array[i] +">" + array[i] + "</option>");
+	   				}; 
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+" Listado de periodos fallido");
+	   		}
+	   	}); 
 
 		$.ajax({ 
 	   		type: 'GET', 
@@ -72,6 +103,8 @@ $(document).ready(function(){
 	   			$("#mod_codeSubject option[value='"+achievement.codeSubject+"']").attr("selected","selected");
 	   			$("#mod_name").val(achievement.name);
 	   			$("#mod_description").val(achievement.description);
+	   			$("#mod_codeGrade option[value='"+achievement.codeGrade+"']").attr("selected","selected");
+	   			$("#period_list2 option[value='"+achievement.period+"']").attr("selected","selected");
 	   			
 	   		},
 	   		error:function(msg) {

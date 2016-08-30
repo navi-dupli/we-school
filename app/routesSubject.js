@@ -1,3 +1,4 @@
+var objectArea = require('./models/areas'); //Import database model
 var objectSubject = require('./models/subjects'); //Import database model
 var objectUser = require('./models/user'); //Import database model
 var console = require('console-prefix');
@@ -12,11 +13,11 @@ module.exports = function(app, passport) {
     
   app.get('/subjects', isLoggedIn, function(req, res) {
 
-    objectSubject.find({},function(err, objectSubject) {
+    objectSubject.find().populate('codeArea').exec(function (err, objectSubject) {
       if (err) {
         return res.send(err);
       }
-      objectUser.find({},function(err, objectUser) { // Anidated for list objectUser
+      objectArea.find({},function(err, objectArea) { // Anidated for list objectArea
         if (err) {
           return res.send(err);
         }
@@ -24,9 +25,10 @@ module.exports = function(app, passport) {
           //objectUser:objectUser exports model User to the template (List Teachers)
           //user:req.user exports logged user info to the template
           //message:req.flash exports personalized alerts
+          console.log(objectSubject);
           res.render('subjects.ejs',{
             objectSubject : objectSubject,
-            objectUser    : objectUser,
+            objectArea    : objectArea,
             user          : req.user,
             message       : req.flash('signupMessage')
           });
@@ -40,7 +42,7 @@ module.exports = function(app, passport) {
 
     subjects.code         = req.body.code
     subjects.name         = req.body.name
-    subjects.codeTeacher  = req.body.codeTeacher
+    subjects.codeArea     = req.body.codeArea
     subjects.initDate     = req.body.initDate
     subjects.status       = req.body.status
     subjects.description  = req.body.description
@@ -106,7 +108,7 @@ module.exports = function(app, passport) {
       //Reemplaza la información de la materia
       objSubject.code         = req.body.code;
       objSubject.name         = req.body.name;
-      objSubject.codeTeacher  = req.body.codeTeacher;
+      objSubject.codeArea     = req.body.codeArea;
       objSubject.initDate     = req.body.initDate;
       objSubject.status       = req.body.status;
       objSubject.description  = req.body.description;
@@ -138,6 +140,19 @@ module.exports = function(app, passport) {
         }
     });
   });
+
+  //Retorna todas las materias
+  app.get('/subjectsNotas', isLoggedIn, function(req, res) {
+
+    objectSubject.find({},function(err, objectSubject) {
+      if (err) {
+        res.send(err);
+      }
+      else{
+        res.send(objectSubject); //Retorna el objeto Subject
+      }
+    });
+  });  
 
   //=============== Archivos adjuntos Materias =============================
 

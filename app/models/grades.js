@@ -6,7 +6,7 @@ var gradeSchema = mongoose.Schema({
 
     code            : String,
     name            : String,
-    creationDate	: String
+    creationDate	: String,
 
 });
 

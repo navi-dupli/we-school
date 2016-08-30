@@ -89,6 +89,7 @@ module.exports = function(app, passport) {
   app.get('/get-user/:id', function(req, res) {
 
     var id = req.param("id");
+    console.log(id);
 
     //Busca en la BD un usuario con el Id ingresado como parametro
     objectUser.findById(id, function(err, objUser) {
@@ -150,6 +151,18 @@ module.exports = function(app, passport) {
         else {
             res.end('success');
         }
+    });
+  });
+
+  //Retorna todos los estudiantes
+  app.get('/showUsers', function(req, res){
+
+    objectUser.find({'local.role':'Estudiante'},{'local.code':1,'_id':0}, function(err, objectUser){
+      if (err) {
+        res.send(err);
+      }else{
+         res.send(objectUser); 
+      }
     });
   });
 

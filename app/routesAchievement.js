@@ -1,5 +1,6 @@
 var objectAchievement = require('./models/achievements'); //Import database model
 var objectSubject = require('./models/subjects'); //Import database model
+var objectGrade = require('./models/grades'); //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -9,7 +10,7 @@ module.exports = function(app, passport) {
     
   app.get('/achievements', isLoggedIn, function(req, res) {
 
-    objectAchievement.find({},function(err, objectAchievement) {
+    objectAchievement.find({}).populate('codeSubject').populate('codeGrade').exec(function(err, objectAchievement){
       if (err) {
         return res.send(err);
       }
@@ -17,24 +18,34 @@ module.exports = function(app, passport) {
         if (err) {
           return res.send(err);
         }
+        objectGrade.find({},function(err, objectGrade) { // Anidated for list grade
+          if (err) {
+            return res.send(err);
+          }
           res.render('achievements.ejs',{
             objectAchievement : objectAchievement,
             objectSubject     : objectSubject,
+            objectGrade       : objectGrade,
             user              : req.user,
             message           : req.flash('signupMessage')
           });
       });
     });
   });
+  });
 
   app.post("/createAchievement", isLoggedIn, upload.array('uploadContent',3), function(req,res){
     var datetime = new Date().toJSON().slice(0,10); // Captura AAAA-MM-DD actual
     var achievements = new objectAchievement();
-
+    console.log(achievements);
     achievements.codeSubject  = req.body.codeSubject
+    achievements.period       = req.body.period
+    achievements.codeGrade    = req.body.codeGrade
     achievements.name         = req.body.name
     achievements.description  = req.body.description
     achievements.save();
+    console.log('////////////');
+    console.log(achievements);
 
     /*
     var courses_id = courses._id;
@@ -80,6 +91,20 @@ module.exports = function(app, passport) {
       });
     });
   });
+  //ingresa el id de una materia y devuelve los objetivos
+  app.get('/get-achiSub/:id', function(req, res) {
+
+    var id = req.param("id");
+    objectAchievement.find({'codeSubject':id}, function(err, objAchievement) {
+      if (err) {
+        res.send(err);
+      }
+      else{
+        res.send(objAchievement); //Retorna el objeto Subject
+      }
+    });
+  });
+
 
   app.post('/modifyAchievement/:id', function(req, res) {
 
@@ -91,6 +116,8 @@ module.exports = function(app, passport) {
       objAchievement.codeSubject  = req.body.codeSubject;
       objAchievement.name         = req.body.name;
       objAchievement.description  = req.body.description;
+      objAchievement.codeGrade    = req.body.codeGrade
+      objAchievement.period       = req.body.period
 
       objAchievement.save(function(err) {
         if (err) {

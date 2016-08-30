@@ -183,7 +183,7 @@
                 <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+                <li><a href="/report"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
 
@@ -243,6 +243,8 @@
                   <tr>
                     <th class="text-align">Materia</th>
                     <th class="text-align">Nombre</th>
+                    <th class="text-align">Grado</th>
+                    <th class="text-align">Periodo</th>
                     <th class="text-align">Descripción</th>
                   </tr>
                 </thead>
@@ -250,8 +252,10 @@
                   <% if (objectAchievement) { %>
                   <% objectAchievement.forEach(function(objAch) { %>
                   <tr class="<%= objAch._id %>" style="text-align:center;">
-                    <td><%= objAch.codeSubject %></td>
+                    <td><%= objAch.codeSubject.name %></td>
                     <td><%= objAch.name %></td>
+                    <td><%= objAch.codeGrade.name %></td>
+                    <td><%= objAch.period%></td>
                     <td><%= objAch.description %></td>
                     <td>
                       <button id="<%= objAch._id %>" class="show-modify-form btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
@@ -286,7 +290,7 @@
                     <select class="form-control" type="brand" name="codeSubject">
                       <% if (objectSubject) { %>
                         <% objectSubject.forEach(function(objSubj) { %>
-                          <option value="<%= objSubj.code %>"><%= objSubj.code %> - <%= objSubj.name %></option>
+                          <option value="<%= objSubj._id %>"><%= objSubj.code %> - <%= objSubj.name %></option>
                         <% }); %>
                       <% } %>
                     </select>
@@ -296,9 +300,25 @@
                     <label for="bio">Nombre:</label><br>
                     <input class="form-control" type="text" name="name" value="">
                   </div>
+
+                  <div class="form-group" id="period">
+                    <label for="bio">Periodo:</label><br>
+                    <select class="form-control" type="brand" id="period_list" name="period"></select>
+                  </div>
                 </section>
 
                 <section class="col-md-6">
+                  <div class="form-group" id="codeGrade">
+                    <label for="bio">Grado:</label><br>
+                    <select id="mod_codeGrade" class="form-control" type="brand" name="codeGrade">
+                      <% if (objectGrade) { %>
+                        <% objectGrade.forEach(function(objGra) { %>
+                          <option value="<%= objGra._id %>"><%= objGra.name %></option>
+                        <% }); %>
+                      <% } %>
+                    </select>
+                  </div>
+
                   <div class="form-group" id="description">
                     <label for="bio">Descripción:</label><br>
                     <textarea class="form-control" name="description"></textarea>
@@ -330,7 +350,7 @@
                     <select id="mod_codeSubject" class="form-control" type="brand" name="codeSubject">
                       <% if (objectSubject) { %>
                         <% objectSubject.forEach(function(objSubj) { %>
-                          <option value="<%= objSubj.code %>"><%= objSubj.code %> - <%= objSubj.name %></option>
+                          <option value="<%= objSubj._id%>"><%= objSubj.code %> - <%= objSubj.name %></option>
                         <% }); %>
                       <% } %>
                     </select>
@@ -340,9 +360,25 @@
                     <label for="bio">Nombre:</label><br>
                     <input class="form-control" type="text" name="name" id="mod_name">
                   </div>
+
+                  <div class="form-group" id="period2">
+                    <label for="bio">Periodo:</label><br>
+                    <select class="form-control" type="brand" id="period_list2" name="period"></select>
+                  </div>
                 </section>
 
                 <section class="col-md-6">
+                  <div class="form-group" id="codeGrade">
+                    <label for="bio">Grado:</label><br>
+                    <select id="mod_codeGrade" class="form-control" type="brand" name="codeGrade">
+                      <% if (objectGrade) { %>
+                        <% objectGrade.forEach(function(objGra) { %>
+                          <option value="<%= objGra._id %>"><%= objGra.name %></option>
+                        <% }); %>
+                      <% } %>
+                    </select>
+                  </div>
+                
                   <div class="form-group" id="description">
                     <label for="bio">Descripción:</label><br>
                     <textarea class="form-control" name="description" id="mod_description"></textarea>

@@ -72,6 +72,7 @@ $(document).ready(function(){
 	   			$("#mod_code").val(course.code);
 	   			$("#mod_name").val(course.name);
 	   			$("#mod_codeTeacher option[value='"+course.codeTeacher+"']").attr("selected","selected");
+	   			$("#mod_codeGrade option[value='"+course.codeGrade+"']").attr("selected","selected");
 	   			$("#status_list2 option[value='"+course.status+"']").attr("selected","selected");
 	   			$("#mod_description").val(course.description);
 	   			

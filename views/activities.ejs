@@ -183,7 +183,7 @@
                 <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+                <li><a href="/report"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
 
@@ -253,7 +253,7 @@
                   <% if (objectActivity) { %>
                   <% objectActivity.forEach(function(objActiv) { %>
                   <tr class="<%= objActiv._id %>" style="text-align:center;">
-                    <td><%= objActiv.codeAchievement %></td>
+                    <td><%= objActiv.codeAchievement.name %></td>
                     <td><%= objActiv.name %></td>
                     <td><%= objActiv.description %></td>
                     <td><%= objActiv.initDate %> </td>
@@ -296,7 +296,7 @@
                     <select class="form-control" type="brand" name="codeAchievement">
                       <% if (objectAchievement) { %>
                         <% objectAchievement.forEach(function(objAchi) { %>
-                          <option value="<%= objAchi.name %>"><%= objAchi.codeSubject %> - <%= objAchi.name %></option>
+                          <option value="<%= objAchi._id %>"><%= objAchi.name %></option>
                         <% }); %>
                       <% } %>
                     </select>

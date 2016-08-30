@@ -1,0 +1,165 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+
+  <title></title>
+ </head>
+ <body>
+
+
+<style type="text/css">
+
+  #report-user{
+    width: 95%;
+    margin: 0 auto;
+  }
+  html{
+    padding-top: 10px;
+    background: white;
+    font-family: inherit;
+    font-size: 8px;
+  }
+  img{
+    float: left;
+    width: 10%;
+  }
+  .row-area{
+    border: 1px solid;
+  }
+  .col-md-8{
+    display:inline-block;
+    width: 70%;
+    height: 100%;
+  }
+  .col-md-4{
+    display:inline-block;
+    width: 35%;
+  }
+  .col-md-3{
+    float: right;
+    display:inline-block;
+    width: 25%;
+    text-align: right;
+  }
+  .col-md-1{
+    display:inline-block;
+    width: 10%;
+    border-left: 1px solid;
+    height: 100%;
+  }
+  .title{
+    font-family: inherit;
+    font-size: 16px;
+    text-align: center;
+    color: #D8D8D8;
+  }
+  .div-title {
+    border: 1px solid;
+  }
+  .text-center{
+    text-align: center;
+  }
+  .sub-title{
+    font-family: inherit;
+    font-size: 8px;
+    border: 5px;
+  }
+  #pageFooter{
+    width: 95%;
+    bottom: 0;
+    position: absolute;
+    height: 65px;
+    text-align: right;
+  }
+  .subject{
+    height: 50px;
+  }
+</style>
+ <section>
+   <div id="report-user" class="">
+              <div class="table-courses table-responsive box-body">
+                <div class="div-title text-center">
+                  <p class="title">GIMNASIO PSICOPEDAGÓGICO SUBA</p>
+                  <p class="title">INFORME ACADÉMICO</p>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="sub-title" id="year">AÑO LECTIVO <%=date.getFullYear()%></p>
+                    <p class="sub-title" id="">PERIODO</p>
+                    <p class="sub-title" id="estudent">ESTUDIANTE <%=user.local.name%></p>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="sub-title" id="date">FECHA <%=date.toJSON().slice(0,10)%></p>
+                    <p class="sub-title" id="journal">JORNADA</p>
+                    <p class="sub-title" id="grade">GRADO</p>
+                  </div>
+                  <div class="col-md-3 text-center">
+                    <p class="sub-title">Resolución No. 110246 del 18 de Noviembre de 2011</p>
+                  </div>
+                </div>
+
+                <div class="table-report">
+                <%if(areas){%>
+                  <% areas.forEach(function(area) { %>
+                  <div id="area_<%=area._id%>">
+                    <div class="row-area">
+                      <div class="col-md-8"><p>ÁREA <%=area.name%></p></div>
+                      <div class="col-md-3">
+                        <div class="col-md-1"><p>1P</p></div>
+                        <div class="col-md-1"><p>2P</p></div>
+                        <div class="col-md-1"><p>ES</p></div>
+                        <div class="col-md-1"><p>3P</p></div>
+                        <div class="col-md-1"><p>4P</p></div>
+                        <div class="col-md-1"><p>EF</p></div>
+                      </div>
+                    </div>
+                    <div class="row-area">
+                      <div class="col-md-8 subject">
+                        <div class="col-md-4">
+                        <p>name<p>
+                        </div>
+                        <div class="col-md-1">
+                          <p>I.H</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div>
+                          <div class="col-md-1"><p>1P</p></div>
+                          <div class="col-md-1"><p>1P</p></div>
+                          <div class="col-md-1"><p>1P</p></div>
+                          <div class="col-md-1"><p>1P</p></div>
+                          <div class="col-md-1"><p>1P</p></div>
+                          <div class="col-md-1"><p>1P</p></div>
+                        </div>
+                        <div>
+                            <div class="col-md-1"><p>1P</p></div>
+                            <div class="col-md-1"><p>1P</p></div>
+                            <div class="col-md-1"><p>1P</p></div>
+                            <div class="col-md-1"><p>1P</p></div>
+                            <div class="col-md-1"><p>1P</p></div>
+                            <div class="col-md-1"><p>1P</p></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <%});%>    
+                <%}%>
+                </div>
+              </div>
+            </div>
+ </section>
+  <div id="pageFooter"><p>CRA 105C N 133A-22 - Telefonos 6883628-6883349-www.gimnasiopsicopedagogicosuba.edu.co Bogotá D.C.</p></div>
+ </body>
+ <script type="text/javascript">
+ /*
+  <%objectSubject.forEach(function(objSub) {%>
+    var materia = '<div class="col-md-8 subject"><div class="col-md-4" id="subject"><p><%=objSub.name%><p></div><div class="col-md-1"><p>I.H</p></div></div><div class="col-md-3"><div><div class="col-md-1"><p>1P</p></div><div class="col-md-1"><p>2P</p></div><div class="col-md-1"><p>ES</p></div><div class="col-md-1"><p>3P</p></div><div class="col-md-1"><p>4P</p></div><div class="col-md-1"><p>ET</p></div></div><div><div class="col-md-1"><p>1P</p></div><div class="col-md-1"><p>2P</p></div><div class="col-md-1"><p>ES</p></div><div class="col-md-1"><p>3P</p></div><div class="col-md-1"><p>4P</p></div><div class="col-md-1"><p>ET</p></div></div>';
+    var row_area = document.getElementById("area_<%=objSub.codeArea%>");
+    var div = document.createElement("div");
+    div.innerHTML=materia;
+    row_area.appendChild(div);
+    
+  <%});%>
+*/
+ </script>
+ </html>

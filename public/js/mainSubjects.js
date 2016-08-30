@@ -71,7 +71,7 @@ $(document).ready(function(){
 
 	   			$("#mod_code").val(subject.code);
 	   			$("#mod_name").val(subject.name);
-	   			$("#mod_codeTeacher option[value='"+subject.codeTeacher+"']").attr("selected","selected");
+	   			$("#mod_codeArea option[value='"+subject.codeArea+"']").attr("selected","selected");
 	   			$("#mod_initDate").val(subject.initDate);
 	   			$("#status_list2 option[value='"+subject.status+"']").attr("selected","selected");
 	   			$("#mod_description").val(subject.description);

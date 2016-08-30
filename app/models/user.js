@@ -2,6 +2,7 @@
 // load the things we need
 var mongoosePaginate=require('mongoose-paginate');
 var mongoose = require('mongoose');
+var Schema=mongoose.Schema;
 var bcrypt   = require('bcrypt-nodejs');
 
 // define the schema for our user model
@@ -13,7 +14,8 @@ var userSchema = mongoose.Schema({
         password     : String,
         role         : String,
         name         : String,
-        status       : String
+        status       : String,
+        codeCourse   : { type: Schema.Types.ObjectId, ref: 'Course' }, //codigo del curso 
     },
     facebook         : {
         id           : String,

@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
     
   app.get('/activities', isLoggedIn, function(req, res) {
 
-    objectActivity.find({},function(err, objectActivity) {
+    objectActivity.find().populate('codeAchievement').exec(function(err, objectActivity) {
       if (err) {
         return res.send(err);
       }
@@ -40,7 +40,7 @@ module.exports = function(app, passport) {
     activities.save();
 
     // Subida de archivos
-    var activity_id = activities._id;
+    /*var activity_id = activities._id;
     var user_id = req.user._id;
     var main_dir = './public/attachments/';
     var name = ["foto1.jpg","foto2.jpg","foto3.jpg"];
@@ -59,7 +59,7 @@ module.exports = function(app, passport) {
       fs.renameSync(final_path+req.files[x].originalname,final_path+name[x]);
       // Borra el archivo temporal creado
       fs.unlink('./uploads/'+req.files[x].filename);
-    }
+    }*/
 
     res.redirect('/activities');
 
@@ -139,6 +139,22 @@ module.exports = function(app, passport) {
     res.send({
       message:'Archivo guardado',
       file:req.file
+    });
+  });
+
+
+//ingresa el codigo del logro y se retornan todas las actividades
+  app.get('/get-achiacti/:id', function(req, res) {
+
+    var id = req.param("id");
+
+    objectActivity.find({'codeAchievement':id}, function(err, objActivity) {
+      if (err) {
+        res.send(err);
+      }
+      else{
+        res.send(objActivity); 
+      }
     });
   });
 

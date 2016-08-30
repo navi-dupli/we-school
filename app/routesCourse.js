@@ -1,5 +1,6 @@
 var objectCourse = require('./models/courses'); //Import database model
 var objectUser = require('./models/user'); //Import database model
+var objectGrade = require('./models/grades');
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -12,7 +13,7 @@ module.exports = function(app, passport) {
 
   app.get('/courses', isLoggedIn, function(req, res) {
     
-    objectCourse.find({}, function(err, objectCourse) {
+    objectCourse.find().populate('codeTeacher').exec(function (err, objectCourse) {
       if (err) {
         return res.send(err);
       }
@@ -21,6 +22,7 @@ module.exports = function(app, passport) {
         if (err) {
           return res.send(err);
         }
+        objectGrade.find({}, function(err, objectGrade){
           //objectCourse:objectCourse exports model Course to the template
           //objectUser:objectUser exports model User to the template (List Teachers)
           //user:req.user exports logged user info to the template
@@ -28,9 +30,11 @@ module.exports = function(app, passport) {
           res.render('courses.ejs',{
             objectCourse  : objectCourse,
             objectUser    : objectUser,
+            objectGrade   : objectGrade,
             user          : req.user,
             message       : req.flash('signupMessage')
           });
+        });
       });
     });
   });
@@ -45,6 +49,7 @@ module.exports = function(app, passport) {
     courses.creationDate  = datetime
     courses.status        = req.body.status
     courses.description   = req.body.description
+    courses.codeGrade     = req.body.codeGrade
     courses.save();
 
     /*
@@ -112,6 +117,7 @@ module.exports = function(app, passport) {
       objCourse.codeTeacher   = req.body.codeTeacher;
       objCourse.status        = req.body.status;
       objCourse.description   = req.body.description;
+      objCourse.codeGrade       = req.body.codeGrade;
       
       //Guarda las modificaciones y redirige a la vista /courses
       objCourse.save(function(err) {
