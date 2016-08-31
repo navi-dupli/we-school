@@ -12,7 +12,7 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "ejs": "2.3.3",
-    "express": "4.13.3",
+    "express": "4.14.0",
     "express-paginate": "^0.1.1",
     "express-pdf": "^1.2.2",
     "express-session": "^1.14.1",
