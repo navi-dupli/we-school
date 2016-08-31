@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="plugins/morris/morris.css">
-    <!-- jvectormap -->
+    <!-- jvectormap --> 
     <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <!-- Date Picker -->
     <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
@@ -146,7 +146,7 @@
                 <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
+                <li><a href="/enrollments"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
@@ -159,6 +159,7 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
+                <li><a href="/area"><i class="fa fa-angle-double-right"></i> Área</a></li>
                 <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
                 <% } %>
                 <li><a href="/achievements"><i class="fa fa-angle-double-right"></i> Logros</a></li>

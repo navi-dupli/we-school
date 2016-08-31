@@ -146,7 +146,7 @@
                 <i class="ion ion-bag"></i> <span>Matriculas</span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
+                <li><a href="/enrollments"><i class="fa fa-angle-double-right"></i> Matricular Estudiante</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buscar Estudiante</a></li>
               </ul>
             </li>
@@ -159,6 +159,7 @@
               </a>
               <ul class="treeview-menu">
                 <% if (user.local.role === "Administrador") { %>
+                <li><a href="/area"><i class="fa fa-angle-double-right"></i> Área</a></li>
                 <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
                 <% } %>
                 <li><a href="/achievements"><i class="fa fa-angle-double-right"></i> Logros</a></li>
@@ -240,7 +241,7 @@
                     <td><%= objUsr.local.name %></td>
                     <td><%= objUsr.local.email %> </td>
                     <td>
-                      <button id="<%= objUsr._id %>" class="show-report btn btn-warning btn-block ">Notas<i class="fa fa-pencil"></i></button>
+                      <a href="report-pdf/<%= objUsr._id %>" id="<%= objUsr._id %>" class="show-report btn btn-warning btn-block ">Notas<i class="fa fa-pencil"></i></a>
                       <input type="hidden" value="<%= objUsr._id %>">
                     </td>
                   </tr>

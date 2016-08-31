@@ -48,7 +48,7 @@ module.exports = function(app, passport) {
 	    });**/ 
   	});
 
-	app.get('/report-pdf',  function(req, res) {
+	app.get('/report-pdf/:id',  function(req, res) {
 		
 		/*var cursor;
 		objectUser.findOne({_id:"56e272ffad33dd9d262dff06"}, function(err, user){
@@ -66,8 +66,9 @@ module.exports = function(app, passport) {
 			}
 
 		});*/
+		var id = req.param("id");
 		var date = new Date();
-		objectUser.findOne({_id:"56e272ffad33dd9d262dff06"}, function(err, user){
+		objectUser.findOne({_id:id}, function(err, user){
 			if (err) {return res.send();}
 			else{
 				objectArea.find({},function(err, objectArea){
