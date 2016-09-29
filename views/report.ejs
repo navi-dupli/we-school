@@ -137,6 +137,7 @@
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
                 <li><a href="/grades"><i class="fa fa-angle-double-right"></i> Grados</a></li>
                 <li><a href="/courses"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href="/registerCourse"><i class="fa fa-angle-double-right"></i> Asignar curso</a></li>
               </ul>
             </li>
 
@@ -161,6 +162,7 @@
                 <% if (user.local.role === "Administrador") { %>
                 <li><a href="/area"><i class="fa fa-angle-double-right"></i> Área</a></li>
                 <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
+                <li><a href="/enrollmentSubjects"><i class="fa fa-angle-double-right"></i> Inscribir materia</a></li>
                 <% } %>
                 <li><a href="/achievements"><i class="fa fa-angle-double-right"></i> Logros</a></li>
                 <li><a href="/activities"><i class="fa fa-angle-double-right"></i> Actividades</a></li>
@@ -175,6 +177,9 @@
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Asistencia</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Observador</a></li>
+                <% if (user.local.role === "Docente") { %>
+                  <li><a href="/qualification"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+                <% } %>
               </ul>
             </li>
 
@@ -184,6 +189,9 @@
                 <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
+                <% if (user.local.role === "Administrador") { %>
+                  <li><a href="/report-course"><i class="fa fa-angle-double-right"></i> Notas por curso</a></li>
+                <%}%>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
@@ -216,7 +224,13 @@
         </section>
         <!-- Main content -->
         <section class="content">
-
+          <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-5">
+              <div class="contains">
+                <span class="list-users btn btn-primary"><i class="fa fa-reorder fa-5x pull-left"></i> Listar usuarios </span>
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
           <!-- Alertas -->
           <% if (message.length > 0) { %>
             <div class="alert alert-danger" style="margin-top: 10px;"><%= message %></div>
@@ -241,47 +255,44 @@
                     <td><%= objUsr.local.name %></td>
                     <td><%= objUsr.local.email %> </td>
                     <td>
-                      <a href="report-pdf/<%= objUsr._id %>" id="<%= objUsr._id %>" class="show-report btn btn-warning btn-block ">Notas<i class="fa fa-pencil"></i></a>
+                      <a id="<%= objUsr._id %>" class="show-report-form btn btn-warning btn-block ">Notas<i class="fa fa-print"></i></a>
                       <input type="hidden" value="<%= objUsr._id %>">
                     </td>
                   </tr>
                   <% }); %>
-                  <% } else { %>
-                  <td colspan="" rowspan="" headers="">Para crear un usuario, dé click en el boton <span class="fa fa-plus-circle"></span></td>
-                  <% } %>
+                  <% }%>
+                  
                 </tbody>
               </table>
             </div>
 
-            <!-- Tabla de estudiantes -->
-            <div id="report-user" class="col-md-12" style="display: none;" >
-              <div class="table-courses table-responsive box-body">
-                <div class="row text-center">
-                    <img class="pull-left" src="img/avatar.png">
-                    <h1>GIMNASIO PSICOPEDAGÓGICO SUBA</h1>
-                    <h1>INFORME ACADÉMICO</h1>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <h3 id="year">AÑO LECTIVO</h3>
-                    <h3 id="">PERIODO</h3>
-                    <h3 id="estudent">ESTUDIANTE</h3>
-                  </div>
-                  <div class="col-md-4">
-                    <h3 id="date">FECHA</h3>
-                    <h3 id="journal">JORNADA</h3>
-                    <h3 id="grade">GRADO</h3>
-                  </div>
-                  <div class="col-md-3 text-center">
-                    <h3>Resolución No. 110246 del 18 de Noviembre de 2011</h3>
-                  </div>
+            <!-- Elección de periodo-->
+            <form id="frm-report-user" class="form-user" method="GET">
+              <div id="form-report-user" class="col-md-12" style="display: none;" >
+                <div>
+                  <label for=""><h2>Seleccionar periodo</h2></label>
                 </div>
 
-                <div class="table-report">
+                <section class="col-md-6 ">
+                  <div class="form-group" id="name">
+                    <label for="bio">Nombre:</label><br>
+                    <input class="form-control" type="text" name="name" id="mod_name">
+                  </div>
+                </section>
 
-                </div>
+                <section class="col-md-6">
+                  <div class="form-group" id="period">
+                    <label for="bio">Periodo:</label><br>
+                    <select class="form-control" type="brand" id="period_list" name="period"></select>
+                  </div>
+                </section>
+
+                <input id="button_generate" type="submit" class="generate-pdf btn btn-primary btn-block btn-flat" value="Generar PDF"></input>
+                <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
+                <input type="button" class="list-users btn btn-danger btn-block btn-flat" value="Cancelar"></input>
               </div>
-            </div>
+            </form>
+            
           </div>
         </section>
       </div>

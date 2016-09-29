@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Cursos | We-Learning</title>
+    <title>Reportes | We-Learning</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -192,7 +192,7 @@
                 <% if (user.local.role === "Administrador") { %>
                   <li><a href="/report-course"><i class="fa fa-angle-double-right"></i> Notas por curso</a></li>
                 <%}%>
-                <li><a href="/report"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
 
@@ -219,65 +219,45 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Administración de Cursos
+            Notas de estudiantes
           </h1>
         </section>
         <!-- Main content -->
         <section class="content">
-          <!-- Info boxes -->
           <div class="row">
             <div class="col-md-3 col-sm-4 col-xs-5">
               <div class="contains">
-                <span class="btn bg-green" id="add-course"> <i class="fa fa-plus-circle fa-5x pull-left"></i> Agregar curso </span>
-              </div><!-- /.info-box -->
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-5">
-              <div class="contains">
-                <span class="list-courses btn btn-primary"><i class="fa fa-reorder fa-5x pull-left"></i> Listar cursos </span>
+                <span class="list-users btn btn-primary"><i class="fa fa-reorder fa-5x pull-left"></i> Listar usuarios </span>
               </div><!-- /.info-box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
-
           <!-- Alertas -->
           <% if (message.length > 0) { %>
             <div class="alert alert-danger" style="margin-top: 10px;"><%= message %></div>
           <% } %>
 
           <div class="box-body">
-
             <!-- Tabla de Cusos -->
             <div class="table-courses table-responsive">
               <table class="table no-margin">
                 <thead>
                   <tr>
-                    <th class="text-align">Código</th>
                     <th class="text-align">Nombre</th>
-                    <th class="text-align">Director</th>
-                    <th class="text-align">Fecha de Creación</th>
                     <th class="text-align">Estado</th>
-                    <th class="text-align">Descripción</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% if (objectCourse) { %>
                   <% objectCourse.forEach(function(objCou) { %>
                   <tr class="<%= objCou._id %>" style="text-align:center;">
-                    <td><%= objCou.code %></td>
                     <td><%= objCou.name %></td>
-                    <td><%= objCou.codeTeacher.local.name %></td>
-                    <td><%= objCou.creationDate %> </td>
                     <% if (objCou.status === "Activo") { %>
                       <td><i class="fa fa-circle text-success"></i>  <%= objCou.status %></td>
                     <% } else { %>
                       <td><i class="fa fa-circle text-danger"></i>  <%= objCou.status %></td>
                     <% } %>
-                    <td><%= objCou.description %></td>
                     <td>
-                      <button id="<%= objCou._id %>" class="show-modify-form btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
-                      <input type="hidden" value="<%= objCou._id %>">
-                    </td>
-                    <td>
-                      <button id="<%= objCou._id %>" class="delete-course btn btn-danger btn-block ">Eliminar <i class="fa fa-trash"></i></button>
+                      <a id="<%= objCou._id %>" class="show-report-form btn btn-warning btn-block ">Notas<i class="fa fa-print"></i></a>
                       <input type="hidden" value="<%= objCou._id %>">
                     </td>
                   </tr>
@@ -291,134 +271,31 @@
               </table>
             </div>
 
-
-            <!-- Formulario agregar curso -->
-            <form class="form-course" enctype="multipart/form-data" action="createCourse" method="POST" >
-              <div id="form-add-course" class="col-md-12" style="display: none;" >
+            <!-- Elección de periodo-->
+              <div id="form-report-user" class="col-md-12" style="display: none;" >
                 <div>
-                  <label for=""><h2>Ingrese el nuevo curso</h2></label>
+                  <label for=""><h2>Seleccionar periodo</h2></label>
                 </div>
 
                 <section class="col-md-6 ">
-                  <div class="form-group" id="code">
-                    <label for="bio">Código:</label><br>
-                    <input class="form-control" type="text" name="code" value="">
-                  </div>
-
-                  <div class="form-group" id="name">
-                    <label for="bio">Nombre:</label><br>
-                    <input class="form-control" type="text" name="name" value="">
-                  </div>
-
-                  <div class="form-group" id="codeTeacher">
-                    <label for="bio">Director:</label><br>
-                    <select class="form-control" type="brand" name="codeTeacher">
-                      <% if (objectUser) { %>
-                        <% objectUser.forEach(function(objUsr) { %>
-                          <% if (objUsr.local.role === "Docente") { %>
-                            <option value="<%= objUsr._id %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
-                          <% } %>
-                        <% }); %>
-                      <% } %>
-                    </select>
-                  </div>
-                </section>
-
-                <section class="col-md-6">
-                  <div class="form-group" id="codeGrade">
-                    <label for="bio">Grado:</label><br>
-                    <select id="mod_codeGrade" class="form-control" type="brand" name="codeGrade">
-                      <% if (objectGrade) { %>
-                        <% objectGrade.forEach(function(objGra) { %>
-                          <option value="<%= objGra._id %>"><%= objGra.name %></option>
-                        <% }); %>
-                      <% } %>
-                    </select>
-                  </div>
-
-                  <div class="form-group" id="status">
-                    <label for="bio">Estado:</label><br>
-                    <select class="form-control" type="brand" id="status_list" name="status"></select>
-                  </div>
-
-                  <div class="form-group" id="description">
-                    <label for="bio">Descripción:</label><br>
-                    <textarea class="form-control" name="description"></textarea>
-                  </div>
-
-                  <!--<div>
-                    <label for="bio">Archivos adjuntos:</label><br>
-                    <input class="form-date btn btn-success btn-block"  value="cargar archivo"></input>
-                  </div>-->
-                </section>
-
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Agregar</button>
-                <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
-                <input type="button" class="list-courses btn btn-danger btn-block btn-flat" value="Cancelar"></input>
-              </div>
-            </form>
-
-
-            <!-- Formulario modificar curso -->
-            <form id="frm-modify-course" class="form-course" method="POST">
-              <div id="form-modify-course" class="col-md-12" style="display: none;" >
-                <div>
-                  <label for=""><h2>Modificar curso</h2></label>
-                </div>
-
-                <section class="col-md-6 ">
-                  <div class="form-group" id="code">
-                    <label for="bio">Código:</label><br>
-                    <input class="form-control" type="text" name="code" id="mod_code">
-                  </div>
-
                   <div class="form-group" id="name">
                     <label for="bio">Nombre:</label><br>
                     <input class="form-control" type="text" name="name" id="mod_name">
                   </div>
-
-                  <div class="form-group" id="codeTeacher">
-                    <label for="bio">Director:</label><br>
-                    <select id="mod_codeTeacher" class="form-control" type="brand" name="codeTeacher">
-                      <% if (objectUser) { %>
-                        <% objectUser.forEach(function(objUsr) { %>
-                          <% if (objUsr.local.role === "Docente") { %>
-                            <option value="<%= objUsr._id %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
-                          <% } %>
-                        <% }); %>
-                      <% } %>
-                    </select>
-                  </div>
                 </section>
 
                 <section class="col-md-6">
-                  <div class="form-group" id="codeGrade">
-                    <label for="bio">Grado:</label><br>
-                    <select id="mod_codeGrade" class="form-control" type="brand" name="codeGrade">
-                      <% if (objectGrade) { %>
-                        <% objectGrade.forEach(function(objGra) { %>
-                          <option value="<%= objGra._id %>"><%= objGra.name %></option>
-                        <% }); %>
-                      <% } %>
-                    </select>
-                  </div>
-
-                  <div class="form-group" id="status">
-                    <label for="bio">Estado:</label><br>
-                    <select id="status_list2" class="form-control" type="brand" name="status"></select>
-                  </div>
-
-                  <div class="form-group" id="description">
-                    <label for="bio">Descripción:</label><br>
-                    <textarea class="form-control" name="description" id="mod_description"></textarea>
+                  <div class="form-group" id="period">
+                    <label for="bio">Periodo:</label><br>
+                    <select class="form-control" type="brand" id="period_list" name="period"></select>
                   </div>
                 </section>
 
-                <input id="button_update" type="submit" class="modify-course btn btn-primary btn-block btn-flat" value="Actualizar"></input>
+                <input id="button_generate" type="submit" class="generate-pdf btn btn-primary btn-block btn-flat" value="Generar PDF"></input>
                 <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
-                <input type="button" class="list-courses btn btn-danger btn-block btn-flat" value="Cancelar"></input>
+                <input type="button" class="list-users btn btn-danger btn-block btn-flat" value="Cancelar"></input>
               </div>
-            </form>
+            
           </div>
         </section>
       </div>
@@ -447,7 +324,7 @@
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="assets/dashboard/js/demo.js"></script>
     <!-- Script main-->
-    <script src="js/mainCourses.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="js/mainReportCourse.js" type="text/javascript" charset="utf-8" ></script>
     <script type="text/javascript" src="json/jquery.autocomplete.js"></script>
 
 

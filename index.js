@@ -76,6 +76,8 @@ require('./app/routesActivity.js')(app, passport);
 require('./app/routesArea.js')(app, passport);
 require('./app/routesEnrollments.js')(app, passport);
 require('./app/routesReport.js')(app, passport);
+require('./app/routesEnrollmentSubjects.js')(app, passport);
+require('./app/routesQualification.js')(app, passport);
 require('./app/front/routes.js')(app, passport);
 
 //run aplication

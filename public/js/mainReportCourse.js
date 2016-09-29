@@ -33,14 +33,14 @@ $(document).ready(function(){
 
 	   	$.ajax({ 
 	   		type: 'GET', 
-	   		url: '/get-user/'+$(this).attr("id"),
+	   		url: '/get-course/'+$(this).attr("id"),
 	   		dataType: 'json',
 	   		success: function (data) {
-	   			user = data.local;
+	   			course = data;
 	   			
 	   			$("#button_generate").attr("id", dataId);
 
-	   			$("#mod_name").val(user.name);
+	   			$("#mod_name").val(course.name);
 	   			$("#mod_name").attr('disabled','disabled');
 	   		},
 	   		error:function(msg) {
@@ -53,8 +53,48 @@ $(document).ready(function(){
 	$('.generate-pdf').click(function(){
 
 		var dataId = this.id;
-		$('#frm-report-user').attr("action", "report-pdf/"+dataId);		
+		var period = $( "#period_list option:selected" ).text();
 
-		$('#frm-modify-user').submit();
+		$.ajax({ 
+	   		type: 'GET', 
+	   		url: '/folderPdf/'+id,
+	   		dataType: 'json',
+	   		success: function (data) {
+	   			
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+"Error en la creacion de carpeta");
+	   		}
+	   	});
+
+		$.ajax({ 
+	   		type: 'GET', 
+	   		url: '/estudents-course/'+dataId,
+	   		dataType: 'json',
+	   		success: function (data) {
+	   			estudents = data;
+	   			
+	   			estudents.forEach(function(estudent){
+	   				$.ajax({ 
+				   		type: 'GET', 
+				   		url: '/report-user/'+estudent._id+'/'+period,
+				   		dataType: 'json',
+				   		success: function (data) {
+				   			console.log(data);
+				   		},
+				   		error:function(msg) {
+				   			// body...
+				   			console.log(msg+"Peticion de datos fallida");
+				   		}
+				   	});
+	   			});
+	   			
+	   		},
+	   		error:function(msg) {
+	   			// body...
+	   			console.log(msg+"Peticion de estudiantes fallida");
+	   		}
+	   	});
 	});
 });

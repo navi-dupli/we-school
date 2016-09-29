@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="plugins/morris/morris.css">
-    <!-- jvectormap --> 
+    <!-- jvectormap -->
     <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <!-- Date Picker -->
     <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
@@ -137,6 +137,7 @@
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
                 <li><a href="/grades"><i class="fa fa-angle-double-right"></i> Grados</a></li>
                 <li><a href="/courses"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href="/registerCourse"><i class="fa fa-angle-double-right"></i> Asignar curso</a></li>
               </ul>
             </li>
 
@@ -161,6 +162,7 @@
                 <% if (user.local.role === "Administrador") { %>
                 <li><a href="/area"><i class="fa fa-angle-double-right"></i> Área</a></li>
                 <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
+                <li><a href="/enrollmentSubjects"><i class="fa fa-angle-double-right"></i> Inscribir materia</a></li>
                 <% } %>
                 <li><a href="/achievements"><i class="fa fa-angle-double-right"></i> Logros</a></li>
                 <li><a href="/activities"><i class="fa fa-angle-double-right"></i> Actividades</a></li>
@@ -175,6 +177,9 @@
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Asistencia</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Observador</a></li>
+                <% if (user.local.role === "Docente") { %>
+                  <li><a href="/qualification"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+                <% } %>
               </ul>
             </li>
 
@@ -184,6 +189,9 @@
                 <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
+                <% if (user.local.role === "Administrador") { %>
+                  <li><a href="/report-course"><i class="fa fa-angle-double-right"></i> Notas por curso</a></li>
+                <%}%>
                 <li><a href="/report"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>
@@ -225,7 +233,7 @@
             </div>
             <div class="col-md-3 col-sm-4 col-xs-5">
               <div class="contains">
-                <span class="list-eroll btn btn-primary"><i class="fa fa-reorder fa-5x pull-left"></i> Listar matriculas </span>
+                <span class="list-enroll btn btn-primary"><i class="fa fa-reorder fa-5x pull-left"></i> Listar matriculas </span>
               </div><!-- /.info-box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -252,6 +260,14 @@
                   <tr class="<%= objEnr._id %>" style="text-align:center;">
                     <td><%= objEnr.codeUser.local.name %></td>
                     <td><%= objEnr.codeGrade.name%></td>
+                    <td>
+                      <button id="<%= objEnr._id %>" class="show-modify-form btn btn-warning btn-block ">Editar <i class="fa fa-pencil"></i></button>
+                      <input type="hidden" value="<%= objEnr._id %>">
+                    </td>
+                    <td>
+                      <button id="<%= objEnr._id %>" class="delete-enrrol btn btn-danger btn-block ">Eliminar <i class="fa fa-trash"></i></button>
+                      <input type="hidden" value="<%= objEnr._id %>">
+                    </td>
                   </tr>
                   <% }); %>
                   <% } else { %>
@@ -277,7 +293,7 @@
                     <select class="form-control" type="brand" name="codeUser">
                       <% if (objectUser) { %>
                         <% objectUser.forEach(function(objUsr) { %>
-                          <option value="<%= objUsr._id %>"><%= objUsr.local.code %> - <%= objUsr.local.name %></option>
+                          <option value="<%= objUsr._id %>"><%= objUsr.local.name %></option>
                         <% }); %>
                       <% } %>
                     </select>
@@ -304,6 +320,43 @@
             </form>
 
             <!-- Formulario modificar matricula -->
+            <form class="frm-modify-enroll" method="POST" >
+              <div id="form-modify-enroll" class="col-md-12" style="display: none;" >
+                <div>
+                  <label for=""><h2>Modificar matricula</h2></label>
+                </div>
+
+                <section class="col-md-6 ">
+                  <div class="form-group" id="codeCourse">
+                    <label for="bio">Estudiante:</label><br>
+                    <select class="form-control" type="brand" name="codeUser" id="mod_user">
+                      <% if (objectUser) { %>
+                        <% objectUser.forEach(function(objUsr) { %>
+                          <option value="<%= objUsr._id %>"><%= objUsr.local.name %></option>
+                        <% }); %>
+                      <% } %>
+                    </select>
+                  </div>
+                </section>
+
+                <section class="col-md-6">
+                  <div class="form-group" id="codeSubject">
+                    <label for="bio">Grado:</label><br>
+                    <select class="form-control" type="brand" name="codeGrade" id="mod_grade">
+                      <% if (objectGrade) { %>
+                        <% objectGrade.forEach(function(objGra) { %>
+                          <option value="<%= objGra._id %>"><%= objGra.name %></option>
+                        <% }); %>
+                      <% } %>
+                    </select>
+                  </div>
+                </section>
+
+                <input id="button_update" type="submit" class="modify-enroll btn btn-primary btn-block btn-flat" value="Actualizar"></input>
+                <!-- El botón cancelar se deja como input para que no haga efecto sobre el formulario -->
+                <input type="button" class="list-enroll btn btn-danger btn-block btn-flat" value="Cancelar"></input>
+              </div>
+            </form>
     
           </div>
         </section>

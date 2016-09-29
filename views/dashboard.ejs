@@ -131,6 +131,7 @@
                 <li><a href="/users"><i class="fa fa-angle-double-right"></i> Usuarios</a></li>
                 <li><a href="/grades"><i class="fa fa-angle-double-right"></i> Grados</a></li>
                 <li><a href="/courses"><i class="fa fa-angle-double-right"></i> Cursos</a></li>
+                <li><a href="/registerCourse"><i class="fa fa-angle-double-right"></i> Asignar curso</a></li>
               </ul>
             </li>
 
@@ -155,6 +156,7 @@
                 <% if (user.local.role === "Administrador") { %>
                 <li><a href="/area"><i class="fa fa-angle-double-right"></i> Área</a></li>
                 <li><a href="/subjects"><i class="fa fa-angle-double-right"></i> Materias</a></li>
+                <li><a href="/enrollmentSubjects"><i class="fa fa-angle-double-right"></i> Inscribir materia</a></li>
                 <% } %>
                 <li><a href="/achievements"><i class="fa fa-angle-double-right"></i> Logros</a></li>
                 <li><a href="/activities"><i class="fa fa-angle-double-right"></i> Actividades</a></li>
@@ -169,6 +171,9 @@
               <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Asistencia</a></li>
                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Observador</a></li>
+                <% if (user.local.role === "Docente") { %>
+                  <li><a href="/qualification"><i class="fa fa-angle-double-right"></i> Notas</a></li>
+                <% } %>
               </ul>
             </li>
 
@@ -178,6 +183,9 @@
                 <i class="ion ion-pie-graph"></i><span>Reportes</span>
               </a>
               <ul class="treeview-menu">
+                <% if (user.local.role === "Administrador") { %>
+                  <li><a href="/report-course"><i class="fa fa-angle-double-right"></i> Notas por curso</a></li>
+                <%}%>
                 <li><a href="/report"><i class="fa fa-angle-double-right"></i> Notas</a></li>
               </ul>
             </li>

@@ -1,6 +1,11 @@
  <!DOCTYPE html>
  <html>
  <head>
+  <script
+        src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+        crossorigin="anonymous"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   <title></title>
  </head>
@@ -19,131 +24,209 @@
     font-family: inherit;
     font-size: 8px;
   }
-  img{
-    float: left;
-    width: 10%;
-  }
-  .row-area{
-    border: 1px solid;
-  }
-  .col-md-8{
-    display:inline-block;
-    width: 70%;
-    height: 100%;
-  }
-  .col-md-4{
-    display:inline-block;
-    width: 35%;
-  }
-  .col-md-3{
-    float: right;
-    display:inline-block;
-    width: 25%;
-    text-align: right;
-  }
-  .col-md-1{
-    display:inline-block;
-    width: 10%;
-    border-left: 1px solid;
-    height: 100%;
-  }
-  .title{
-    font-family: inherit;
-    font-size: 16px;
-    text-align: center;
-    color: #D8D8D8;
+  body{
+    font-size: 8px; 
   }
   .div-title {
     border: 1px solid;
   }
-  .text-center{
-    text-align: center;
+  .row-area{
+    border: 1px solid;
+    margin-right: 0;
+    margin-left: 0;
   }
-  .sub-title{
-    font-family: inherit;
-    font-size: 8px;
-    border: 5px;
+  .row-margin{
+    margin-right: 0;
+    margin-left: 0;    
   }
-  #pageFooter{
-    width: 95%;
-    bottom: 0;
-    position: absolute;
-    height: 65px;
-    text-align: right;
+  .col-xs-4{
+    float: right;
+    padding-right: 0px;
   }
-  .subject{
-    height: 50px;
+  .col-xs-2{
+    float: right;
+    border-left: 1px solid;
+    height: 30px;
+    padding: 0px;
+  }
+  .note{
+    border-bottom: 1px solid;
+  }
+  td{
+    border: 1px solid; 
+  }
+  hr{
+    border-top: 1px solid #151313;
   }
 </style>
  <section>
    <div id="report-user" class="">
-              <div class="table-courses table-responsive box-body">
+              <div class="box-body">
                 <div class="div-title text-center">
                   <p class="title">GIMNASIO PSICOPEDAGÓGICO SUBA</p>
                   <p class="title">INFORME ACADÉMICO</p>
                 </div>
-                <div class="row">
-                  <div class="col-md-4">
+                <div class="row row-margin">
+                  <div class="col-xs-4">
                     <p class="sub-title" id="year">AÑO LECTIVO <%=date.getFullYear()%></p>
                     <p class="sub-title" id="">PERIODO</p>
                     <p class="sub-title" id="estudent">ESTUDIANTE <%=user.local.name%></p>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-xs-4">
                     <p class="sub-title" id="date">FECHA <%=date.toJSON().slice(0,10)%></p>
                     <p class="sub-title" id="journal">JORNADA</p>
-                    <p class="sub-title" id="grade">GRADO</p>
+                    <p class="sub-title" id="grade">GRADO <%=user.local.codeCourse.name%></p>
                   </div>
-                  <div class="col-md-3 text-center">
+                  <div class="col-xs-3 text-center">
                     <p class="sub-title">Resolución No. 110246 del 18 de Noviembre de 2011</p>
                   </div>
                 </div>
 
-                <div class="table-report">
-                <%if(areas){%>
+                <div class="table-report row row-margin">
+                  <%if(areas){%>
                   <% areas.forEach(function(area) { %>
                   <div id="area_<%=area._id%>">
-                    <div class="row-area">
-                      <div class="col-md-8"><p>ÁREA <%=area.name%></p></div>
-                      <div class="col-md-3">
-                        <div class="col-md-1"><p>1P</p></div>
-                        <div class="col-md-1"><p>2P</p></div>
-                        <div class="col-md-1"><p>ES</p></div>
-                        <div class="col-md-1"><p>3P</p></div>
-                        <div class="col-md-1"><p>4P</p></div>
-                        <div class="col-md-1"><p>EF</p></div>
-                      </div>
-                    </div>
-                    <div class="row-area">
-                      <div class="col-md-8 subject">
-                        <div class="col-md-4">
-                        <p>name<p>
-                        </div>
-                        <div class="col-md-1">
-                          <p>I.H</p>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div>
-                          <div class="col-md-1"><p>1P</p></div>
-                          <div class="col-md-1"><p>1P</p></div>
-                          <div class="col-md-1"><p>1P</p></div>
-                          <div class="col-md-1"><p>1P</p></div>
-                          <div class="col-md-1"><p>1P</p></div>
-                          <div class="col-md-1"><p>1P</p></div>
-                        </div>
-                        <div>
-                            <div class="col-md-1"><p>1P</p></div>
-                            <div class="col-md-1"><p>1P</p></div>
-                            <div class="col-md-1"><p>1P</p></div>
-                            <div class="col-md-1"><p>1P</p></div>
-                            <div class="col-md-1"><p>1P</p></div>
-                            <div class="col-md-1"><p>1P</p></div>
-                        </div>
+                    <div class="row row-area">
+                      <div class="col-xs-8"><p>ÁREA <%=area.name%></p></div>
+                      <div class="col-xs-4">
+                        <div class="col-xs-2"><p>EF</p></div>
+                        <div class="col-xs-2"><p>4P</p></div>
+                        <div class="col-xs-2"><p>3P</p></div>
+                        <div class="col-xs-2"><p>ES</p></div>
+                        <div class="col-xs-2"><p>2P</p></div>
+                        <div class="col-xs-2"><p>1P</p></div>
                       </div>
                     </div>
                   </div>
+                  <%objectSubject.forEach(function(objSub) {%>
+                    <%if(objSub.codeSubject.codeArea.equals(area._id)){%>
+                      <div class="row row-area subject_<%=objSub.codeSubject._id%>">
+                      <div class="col-xs-8 subject">
+                        <div class="col-xs-6">
+                        <p><b><%=objSub.codeSubject.name%></b><p>
+                        </div>
+                        <div class="col-xs-3">
+                          <p><b>I.H: <%=objSub.hourlyintensity%></b></p>
+                        </div>
+                      </div>
+                      <div class="col-xs-4">
+                        <div class="row row-margin">
+                          <div class="col-xs-2 note"><b></b></div>
+                          <div class="col-xs-2 note"><b id="Cuarto_<%=objSub.codeSubject._id%>_qual"></b></div>
+                          <div class="col-xs-2 note"><b id="Tercero_<%=objSub.codeSubject._id%>_qual"></b></div>
+                          <div class="col-xs-2 note"><b></b></div>
+                          <div class="col-xs-2 note"><b id="Segundo_<%=objSub.codeSubject._id%>_qual"></b></div>
+                          <div class="col-xs-2 note"><b id="Primero_<%=objSub.codeSubject._id%>_qual"></b></div>
+                        </div>
+                        <div class="row row-margin">
+                          <div id="" class="col-xs-2"><p></p></div>
+                          <div class="col-xs-2"><b id="Cuarto_<%=objSub.codeSubject._id%>"></b></div>
+                          <div class="col-xs-2"><b id="Tercero_<%=objSub.codeSubject._id%>"></b></div>
+                          <div id="" class="col-xs-2"><p></></div>
+                          <div class="col-xs-2"><b id="Segundo_<%=objSub.codeSubject._id%>"></b></div>
+                          <div class="col-xs-2"><b id="Primero_<%=objSub.codeSubject._id%>"></b></div>
+                        </div>
+                      </div>
+                    </div>
+                    <%}%>
+                    <%});%>
                   <%});%>    
                 <%}%>
+                </div>
+              </div>
+
+              <div class="row">
+                
+                <div class="col-xs-6">
+                  <table>
+                    <thead>
+                      <tr>
+                        <td colspan="3">ESCALA DE VALORACIÓN</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>E: EXCELENTE</td>
+                        <td>96 -100</td>
+                        <td>Desempeño Superior</td>
+                      </tr>
+                      <tr>
+                        <td>S: SOBRESALIENTE</td>
+                        <td>86 - 95</td>
+                        <td>Desempeño Alto</td>
+                      </tr>
+                      <tr>
+                        <td>A: ACEPTABLE</td>
+                        <td>70 - 85</td>
+                        <td>Desempeño Básico</td>
+                      </tr>
+                      <tr>
+                        <td>R: REPROBADO</td>
+                        <td>0 - 69</td>
+                        <td>Desempeño Bajo</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-xs-6">
+                  <table>
+                    <thead>
+                      <tr>
+                        <td display="none"></td>
+                        <td>1P</td>
+                        <td>2P</td>
+                        <td>ES</td>
+                        <td>3P</td>
+                        <td>4P</td>
+                        <td>EF</td>
+                        <td>F</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>PUESTO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>PROMEDIO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+                <b>Obsevaciones</b>
+                <hr>
+                <hr>
+                <hr>
+                <hr>
+              </div>
+              <div class="row">
+                <div class="col-xs-4">
+                  <hr>
+                  <b>RECTOR</b>
+                </div>
+                <div class="col-xs-4">
+                  <hr>
+                  <b>COORDINADOR</b>
+                </div>
+                <div class="col-xs-4">
+                  <hr>
+                  <b>DIRECTOR DE GRUPO</b>  
                 </div>
               </div>
             </div>
@@ -151,15 +234,29 @@
   <div id="pageFooter"><p>CRA 105C N 133A-22 - Telefonos 6883628-6883349-www.gimnasiopsicopedagogicosuba.edu.co Bogotá D.C.</p></div>
  </body>
  <script type="text/javascript">
- /*
-  <%objectSubject.forEach(function(objSub) {%>
-    var materia = '<div class="col-md-8 subject"><div class="col-md-4" id="subject"><p><%=objSub.name%><p></div><div class="col-md-1"><p>I.H</p></div></div><div class="col-md-3"><div><div class="col-md-1"><p>1P</p></div><div class="col-md-1"><p>2P</p></div><div class="col-md-1"><p>ES</p></div><div class="col-md-1"><p>3P</p></div><div class="col-md-1"><p>4P</p></div><div class="col-md-1"><p>ET</p></div></div><div><div class="col-md-1"><p>1P</p></div><div class="col-md-1"><p>2P</p></div><div class="col-md-1"><p>ES</p></div><div class="col-md-1"><p>3P</p></div><div class="col-md-1"><p>4P</p></div><div class="col-md-1"><p>ET</p></div></div>';
-    var row_area = document.getElementById("area_<%=objSub.codeArea%>");
-    var div = document.createElement("div");
-    div.innerHTML=materia;
-    row_area.appendChild(div);
-    
+  <%objAchievement.forEach(function(objAch){%>
+    var logro ='<div class="row-area achievement_<%=objAch._id%>"><p><b><%=objAch.name%></b></p></div>';
+    $(logro).insertAfter('.subject_<%=objAch.codeSubject._id%>');
   <%});%>
-*/
+  
+  <%objActivity.forEach(function(objAct){%>
+    var actividad = '<div class="row-area"><p><%=objAct.name%></p></div>';
+    $(actividad).insertAfter('.achievement_<%=objAct.codeAchievement%>');
+  <%});%>
+
+  <%objQualification.forEach(function(objQual){%>
+    $('#<%=objQual.period%>_<%=objQual.codeSubject%>').text('<%=objQual.qualification%>');
+    var qualification=<%=objQual.qualification%>;
+    if(qualification<70){
+      $('#<%=objQual.period%>_<%=objQual.codeSubject%>_qual').text('R');
+    }else if(qualification<86){
+      $('#<%=objQual.period%>_<%=objQual.codeSubject%>_qual').text('A');
+    }else if(qualification<96){
+      $('#<%=objQual.period%>_<%=objQual.codeSubject%>_qual').text('S');
+    }else{
+      $('#<%=objQual.period%>_<%=objQual.codeSubject%>_qual').text('E');
+    }
+  <%});%>
+  
  </script>
  </html>
