@@ -5,9 +5,9 @@ var Schema=mongoose.Schema;
 var enrollmentSubjectSchema = new Schema({
     
     codeSubject		: { type: Schema.Types.ObjectId, ref: 'Subject' },
-    codeCurse		: { type: Schema.Types.ObjectId, ref: 'Course' },
+    codeCourse		: { type: Schema.Types.ObjectId, ref: 'Course' },
     codeTeacher		: { type: Schema.Types.ObjectId, ref: 'User' },
-    Hourlyintensity	: String, //intensidad horaria
+    hourlyintensity	: String, //intensidad horaria
 
 });
 

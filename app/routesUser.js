@@ -1,4 +1,5 @@
 var objectUser = require('./models/user'); //Import database model
+var objectCourse = require('./models/courses'); //Import database model
 var console = require('console-prefix');
 var fs = require('fs.extra');
 var multer  = require('multer')
@@ -165,6 +166,61 @@ module.exports = function(app, passport) {
       }
     });
   });
+
+  app.get('/registerCourse', isLoggedIn,function(req, res){
+
+    objectUser.find({'local.role': 'Estudiante'}).populate('local.codeCourse').exec(function(err, objectUser){
+      if (err) {res.send(err);}
+      else{
+        objectCourse.find(function(err, objectCourse){
+          res.render('registerCourse.ejs',{
+            objectCourse   :objectCourse,
+            objectUser     :objectUser,
+            user           :req.user,
+            message        :req.flash('signupMessage')
+          });
+        });
+      }
+    });
+
+  });
+
+  app.post('/modifyRegisterCourse/:id', function(req, res){
+
+    var id = req.param("id");
+
+    objectUser.findById(id, function(err, objUser) {
+      if (err) throw err;
+
+      //Reemplaza la información del usuario
+      objUser.local.codeCourse  = req.body.codeCourse;
+
+      //Guarda las modificaciones y redirige a la vista /users
+      objUser.save(function(err) {
+        if (err) {
+          res.end('error');
+          res.redirect('/registerCourse');
+        }
+        else {
+          res.redirect('/registerCourse');
+        }
+      });
+    });
+
+  });
+
+  app.get('/estudents-course/:id', function(req, res){  
+    var id = req.param("id");
+
+    objectUser.find({'local.codeCourse':id,'local.role':'Estudiante'}, function(err, objUser){
+      if (err) {res.send(err)}
+        else{
+          res.send(objUser);
+        }
+    });
+
+  });
+    
 
   // route middleware to make sure
   function isLoggedIn(req, res, next) {

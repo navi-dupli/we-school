@@ -147,6 +147,8 @@ module.exports = function(app, passport) {
     });
   });
 
+  
+
   //=============== Archivos adjuntos Cursos =============================
 
   /*app.get('/deleteCourseFiles/:id', function(req, res) {

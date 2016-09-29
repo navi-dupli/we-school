@@ -49,6 +49,59 @@ module.exports = function(app, passport) {
 		res.redirect('/enrollments');
 		
 	});
+
+	app.get('/get-enrollment/:id', function(req, res){
+
+		var id = req.param("id");
+		objectEnrollment.findById(id, function(err, objEnrollment){
+			if (err) throw err;
+
+		    objEnrollment.save(function(err) {
+		       if (err) {
+		           res.send('error');
+		       }
+		       else {
+		           res.send(objEnrollment); //Retorna el objeto Course
+		       }
+		    });
+		});
+
+	});
+
+	app.post('/modifyEnrollment/:id', function(req, res){
+
+		var id = req.param("id");
+		objectEnrollment.findById(id, function(err, objEnrollment){
+
+			objEnrollment.codeUser		= req.body.codeUser;
+			objEnrollment.codeGrade		= req.body.codeGrade;
+
+			objEnrollment.save(function(err) {
+		        if (err) {
+		          res.end('error');
+		          res.redirect('/enrollments');
+		        }
+		        else {
+		          res.redirect('/enrollments');
+		        }
+		      });
+		});
+
+	});
+
+	app.get('/destroyEnrollment/:id', function(req, res){
+
+		var id = req.param("id");
+		objectEnrollment.remove({ _id: id }, function(err){
+	      if (err) {
+	        res.end('error');
+	      }
+	      else {
+	        res.end('success');
+	      }
+	    });
+
+	});
   // route middleware to make sure
   function isLoggedIn(req, res, next) {
 
