@@ -85,7 +85,7 @@ module.exports = function(app, passport) {
 										                                    format: 'folio',
 										                                  };
 										                                  res.pdfFromHTML({
-										                                        filename: user.local.codeCourse+'/'id+'.pdf',
+										                                        filename: user.local.codeCourse+'/1.pdf',
 										                                        htmlContent: html,
 										                                        options: options,
 										                                        save: true,
